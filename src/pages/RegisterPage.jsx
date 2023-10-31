@@ -1,7 +1,6 @@
 import { DatePicker, Form, Input, Select, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { userServ } from "../api/api";
-import { Option } from "antd/es/mentions";
 import moment from "moment/moment";
 
 export default function RegisterPage() {
@@ -115,8 +114,8 @@ export default function RegisterPage() {
                 ]}
               >
                 <Select placeholder='Chọn giới tính'>
-                  <Option value='male'>Nam</Option>
-                  <Option value='female'>Nữ</Option>
+                  <Select.Option value='male'>Nam</Select.Option>
+                  <Select.Option value='female'>Nữ</Select.Option>
                 </Select>
               </Form.Item>
               <Form.Item
