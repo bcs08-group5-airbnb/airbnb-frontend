@@ -36,7 +36,7 @@ export default function RegisterPage() {
           </div>
           <h1 className='font-bold text-2xl text-center text-pink-500'>Đăng ký</h1>
           <Form form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete='off'>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
               <Form.Item
                 name='name'
                 label='Tên người dùng'
