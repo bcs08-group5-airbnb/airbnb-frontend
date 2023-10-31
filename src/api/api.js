@@ -1,5 +1,5 @@
 import { httpsNoLoading } from "./config";
 
-export const adminServ = {
+export const userServ = {
   login: values => httpsNoLoading.post("/auth/signin", values),
 };

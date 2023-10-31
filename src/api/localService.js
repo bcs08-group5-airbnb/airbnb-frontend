@@ -1,10 +1,10 @@
-export const adminLocalStorage = {
-  get: () => (localStorage.getItem("ADMIN") ? JSON.parse(localStorage.getItem("ADMIN")) : null),
-  set: adminDataContentInfo => {
-    const dataJson = JSON.stringify(adminDataContentInfo);
-    localStorage.setItem("ADMIN", dataJson);
+export const userLocalStorage = {
+  get: () => (localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null),
+  set: userDataContentInfo => {
+    const dataJson = JSON.stringify(userDataContentInfo);
+    localStorage.setItem("user", dataJson);
   },
   remove: () => {
-    localStorage.removeItem("ADMIN");
+    localStorage.removeItem("user");
   },
 };

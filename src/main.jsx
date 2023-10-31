@@ -4,12 +4,12 @@ import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import adminSlice from "./redux/adminSlice";
+import userSlice from "./redux/userSlice";
 import spinnerSlice from "./redux/spinnerSlice";
 
 export const store = configureStore({
   reducer: {
-    adminSlice,
+    userSlice,
     spinnerSlice,
   },
 });

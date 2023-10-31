@@ -1,5 +1,5 @@
 import axios from "axios";
-import { adminLocalStorage } from "./localService";
+import { userLocalStorage } from "./localService";
 import { store } from "../main";
 import { setLoadingOff, setLoadingOn } from "../redux/spinnerSlice";
 
@@ -11,7 +11,7 @@ export const configHeaders = () => {
   };
 };
 
-const token = adminLocalStorage.get()?.token;
+const token = userLocalStorage.get()?.token;
 
 export const BASE_URL = "https://airbnbnew.cybersoft.edu.vn/api";
 export const https = axios.create({

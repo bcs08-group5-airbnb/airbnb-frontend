@@ -1,9 +1,9 @@
 import { Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { adminServ } from "../api/api";
+import { userServ } from "../api/api";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../redux/adminSlice";
-import { adminLocalStorage } from "../api/localService";
+import { setLogin } from "../redux/userSlice";
+import { userLocalStorage } from "../api/localService";
 
 export default function LoginPage() {
   const [form] = Form.useForm();
@@ -13,13 +13,13 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = values => {
-    adminServ
+    userServ
       .login(values)
       .then(res => {
         const data = { ...res.data.content.user, token: res.data.content.token };
         dispatch(setLogin({ ...data }));
-        adminLocalStorage.set({ ...data });
-        message.success("Admin đăng nhập thành công!");
+        userLocalStorage.set({ ...data });
+        message.success("Đăng nhập thành công!");
         navigate("/");
       })
       .catch(err => {
