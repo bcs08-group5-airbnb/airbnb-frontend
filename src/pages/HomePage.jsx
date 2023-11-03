@@ -82,12 +82,22 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <Swiper navigation={true} slidesPerView={5} spaceBetween={30} modules={[Navigation]} className='mySwiper'>
+      <Swiper
+        breakpoints={{
+          320: { slidesPerView: 3, spaceBetween: 30 },
+          480: { slidesPerView: 3, spaceBetween: 30 },
+          768: { slidesPerView: 5, spaceBetween: 30 },
+          1024: { slidesPerView: 5, spaceBetween: 30 },
+        }}
+        navigation={true}
+        modules={[Navigation]}
+        className='mySwiper'
+      >
         {myData.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className='w-full hover:border-b-2 hover:border-gray-500 h-12'>
+            <div className='w-full hover:border-b-2 hover:border-gray-500 h-12 cursor-pointer'>
               <img className='mx-auto w-5 h-5' src={item.imgSrc} alt='' />
-              <p className='text-center font-xs text-gray-600'>{item.spanValue}</p>
+              <p className='text-center font-xs text-gray-600 truncate'>{item.spanValue}</p>
             </div>
           </SwiperSlide>
         ))}
