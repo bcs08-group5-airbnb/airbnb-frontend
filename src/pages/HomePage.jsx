@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import Header from "../components/Header";
 import { httpsNoLoading } from "../api/config";
+import { Card } from "antd";
+import Meta from "antd/es/card/Meta";
 
 const anywherePlaces = [
   {
@@ -45,13 +47,19 @@ export default function HomePage() {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {cities.map((item, index) => {
                 return (
-                  <div key={index} className='flex items-center gap-3'>
-                    <img className='w-12 h-12 rounded-lg' src={item.hinhAnh} alt='' />
-                    <div>
-                      <h2 className='font-bold'>{item.tinhThanh}</h2>
-                      <p className='text-gray-700 text-sm'>15 phút lái xe</p>
+                  <Card
+                    key={index}
+                    hoverable
+                    className='w-full flex items-center cursor-pointer hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out'
+                  >
+                    <div className='flex items-center gap-3'>
+                      <img className='w-12 h-12 rounded-lg' src={item.hinhAnh} alt='' />
+                      <div>
+                        <h2 className='font-bold'>{item.tinhThanh}</h2>
+                        <p className='text-gray-700 text-sm'>15 phút lái xe</p>
+                      </div>
                     </div>
-                  </div>
+                  </Card>
                 );
               })}
             </div>
@@ -64,10 +72,9 @@ export default function HomePage() {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
             {anywherePlaces.map((item, index) => {
               return (
-                <div key={index} className='space-y-2'>
-                  <img className='w-full h-72 object-cover rounded-xl' src={item.url} alt='' />
-                  <p className='text-black font-bold'>{item.name}</p>
-                </div>
+                <Card key={index} hoverable className='w-full' cover={<img alt='' src={item.url} />}>
+                  <Meta title={item.name} />
+                </Card>
               );
             })}
           </div>
