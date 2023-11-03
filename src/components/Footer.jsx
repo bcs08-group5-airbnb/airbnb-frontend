@@ -4,7 +4,7 @@ export default function Footer() {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-6 gap-12 mx-auto w-[95%]'>
         <div className='space-y-3'>
           <h2 className='font-bold uppercase'>Giới thiệu</h2>
-          <ul className='space-y-1 text-sm space-y-3'>
+          <ul className='text-sm space-y-3'>
             <li>
               <a className='cursor-pointer hover:underline'>Phương thức hoạt động của Airbnb</a>
             </li>
@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
         <div className='space-y-3'>
           <h2 className='font-bold uppercase'>Cộng đồng</h2>
-          <ul className='space-y-1 text-sm space-y-3'>
+          <ul className='text-sm space-y-3'>
             <li>
               <a className='cursor-pointer hover:underline'>Sự đa đạng và Cảm giác thân thuộc</a>
             </li>
@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
         <div className='space-y-3'>
           <h2 className='font-bold uppercase'>Đón tiếp khách</h2>
-          <ul className='space-y-1 text-sm space-y-3'>
+          <ul className='text-sm space-y-3'>
             <li>
               <a className='cursor-pointer hover:underline'>Cho thuê nhà</a>
             </li>
@@ -85,7 +85,7 @@ export default function Footer() {
         </div>
         <div className='space-y-3'>
           <h2 className='font-bold uppercase'>Hỗ trợ</h2>
-          <ul className='space-y-1 text-sm space-y-3'>
+          <ul className='text-sm space-y-3'>
             <li>
               <a className='cursor-pointer hover:underline'>Biện pháp ứng phó đại dịch COVID-19 của chúng tôi</a>
             </li>
