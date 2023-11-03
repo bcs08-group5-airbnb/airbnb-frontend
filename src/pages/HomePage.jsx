@@ -4,13 +4,31 @@ import FooterFixed from "../components/FooterFixed";
 import Header from "../components/Header";
 import { httpsNoLoading } from "../api/config";
 
+const anywherePlaces = [
+  {
+    name: "Toàn bộ nhà",
+    url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329222%2Fmjwqhra4wbzlvoo2pe27.jpg&w=1920&q=75",
+  },
+  {
+    name: "Chỗ ở độc đáo",
+    url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329186%2Ffmoml05qcd0yk2stvl9r.jpg&w=1920&q=75",
+  },
+  {
+    name: "Trang trại và thiên nhiên",
+    url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329121%2Fguagj5r2bkccgr1paez3.jpg&w=1920&q=75",
+  },
+  {
+    name: "Cho phép mang theo thú cưng",
+    url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329252%2Fgqhtg9ua6jdrffhbrfv1.jpg&w=1920&q=75",
+  },
+];
+
 export default function HomePage() {
   const [cities, setCities] = useState(null);
   useEffect(() => {
     httpsNoLoading
       .get("vi-tri/phan-trang-tim-kiem?pageIndex=1&pageSize=8")
       .then(res => {
-        console.log([...res.data.content.data]);
         setCities([...res.data.content.data]);
       })
       .catch(err => {
@@ -20,10 +38,10 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <div className='w-[95%] mx-auto py-6'>
+      <div className='w-[95%] mx-auto py-6 space-y-12'>
         {cities !== null ? (
           <div>
-            <h1 className='font-bold text-3xl mb-3'>Khám phá những điểm đến gần đây</h1>
+            <h1 className='font-bold text-3xl mb-3'>Khám phá điểm đến gần đây</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {cities.map((item, index) => {
                 return (
@@ -31,7 +49,7 @@ export default function HomePage() {
                     <img className='w-12 h-12 rounded-lg' src={item.hinhAnh} alt='' />
                     <div>
                       <h2 className='font-bold'>{item.tinhThanh}</h2>
-                      <p>15 phút lái xe</p>
+                      <p className='text-gray-700 text-sm'>15 phút lái xe</p>
                     </div>
                   </div>
                 );
@@ -41,9 +59,18 @@ export default function HomePage() {
         ) : (
           <></>
         )}
-        <div className='mt-3'>
+        <div className='space-y-3'>
           <h1 className='font-bold text-3xl'>Ở bất cứ đâu</h1>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4'></div>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
+            {anywherePlaces.map((item, index) => {
+              return (
+                <div key={index} className='space-y-2'>
+                  <img className='w-full h-72 object-cover rounded-xl' src={item.url} alt='' />
+                  <p className='text-black font-bold'>{item.name}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <FooterFixed />
