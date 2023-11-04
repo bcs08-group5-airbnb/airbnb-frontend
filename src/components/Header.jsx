@@ -3,8 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userLocalStorage } from "../api/localService";
 import { setLogin } from "../redux/userSlice";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-export default function Header() {
+export default function Header({ div2Ref }) {
+  const [div2Visible, setDiv2Visible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (div2Ref.current) {
+        const div2Position = div2Ref.current.getBoundingClientRect();
+        console.log(div2Position);
+        console.log(window.innerHeight);
+        if (div2Position.top - 64 > window.innerHeight || div2Position.bottom - 64 < 0) {
+          setDiv2Visible(false);
+        } else {
+          setDiv2Visible(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [div2Ref]);
   const navigate = useNavigate();
   const { user } = useSelector(state => {
     return state.userSlice;
@@ -41,19 +65,29 @@ export default function Header() {
   ];
   return (
     <>
-      <div className={`w-full fixed ${location.pathname === "/" ? "bg-black" : "bg-white"} z-50 left-0 top-0`}>
+      <div className={`w-full fixed ${location.pathname === "/" && div2Visible ? "bg-black" : "bg-white"} duration-300 z-50 left-0 top-0`}>
         <div className='w-[95%] mx-auto py-6 flex flex-grow justify-between items-center h-16'>
           <Link to='/' className='w-[50%]'>
             <img
               alt=''
               src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png'
-              className={`w-24 ${location.pathname === "/" && "grayscale invert brightness-0"}`}
+              className={`w-24 ${location.pathname === "/" && div2Visible && "grayscale invert brightness-0"} duration-300`}
             />
           </Link>
           <ul className='hidden lg:flex justify-center items-center gap-x-12 grow w-full'>
-            <li className={`text-black cursor-pointer truncate ${location.pathname === "/" ? "text-white" : "text-black"}`}>Nơi ở</li>
-            <li className={`text-black cursor-pointer truncate ${location.pathname === "/" ? "text-white" : "text-black"}`}>Trải nghiệm</li>
-            <li className={`text-black cursor-pointer truncate ${location.pathname === "/" ? "text-white" : "text-black"}`}>
+            <li
+              className={`text-black cursor-pointer truncate ${location.pathname === "/" && div2Visible ? "text-white" : "text-black"} duration-300`}
+            >
+              Nơi ở
+            </li>
+            <li
+              className={`text-black cursor-pointer truncate ${location.pathname === "/" && div2Visible ? "text-white" : "text-black"} duration-300`}
+            >
+              Trải nghiệm
+            </li>
+            <li
+              className={`text-black cursor-pointer truncate ${location.pathname === "/" && div2Visible ? "text-white" : "text-black"} duration-300`}
+            >
               Trải nghiệm trực tuyến
             </li>
           </ul>
@@ -61,14 +95,14 @@ export default function Header() {
             <div className='flex justify-between items-center gap-x-3'>
               <div
                 className={`hidden md:block rounded-full bg-transparent hover:bg-gray-300 duration-300 cursor-pointer px-1 py-2 truncate ${
-                  location.pathname === "/" ? "text-white" : "text-black"
-                }`}
+                  location.pathname === "/" && div2Visible ? "text-white" : "text-black"
+                } duration-300`}
               >
                 Đón tiếp khách
               </div>
               <div
                 className={`hidden md:flex justify-center items-center ${
-                  location.pathname === "/" ? "text-white" : "text-black"
+                  location.pathname === "/" && div2Visible ? "text-white" : "text-black"
                 } rounded-full bg-transparent hover:bg-gray-300 duration-300 cursor-pointer px-6 py-3`}
               >
                 <svg
@@ -118,3 +152,7 @@ export default function Header() {
     </>
   );
 }
+
+Header.propTypes = {
+  div2Ref: PropTypes.object.isRequired,
+};

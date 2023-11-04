@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import Header from "../components/Header";
@@ -37,10 +37,11 @@ export default function HomePage() {
         console.error(err);
       });
   }, []);
+  const div2Ref = useRef(null);
   return (
     <>
-      <Header />
-      <div className='bg-black px-12 pt-8'>
+      <Header div2Ref={div2Ref} />
+      <div ref={div2Ref} className='bg-black px-12 pt-8'>
         <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
         <p className='text-center text-white font-bold text-3xl py-12'>Nhờ có Host, mọi điều đều có thể</p>
       </div>
