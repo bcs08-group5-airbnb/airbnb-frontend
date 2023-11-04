@@ -40,8 +40,8 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <div className='bg-black px-24 pt-16'>
-        <img className='mx-auto' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
+      <div className='bg-black px-12 pt-8'>
+        <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
         <p className='text-center text-white font-bold text-3xl py-12'>Nhờ có Host, mọi điều đều có thể</p>
       </div>
       <div className='w-[95%] mx-auto py-6 space-y-12'>

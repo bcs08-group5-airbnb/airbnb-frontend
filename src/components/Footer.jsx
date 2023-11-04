@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className='bg-[#f3f4f6] pb-0 lg:pb-12'>
+    <div className='bg-[#f3f4f6]'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-6 gap-12 mx-auto w-[95%]'>
         <div className='space-y-3'>
           <h2 className='font-bold uppercase'>Giới thiệu</h2>
