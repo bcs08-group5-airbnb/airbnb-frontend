@@ -87,7 +87,7 @@ export default function Footer() {
           <h2 className='font-bold uppercase'>Hỗ trợ</h2>
           <ul className='text-sm space-y-3'>
             <li>
-              <a className='cursor-pointer hover:underline'>Biện pháp ứng phó đại dịch COVID-19 của chúng tôi</a>
+              <a className='cursor-pointer hover:underline'>Biện pháp ứng phó đại dịch COVID-19</a>
             </li>
             <li>
               <a className='cursor-pointer hover:underline'>Trung tâm trợ giúp</a>

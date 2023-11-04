@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
+import { Link } from "react-router-dom";
 
 export default function NotFoundPage() {
   return (
@@ -13,7 +14,9 @@ export default function NotFoundPage() {
             <p>Dưới đây là một số đường dẫn của website:</p>
             <ul className='space-y-3'>
               <li>
-                <a className='font-bold text-black underline cursor-pointer'>Trang chủ</a>
+                <Link to='/' className='font-bold text-black underline cursor-pointer'>
+                  Trang chủ
+                </Link>
               </li>
               <li>
                 <a className='font-bold text-black underline cursor-pointer'>Đi du lịch trên Airbnb</a>
