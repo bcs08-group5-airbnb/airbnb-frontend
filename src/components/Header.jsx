@@ -25,22 +25,24 @@ export default function Header() {
     },
   ];
   return (
-    <div className='w-[95%] mx-auto py-6 flex justify-between items-center'>
-      <Link to='/' className='basis-1/4'>
+    <div className='w-[95%] mx-auto py-6 flex flex-grow justify-between items-center'>
+      <Link to='/' className='w-[50%]'>
         <img
           alt=''
           src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png'
           className='w-24'
         />
       </Link>
-      <ul className='flex justify-center items-center gap-x-24 basis-1/2'>
-        <li className='text-black'>Nơi ở</li>
-        <li className='text-black'>Trải nghiệm</li>
-        <li className='text-black'>Trải nghiệm trực tuyến</li>
+      <ul className='flex justify-center items-center gap-x-12 grow w-full'>
+        <li className='text-black cursor-pointer truncate'>Nơi ở</li>
+        <li className='text-black cursor-pointer truncate'>Trải nghiệm</li>
+        <li className='text-black cursor-pointer truncate'>Trải nghiệm trực tuyến</li>
       </ul>
-      <div className='flex justify-end basis-1/4'>
+      <div className='flex justify-end w-[50%]'>
         <div className='flex justify-between items-center gap-x-3'>
-          <div className='text-black rounded-full bg-transparent hover:bg-gray-300 duration-300 cursor-pointer px-6 py-3'>Đón tiếp khách</div>
+          <div className='text-black rounded-full bg-transparent hover:bg-gray-300 duration-300 cursor-pointer px-1 py-2 truncate'>
+            Đón tiếp khách
+          </div>
           <div className='flex justify-center items-center text-black rounded-full bg-transparent hover:bg-gray-300 duration-300 cursor-pointer px-6 py-3'>
             <svg
               viewBox='0 0 16 16'
