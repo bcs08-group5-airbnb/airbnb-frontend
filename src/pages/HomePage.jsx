@@ -83,7 +83,7 @@ export default function HomePage() {
         <div className='space-y-28 lg:space-y-3'>
           <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
           <p className='text-center text-white font-bold text-3xl'>Nhờ có Host, mọi điều đều có thể</p>
-          <div>
+          <div className='flex justify-center items-center'>
             <a href='#firstSection'>
               <Lottie className='mx-auto w-auto h-12 grayscale invert brightness-0' animationData={bgAnimate} loop={true} />
             </a>
