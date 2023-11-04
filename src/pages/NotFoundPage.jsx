@@ -7,7 +7,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Header />
-      <div className='w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 py-12'>
+      <div className='w-[95%] mx-auto grid grid-cols-1 md:grid-cols-2 py-12 space-y-9'>
         <div className='space-y-9'>
           <p className='text-black font-bold text-xl'>Chúng tôi dường như không thể tìm thấy trang bạn đang tìm kiếm</p>
           <div className='space-y-3'>
@@ -33,7 +33,7 @@ export default function NotFoundPage() {
             </ul>
           </div>
         </div>
-        <div>
+        <div className='hidden md:block'>
           <img
             alt=''
             src='https://a0.muscache.com/airbnb/static/error_pages/404-Airbnb_final-d652ff855b1335dd3eedc3baa8dc8b69.gif'

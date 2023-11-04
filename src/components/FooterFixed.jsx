@@ -4,7 +4,7 @@ import { faDollar } from "@fortawesome/free-solid-svg-icons";
 export default function FooterFixed() {
   return (
     <>
-      <div className='mt-12'></div>
+      <div className='mt-0 lg:mt-12'></div>
       <div className='hidden lg:block fixed left-0 bottom-0 bg-[#f9fafb] text-gray-500 w-full'>
         <div className='mx-auto w-[95%] py-3 flex justify-between items-center'>
           <div>

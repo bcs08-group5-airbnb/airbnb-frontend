@@ -7,7 +7,6 @@ import { Card } from "antd";
 import Meta from "antd/es/card/Meta";
 import bgAnimate from "../assets/animation_lok4gyyr.json";
 import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
 
 const anywherePlaces = [
   {
