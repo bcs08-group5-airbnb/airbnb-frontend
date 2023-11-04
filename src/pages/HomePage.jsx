@@ -84,8 +84,8 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <FooterFixed />
       <Footer />
+      <FooterFixed />
     </>
   );
 }
