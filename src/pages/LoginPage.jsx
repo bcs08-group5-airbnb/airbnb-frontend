@@ -30,16 +30,19 @@ export default function LoginPage() {
     <div className="flex flex-col min-h-screen bg-[url('https://demo4.cybersoft.edu.vn/static/media/logo_login.a444f2681cc7b623ead2.jpg')] bg-center bg-cover bg-no-repeat bg-fixed relative">
       <div className='flex flex-1 justify-center items-center'>
         <div className='p-6 m-2 bg-white rounded-lg w-2/3 md:w-1/3 space-y-3'>
-          <div>
-            <Link to='/'>
-              <img
-                alt='logo'
-                src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png'
-                className='w-24 mx-auto'
-              />
-            </Link>
+          <div className='grid grid-cols-1 lg:flex justify-between items-center gap-3'>
+            <div className='basis-1/4'>
+              <Link to='/'>
+                <img
+                  alt='logo'
+                  src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png'
+                  className='w-20 mx-auto lg:mx-0'
+                />
+              </Link>
+            </div>
+            <h1 className='font-bold text-2xl text-center text-pink-500 basis-1/2'>Đăng nhập</h1>
+            <div className='basis-1/4'></div>
           </div>
-          <h1 className='font-bold text-2xl text-center text-pink-500'>Đăng nhập</h1>
           <Form form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete='off'>
             <Form.Item
               label='Email'
