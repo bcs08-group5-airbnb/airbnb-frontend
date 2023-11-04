@@ -25,6 +25,41 @@ const anywherePlaces = [
   },
 ];
 
+const explorePlaces = [
+  {
+    time: "15 phút",
+    image: "https://res.cloudinary.com/rawn/image/upload/hnevi0eqxhxjgh6skplj.webp",
+  },
+  {
+    time: "3 giờ",
+    image: "https://res.cloudinary.com/rawn/image/upload/lbe3gpqkrwmzt98ce2nj.webp",
+  },
+  {
+    time: "6.5 giờ",
+    image: "https://res.cloudinary.com/rawn/image/upload/xi99sldgebhfvd3n66yx.webp",
+  },
+  {
+    time: "15 phút",
+    image: "https://res.cloudinary.com/rawn/image/upload/hnevi0eqxhxjgh6skplj.webp",
+  },
+  {
+    time: "7.5 giờ",
+    image: "https://res.cloudinary.com/rawn/image/upload/v1skk44cynr7gauhzb4e.webp",
+  },
+  {
+    time: "45 phút",
+    image: "https://res.cloudinary.com/rawn/image/upload/tqrm3cthowneesuafbp0.webp",
+  },
+  {
+    time: "30 phút",
+    image: "https://res.cloudinary.com/rawn/image/upload/tgt8dxlfwdh41jkptxeg.webp",
+  },
+  {
+    time: "5 giờ",
+    image: "https://res.cloudinary.com/rawn/image/upload/bt5jrxsl5ljq5bmfqqw0.webp",
+  },
+];
+
 export default function HomePage() {
   const [cities, setCities] = useState(null);
   useEffect(() => {
@@ -58,10 +93,10 @@ export default function HomePage() {
                     className='w-full flex items-center cursor-pointer hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out'
                   >
                     <div className='flex items-center gap-3'>
-                      <img className='w-12 h-12 rounded-lg' src={item.hinhAnh} alt='' />
+                      <img className='w-12 h-12 rounded-lg object-cover' src={explorePlaces[index].image} alt='' />
                       <div>
                         <h2 className='font-bold'>{item.tinhThanh}</h2>
-                        <p className='text-gray-700 text-sm'>15 phút lái xe</p>
+                        <p className='text-gray-700 text-sm'>{explorePlaces[index].time} lái xe</p>
                       </div>
                     </div>
                   </Card>

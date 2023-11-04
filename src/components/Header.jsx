@@ -13,8 +13,6 @@ export default function Header({ div2Ref }) {
     const handleScroll = () => {
       if (div2Ref.current) {
         const div2Position = div2Ref.current.getBoundingClientRect();
-        console.log(div2Position);
-        console.log(window.innerHeight);
         if (div2Position.top - 64 > window.innerHeight || div2Position.bottom - 64 < 0) {
           setDiv2Visible(false);
         } else {
