@@ -74,28 +74,40 @@ export default function Header({ div2Ref }) {
           </Link>
           <ul className='hidden lg:flex justify-center items-center gap-x-12 grow w-full'>
             <li
-              className={`text-black cursor-pointer  ${
+              className={`text-black cursor-pointer ${
                 location.pathname === "/" && div2Visible ? "text-white" : "text-black"
               } duration-300 relative group`}
             >
               <a>Nơi ở</a>
-              <div className='absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 bg-white h-px w-0 group-hover:w-1/2 top-[30px] left-1/2 duration-300 rounded-lg'></div>
+              <div
+                className={`absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 ${
+                  location.pathname === "/" && div2Visible ? "bg-white" : "bg-black"
+                } h-px w-0 group-hover:w-1/2 top-[30px] left-1/2 duration-300 rounded-lg`}
+              ></div>
             </li>
             <li
-              className={`text-black cursor-pointer  ${
+              className={`text-black cursor-pointer ${
                 location.pathname === "/" && div2Visible ? "text-white" : "text-black"
               } duration-300 relative group`}
             >
               <a>Trải nghiệm</a>
-              <div className='absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 bg-white h-px w-0 group-hover:w-1/2 top-[30px] left-1/2 duration-300 rounded-lg'></div>
+              <div
+                className={`absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 ${
+                  location.pathname === "/" && div2Visible ? "bg-white" : "bg-black"
+                } h-px w-0 group-hover:w-1/2 top-[30px] left-1/2 duration-300 rounded-lg`}
+              ></div>
             </li>
             <li
-              className={`text-black cursor-pointer  ${
+              className={`text-black cursor-pointer ${
                 location.pathname === "/" && div2Visible ? "text-white" : "text-black"
               } duration-300 relative group`}
             >
               <a>Trải nghiệm trực tuyến</a>
-              <div className='absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 bg-white h-px w-0 group-hover:w-1/2 top-[30px] left-1/2 duration-300 rounded-lg'></div>
+              <div
+                className={`absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 ${
+                  location.pathname === "/" && div2Visible ? "bg-white" : "bg-black"
+                } h-px w-0 group-hover:w-1/2 top-[30px] left-1/2 duration-300 rounded-lg`}
+              ></div>
             </li>
           </ul>
           <div className='flex justify-end w-[50%]'>
