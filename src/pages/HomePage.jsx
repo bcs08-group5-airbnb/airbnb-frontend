@@ -5,6 +5,9 @@ import Header from "../components/Header";
 import { httpsNoLoading } from "../api/config";
 import { Card } from "antd";
 import Meta from "antd/es/card/Meta";
+import bgAnimate from "../assets/animation_lok4gyyr.json";
+import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 const anywherePlaces = [
   {
@@ -76,11 +79,19 @@ export default function HomePage() {
   return (
     <>
       <Header div2Ref={div2Ref} />
-      <div ref={div2Ref} className='bg-black px-12 pt-8'>
-        <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
-        <p className='text-center text-white font-bold text-3xl py-12'>Nhờ có Host, mọi điều đều có thể</p>
+      <div ref={div2Ref} className='bg-black px-12 h-[calc(100vh-64px)] lg:h-[calc(100vh-48px-64px)] flex justify-center items-center'>
+        <div className='space-y-28 lg:space-y-3'>
+          <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
+          <p className='text-center text-white font-bold text-3xl'>Nhờ có Host, mọi điều đều có thể</p>
+          <div>
+            <a href='#firstSection'>
+              <Lottie className='mx-auto w-auto h-12 grayscale invert brightness-0' animationData={bgAnimate} loop={true} />
+            </a>
+          </div>
+        </div>
       </div>
-      <div className='w-[95%] mx-auto py-6 space-y-12'>
+      <div id='firstSection' className='pb-[70px]'></div>
+      <div className='w-[95%] mx-auto space-y-12'>
         {cities !== null ? (
           <div>
             <h1 className='font-bold text-3xl mb-3'>Khám phá điểm đến gần đây</h1>
@@ -107,7 +118,7 @@ export default function HomePage() {
         ) : (
           <></>
         )}
-        <div className='space-y-3'>
+        <div className='space-y-3 pt-6 pb-16'>
           <h1 className='font-bold text-3xl'>Ở bất cứ đâu</h1>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
             {anywherePlaces.map((item, index) => {
