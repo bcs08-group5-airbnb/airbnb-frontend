@@ -7,6 +7,8 @@ import { Card } from "antd";
 import Meta from "antd/es/card/Meta";
 import bgAnimate from "../assets/animation_lok4gyyr.json";
 import Lottie from "lottie-react";
+import convertToSlug from "../utils/convertToSlug";
+import { Link } from "react-router-dom";
 
 const anywherePlaces = [
   {
@@ -97,19 +99,20 @@ export default function HomePage() {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {cities.map((item, index) => {
                 return (
-                  <Card
-                    key={index}
-                    hoverable
-                    className='w-full flex items-center cursor-pointer hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out'
-                  >
-                    <div className='flex items-center gap-3'>
-                      <img className='w-12 h-12 rounded-lg object-cover' src={explorePlaces[index].image} alt='' />
-                      <div>
-                        <h2 className='font-bold'>{item.tinhThanh}</h2>
-                        <p className='text-gray-700 text-sm'>{explorePlaces[index].time} lái xe</p>
+                  <Link key={index} to={`/city/${convertToSlug(item.tinhThanh)}`}>
+                    <Card
+                      hoverable
+                      className='w-full flex items-center cursor-pointer hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out'
+                    >
+                      <div className='flex items-center gap-3'>
+                        <img className='w-12 h-12 rounded-lg object-cover' src={explorePlaces[index].image} alt='' />
+                        <div>
+                          <h2 className='font-bold'>{item.tinhThanh}</h2>
+                          <p className='text-gray-700 text-sm'>{explorePlaces[index].time} lái xe</p>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
                 );
               })}
             </div>

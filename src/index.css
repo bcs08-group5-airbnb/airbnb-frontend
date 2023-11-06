@@ -29,3 +29,7 @@ body {
   line-height: 10px;
   font-size: 10px;
 }
+
+.ant-picker-focused {
+  box-shadow: none;
+}
