@@ -64,24 +64,29 @@ export default function CityPage() {
                 </div>
                 <div className=''>
                   <div>
-                    <p className='text-gray-500 text-md'>Toàn bộ căn hộ dịch vụ tại {cityNoSlug}</p>
-                    <p className='truncate text-xl'>{item.tenPhong}</p>
+                    <div className='relative'>
+                      <p className='text-gray-500 text-md'>Toàn bộ căn hộ dịch vụ tại {cityNoSlug}</p>
+                      <p className='truncate text-xl'>{item.tenPhong}</p>
+                      <div className='absolute right-0 top-0'>2 trái tim</div>
+                    </div>
                     <div className='w-[15%] bg-gray-300 h-[3px] rounded-lg my-2'></div>
-                    <p className='text-gray-500 text-md'>
+                    <p className='text-gray-500 text-md truncate'>
                       {item.khach} khách {item.tenPhong.toLowerCase().includes("studio") ? "• Phòng studio" : ""} • {item.phongNgu} phòng ngủ •{" "}
                       {item.giuong} giường • {item.phongTam} phòng tắm
                     </p>
-                    <p className='text-gray-500 text-md'>
-                      {item.wifi ? "Wifi" : ""}
-                      {item.bep ? " • Bếp" : ""}
-                      {item.dieuHoa ? " • Điều hòa nhiệt độ" : ""}
-                      {item.mayGiat ? " • Máy giặt" : ""}
-                      {item.tivi ? " • Tivi" : ""}
-                      {item.doXe ? " • Đỗ xe" : ""}
-                      {item.hoBoi ? " • Hồ bơi" : ""}
+                    <p className='text-gray-500 text-md truncate'>
+                      {item.wifi ? "Wifi • " : ""}
+                      {item.bep ? "Bếp • " : ""}
+                      {item.dieuHoa ? "Điều hòa nhiệt độ • " : ""}
+                      {item.mayGiat ? "Máy giặt • " : ""}
+                      {item.tivi ? "Tivi • " : ""}
+                      {item.doXe ? "Đỗ xe • " : ""}
+                      {item.hoBoi ? "Hồ bơi" : ""}
                     </p>
                   </div>
-                  <div>s</div>
+                  <div className='text-right mt-12'>
+                    <span className='font-bold'>${item.giaTien}</span> / tháng
+                  </div>
                 </div>
               </div>
             ))}
