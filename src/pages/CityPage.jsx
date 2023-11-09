@@ -43,11 +43,11 @@ export default function CityPage() {
   return (
     <>
       <Header />
-      <div className='mx-auto w-[95%] grid grid-cols-1 lg:grid-cols-2 gap-3'>
-        <div className='py-12 space-y-3 h-auto lg:h-[600px] overscroll-y-auto overflow-y-auto px-3'>
+      <div className='mx-auto w-[95%] grid grid-cols-1 lg:flex flex-row gap-3'>
+        <div className='py-12 space-y-3 h-auto lg:h-[600px] overscroll-y-auto overflow-y-auto px-3 basis-8/12'>
           <p>Có {phongThue.length ?? 0} chỗ ở • 16 thg 4 - 14 thg 5 </p>
           <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
-          <div className='flex gap-3'>
+          <div className='flex flex-wrap gap-3'>
             {filter.map((item, index) => (
               <button
                 className='rounded-lg text-md bg-white text-black border border-gray-300 hover:border-gray-900 duration-300 px-6 py-2'
@@ -99,7 +99,7 @@ export default function CityPage() {
             ))}
           </div>
         </div>
-        <div>
+        <div className='py-6 lg:py-0 basis-4/12'>
           <ExportedMapCity />
         </div>
       </div>
