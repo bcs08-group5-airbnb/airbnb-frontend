@@ -46,8 +46,8 @@ export default function CityPage() {
   return (
     <>
       <Header />
-      <div className='mx-auto w-[95%] grid grid-cols-1 lg:flex flex-row gap-3'>
-        <div className='py-12 space-y-3 h-auto lg:h-[600px] overscroll-y-auto overflow-y-auto px-3 basis-8/12'>
+      <div className='mx-auto w-[95%] grid grid-cols-1 lg:grid-cols-2 gap-3'>
+        <div className='py-12 space-y-3 h-auto px-3 basis-8/12'>
           <p>Có {phongThue.length ?? 0} chỗ ở • 16 thg 4 - 14 thg 5 </p>
           <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
           <div className='flex flex-wrap gap-3'>
@@ -102,11 +102,11 @@ export default function CityPage() {
             ))}
           </div>
         </div>
-        <div className='py-6 lg:py-0 basis-4/12'>
+        <div className='h-screen w-full block sticky top-28'>
           <iframe
             src={`https://www.google.com/maps/embed/v1/place?q=${cityNoSlug}&key=${import.meta.env.VITE_MAP_API_KEY}`}
             width='100%'
-            height='600px'
+            height='550px'
             allowfullscreen=''
             loading='lazy'
             referrerPolicy='no-referrer-when-downgrade'
