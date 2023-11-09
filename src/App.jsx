@@ -5,6 +5,8 @@ import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
 import CityPage from "./pages/CityPage";
+import UserPage from "./pages/UserPage";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
@@ -16,6 +18,14 @@ function App() {
           <Route path='/city/:cityName' element={<CityPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
+          <Route
+            path='/account'
+            element={
+              <MainLayout>
+                <UserPage />
+              </MainLayout>
+            }
+          />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

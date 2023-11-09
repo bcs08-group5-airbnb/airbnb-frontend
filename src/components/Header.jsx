@@ -42,11 +42,23 @@ export default function Header({ div2Ref }) {
   const items = [
     {
       key: "1",
-      label: user ? <Link to='/account'>{user.name}</Link> : <Link to='/register'>Đăng ký</Link>,
+      label: user ? (
+        <Link className='font-bold' to={`/tickets/${user.id}`}>
+          Chuyến đi
+        </Link>
+      ) : (
+        <Link to='/register'>Đăng ký</Link>
+      ),
     },
     {
       key: "2",
-      label: user ? <a onClick={handleLogout}>Đăng xuất</a> : <Link to='/login'>Đăng nhập</Link>,
+      label: user ? (
+        <Link className='font-bold' to='/account'>
+          Thông tin cá nhân
+        </Link>
+      ) : (
+        <Link to='/login'>Đăng nhập</Link>
+      ),
     },
     {
       key: "3",
@@ -59,6 +71,10 @@ export default function Header({ div2Ref }) {
     {
       key: "5",
       label: <div>Trợ giúp</div>,
+    },
+    {
+      key: "6",
+      label: <a onClick={handleLogout}>Đăng xuất</a>,
     },
   ];
   return (
