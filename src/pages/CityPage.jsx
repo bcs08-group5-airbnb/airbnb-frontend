@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import convertToSlug from "../utils/convertToSlug";
-import ExportedMapCity from "../components/MapCity";
 
 export default function CityPage() {
   const [cityId, setCityId] = useState(null);
@@ -100,7 +99,14 @@ export default function CityPage() {
           </div>
         </div>
         <div className='py-6 lg:py-0 basis-4/12'>
-          <ExportedMapCity />
+          <iframe
+            src={`https://www.google.com/maps/embed/v1/place?q=${cityName}&key=${import.meta.env.VITE_MAP_API_KEY}`}
+            width='100%'
+            height='100%'
+            allowfullscreen=''
+            loading='lazy'
+            referrerPolicy='no-referrer-when-downgrade'
+          ></iframe>
         </div>
       </div>
       <FooterFixed />
