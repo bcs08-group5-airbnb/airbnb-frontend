@@ -78,7 +78,7 @@ export default function HomePage() {
   }, []);
   const div2Ref = useRef(null);
   return (
-    <>
+    <div className='bg-black'>
       <Header div2Ref={div2Ref} />
       <div ref={div2Ref} className='bg-black px-12 h-[calc(100vh-64px)] lg:h-[calc(100vh-48px-64px)] flex justify-center items-center'>
         <div className='space-y-28 lg:space-y-3'>
@@ -91,50 +91,52 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div id='firstSection' className='pb-[70px]'></div>
-      <div className='w-[95%] mx-auto space-y-12'>
-        {cities !== null ? (
-          <div>
-            <h1 className='font-bold text-3xl mb-3'>Khám phá điểm đến gần đây</h1>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-              {cities.map((item, index) => {
-                return (
-                  <Link key={index} to={`/city/${convertToSlug(item.tinhThanh)}`}>
-                    <Card
-                      hoverable
-                      className='w-full flex items-center cursor-pointer hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out'
-                    >
-                      <div className='flex items-center gap-3'>
-                        <img className='w-12 h-12 rounded-lg object-cover' src={explorePlaces[index].image} alt='' />
-                        <div>
-                          <h2 className='font-bold'>{item.tinhThanh}</h2>
-                          <p className='text-gray-700 text-sm'>{explorePlaces[index].time} lái xe</p>
+      <div className='bg-white'>
+        <div id='firstSection' className='pb-[70px]'></div>
+        <div className='w-[95%] mx-auto space-y-12'>
+          {cities !== null ? (
+            <div>
+              <h1 className='font-bold text-3xl mb-3'>Khám phá điểm đến gần đây</h1>
+              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+                {cities.map((item, index) => {
+                  return (
+                    <Link key={index} to={`/city/${convertToSlug(item.tinhThanh)}`}>
+                      <Card
+                        hoverable
+                        className='w-full flex items-center cursor-pointer hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out'
+                      >
+                        <div className='flex items-center gap-3'>
+                          <img className='w-12 h-12 rounded-lg object-cover' src={explorePlaces[index].image} alt='' />
+                          <div>
+                            <h2 className='font-bold'>{item.tinhThanh}</h2>
+                            <p className='text-gray-700 text-sm'>{explorePlaces[index].time} lái xe</p>
+                          </div>
                         </div>
-                      </div>
-                    </Card>
-                  </Link>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className='space-y-3 pt-6 pb-16'>
+            <h1 className='font-bold text-3xl'>Ở bất cứ đâu</h1>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
+              {anywherePlaces.map((item, index) => {
+                return (
+                  <Card key={index} hoverable className='w-full' cover={<img alt='' src={item.url} />}>
+                    <Meta title={item.name} />
+                  </Card>
                 );
               })}
             </div>
-          </div>
-        ) : (
-          <></>
-        )}
-        <div className='space-y-3 pt-6 pb-16'>
-          <h1 className='font-bold text-3xl'>Ở bất cứ đâu</h1>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
-            {anywherePlaces.map((item, index) => {
-              return (
-                <Card key={index} hoverable className='w-full' cover={<img alt='' src={item.url} />}>
-                  <Meta title={item.name} />
-                </Card>
-              );
-            })}
           </div>
         </div>
       </div>
       <Footer />
       <FooterFixed />
-    </>
+    </div>
   );
 }
