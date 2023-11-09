@@ -30,14 +30,18 @@ export default function CityPage() {
         .get(`/phong-thue/lay-phong-theo-vi-tri?maViTri=${cityId}`)
         .then(res => {
           setPhongThue([...res.data.content]);
-          console.log([...res.data.content]);
         })
         .catch(err => {
           console.error(err);
         });
     }
   }, [cityId]);
-  if (phongThue === null) return <p>Cannot find city!</p>;
+  if (phongThue === null)
+    return (
+      <div className='flex w-screen h-screen justify-center items-center'>
+        <img src='https://demo4.cybersoft.edu.vn/static/media/loading.385774bd589cf582d0f4.gif' alt='loading gif' />
+      </div>
+    );
   const filter = ["Loại nơi ở", "Giá", "Đặt ngay", "Phòng và phòng ngủ", "Bộ lọc khác"];
   return (
     <>
@@ -100,7 +104,7 @@ export default function CityPage() {
         </div>
         <div className='py-6 lg:py-0 basis-4/12'>
           <iframe
-            src={`https://www.google.com/maps/embed/v1/place?q=${cityName}&key=${import.meta.env.VITE_MAP_API_KEY}`}
+            src={`https://www.google.com/maps/embed/v1/place?q=${cityNoSlug}&key=${import.meta.env.VITE_MAP_API_KEY}`}
             width='100%'
             height='600px'
             allowfullscreen=''
