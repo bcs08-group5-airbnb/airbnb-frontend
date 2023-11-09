@@ -77,6 +77,7 @@ export default function HomePage() {
       });
   }, []);
   const div2Ref = useRef(null);
+  const firstSectionRef = useRef(null);
   return (
     <div className='bg-black'>
       <Header div2Ref={div2Ref} />
@@ -85,14 +86,14 @@ export default function HomePage() {
           <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
           <p className='text-center text-white font-bold text-3xl'>Nhờ có Host, mọi điều đều có thể</p>
           <div className='flex justify-center items-center'>
-            <a href='#firstSection'>
+            <button onClick={() => firstSectionRef.current.scrollIntoView({ behavior: "smooth" })}>
               <Lottie className='mx-auto w-auto h-12 grayscale invert brightness-0' animationData={bgAnimate} loop={true} />
-            </a>
+            </button>
           </div>
         </div>
       </div>
       <div className='bg-white'>
-        <div id='firstSection' className='pb-[70px]'></div>
+        <div ref={firstSectionRef} className='pb-[70px]'></div>
         <div className='w-[95%] mx-auto space-y-12'>
           {cities !== null ? (
             <div>
