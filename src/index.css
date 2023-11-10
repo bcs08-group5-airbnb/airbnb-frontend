@@ -30,6 +30,10 @@ body {
   font-size: 10px;
 }
 
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+
 .ant-picker-focused {
   box-shadow: none;
 }

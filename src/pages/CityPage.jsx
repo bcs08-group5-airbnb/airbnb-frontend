@@ -5,6 +5,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import convertToSlug from "../utils/convertToSlug";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 
 export default function CityPage() {
   const [cityId, setCityId] = useState(null);
@@ -66,7 +70,26 @@ export default function CityPage() {
                 <div className='w-full h-px bg-gray-300 mb-6'></div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
                   <div>
-                    <img className='w-full h-52 object-cover rounded-lg' alt='' src={item.hinhAnh} />
+                    <Swiper
+                      breakpoints={{
+                        320: { slidesPerView: 1, spaceBetween: 0 },
+                        480: { slidesPerView: 1, spaceBetween: 0 },
+                        768: { slidesPerView: 1, spaceBetween: 0 },
+                        1024: { slidesPerView: 1, spaceBetween: 0 },
+                      }}
+                      loop={true}
+                      modules={[Pagination]}
+                      pagination={true}
+                      className='mySwiper mx-auto rounded-lg'
+                    >
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <SwiperSlide key={index}>
+                          <div className='w-full cursor-pointer'>
+                            <img className='w-full h-52 object-cover' src={item.hinhAnh} alt='' />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
                   </div>
                   <div className=''>
                     <div>
