@@ -53,7 +53,7 @@ export default function Header({ div2Ref }) {
     {
       key: "2",
       label: user ? (
-        <Link className='font-bold' to='/account'>
+        <Link className='font-bold' to='/personal-info'>
           Thông tin cá nhân
         </Link>
       ) : (

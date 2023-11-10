@@ -19,7 +19,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route
-            path='/account'
+            path='/personal-info'
             element={
               <MainLayout>
                 <UserPage />
