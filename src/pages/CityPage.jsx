@@ -71,12 +71,8 @@ export default function CityPage() {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
                   <div>
                     <Swiper
-                      breakpoints={{
-                        320: { slidesPerView: 1, spaceBetween: 0 },
-                        480: { slidesPerView: 1, spaceBetween: 0 },
-                        768: { slidesPerView: 1, spaceBetween: 0 },
-                        1024: { slidesPerView: 1, spaceBetween: 0 },
-                      }}
+                      slidesPerView={1}
+                      spaceBetween={0}
                       loop={true}
                       modules={[Pagination]}
                       pagination={true}
