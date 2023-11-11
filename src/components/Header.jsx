@@ -43,8 +43,8 @@ export default function Header({ div2Ref }) {
     {
       key: "1",
       label: user ? (
-        <Link className='font-bold' to={`/tickets/${user.id}`}>
-          Chuyến đi
+        <Link className='font-bold' to='/personal-info'>
+          Thông tin cá nhân
         </Link>
       ) : (
         <Link to='/register'>Đăng ký</Link>
@@ -53,9 +53,9 @@ export default function Header({ div2Ref }) {
     {
       key: "2",
       label: user ? (
-        <Link className='font-bold' to='/personal-info'>
-          Thông tin cá nhân
-        </Link>
+        <button className='font-bold' onClick={handleLogout}>
+          Đăng xuất
+        </button>
       ) : (
         <Link to='/login'>Đăng nhập</Link>
       ),
@@ -71,10 +71,6 @@ export default function Header({ div2Ref }) {
     {
       key: "5",
       label: <div>Trợ giúp</div>,
-    },
-    {
-      key: "6",
-      label: <a onClick={handleLogout}>Đăng xuất</a>,
     },
   ];
   return (

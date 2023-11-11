@@ -22,7 +22,7 @@ export default function ListRooms({ item, cityNoSlug }) {
               ))}
             </Swiper>
           </div>
-          <div className=''>
+          <div>
             <div>
               <div className='relative'>
                 <p className='text-gray-500 text-md truncate'>Toàn bộ căn hộ dịch vụ tại {cityNoSlug}</p>
