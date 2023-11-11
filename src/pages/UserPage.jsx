@@ -68,8 +68,8 @@ export default function UserPage() {
   }, [id]);
 
   return (
-    <div className='mx-auto w-[95%] grid lg:flex gap-12'>
-      <Card className='basis-3/12'>
+    <div className='mx-auto w-[95%] grid lg:flex gap-12 py-6'>
+      <Card className='basis-auto h-[500px] block lg:sticky top-0 lg:top-20'>
         <div className='space-y-3'>
           <img className='mx-auto w-36 rounded-full' alt='' src='https://a0.muscache.com/defaults/user_pic-50x50.png' />
           <div className='w-full flex justify-center'>
@@ -109,11 +109,11 @@ export default function UserPage() {
             .pop()
             .replace(/^\w/, c => c.toUpperCase())}
         </p>
-        <p className='text-gray-500 text-sm'>Bắt đầu tham gia vào {2023}</p>
+        <p className='text-gray-500 text-sm'>Bắt đầu tham gia vào {new Date().getFullYear()}</p>
         <button className='w-auto underline font-bold text-sm'>Chỉnh sửa hồ sơ</button>
         <h1 className='font-bold text-2xl'>Phòng đã thuê</h1>
         {userBookedPlaces !== null && userBookedPlaces.length > 0 ? (
-          <div>
+          <div className='space-y-6'>
             {userBookedPlaces.map((item, index) => (
               <ListRooms key={index} item={item} cityNoSlug={item.tinhThanh} />
             ))}
