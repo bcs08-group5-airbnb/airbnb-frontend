@@ -5,6 +5,7 @@ import { userLocalStorage } from "../api/localService";
 import { setLogin } from "../redux/userSlice";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { defaultNoAvatar } from "../constants/defaultValues";
 
 export default function Header({ div2Ref }) {
   const [div2Visible, setDiv2Visible] = useState(true);
@@ -33,10 +34,10 @@ export default function Header({ div2Ref }) {
   });
   const dispatch = useDispatch();
   const handleLogout = () => {
-    message.success("Đăng xuất thành công!");
-    navigate("/");
     userLocalStorage.remove();
     dispatch(setLogin(null));
+    message.success("Đăng xuất thành công!");
+    navigate("/");
   };
   const location = useLocation();
   const items = [
@@ -53,9 +54,9 @@ export default function Header({ div2Ref }) {
     {
       key: "2",
       label: user ? (
-        <button className='font-bold' onClick={handleLogout}>
+        <a className='font-bold' onClick={handleLogout}>
           Đăng xuất
-        </button>
+        </a>
       ) : (
         <Link to='/login'>Đăng nhập</Link>
       ),
@@ -163,16 +164,20 @@ export default function Header({ div2Ref }) {
                       <path d='m2 8h28'></path>
                     </g>
                   </svg>
-                  <svg
-                    viewBox='0 0 32 32'
-                    xmlns='http://www.w3.org/2000/svg'
-                    aria-hidden='true'
-                    role='presentation'
-                    focusable='false'
-                    className='block h-5 w-5 fill-current'
-                  >
-                    <path d='m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z'></path>
-                  </svg>
+                  {user?.avatar ? (
+                    <img alt='' className='h-5 w-5 mx-auto rounded-full object-cover' src={user?.avatar ?? defaultNoAvatar} />
+                  ) : (
+                    <svg
+                      viewBox='0 0 32 32'
+                      xmlns='http://www.w3.org/2000/svg'
+                      aria-hidden='true'
+                      role='presentation'
+                      focusable='false'
+                      className='block h-5 w-5 fill-current'
+                    >
+                      <path d='m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z'></path>
+                    </svg>
+                  )}
                 </div>
               </Dropdown>
             </div>
