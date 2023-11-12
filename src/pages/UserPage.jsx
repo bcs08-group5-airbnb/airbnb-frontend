@@ -3,12 +3,14 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, ConfigProvider, Form, Modal, message } from "antd";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { https, httpsNoLoading } from "../api/config";
 import ListRooms from "../components/ListRooms";
 import Spinner from "../components/Spinner";
 import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect, ProFormText } from "@ant-design/pro-components";
-import { noImageAvaiable } from "../constants/defaultValues";
+import { noImageAvaiable, defaultNoAvatar } from "../constants/defaultValues";
+import { setLogin } from "../redux/userSlice";
+import { userLocalStorage } from "../api/localService";
 
 const waitTime = (time = 100) => {
   return new Promise(resolve => {
@@ -24,10 +26,11 @@ const onImageError = e => {
 
 export default function UserPage() {
   const [file, setFile] = useState("");
+  const dispatch = useDispatch();
   const [original, setOriginal] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { token } = useSelector(state => {
-    return state.userSlice.user;
+  const { user } = useSelector(state => {
+    return state.userSlice;
   });
   const showModal = () => {
     setIsModalOpen(true);
@@ -43,12 +46,14 @@ export default function UserPage() {
     formData.append("formFile", original);
     https
       .post("/users/upload-avatar", formData, {
-        headers: { token },
+        headers: { token: user.token },
       })
-      .then(() => {
-        message.success("Thay đổi avartar thành công!");
+      .then(res => {
+        message.success("Cập nhật avatar thành công!");
         handleCancel();
         fetchUser(id);
+        dispatch(setLogin({ ...user, avatar: res.data.content.avatar }));
+        userLocalStorage.set({ ...user, avatar: res.data.content.avatar });
       })
       .catch(err => {
         message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
@@ -135,11 +140,7 @@ export default function UserPage() {
       <div className='mx-auto w-[95%] grid lg:flex gap-12 py-6'>
         <Card className='basis-auto h-[500px] block lg:sticky top-0 lg:top-20'>
           <div className='space-y-3'>
-            <img
-              className='mx-auto w-36 h-36 object-cover rounded-full'
-              alt=''
-              src={userInfo.avatar !== "" ? userInfo.avatar : "https://a0.muscache.com/defaults/user_pic-50x50.png"}
-            />
+            <img className='mx-auto w-36 h-36 object-cover rounded-full' alt='' src={userInfo.avatar !== "" ? userInfo.avatar : defaultNoAvatar} />
             <div className='w-full flex justify-center'>
               <button className='mx-auto w-auto underline font-bold text-sm' onClick={showModal}>
                 Cập nhật ảnh
@@ -234,18 +235,21 @@ export default function UserPage() {
               }}
               submitTimeout={2000}
               onFinish={async values => {
+                const data = {
+                  ...values,
+                  gender: values.gender === "nam",
+                };
                 await waitTime(2000);
                 https
-                  .put(`/users/${id}`, {
-                    ...values,
-                    gender: values.gender === "nam" ? true : false,
-                  })
+                  .put(`/users/${id}`, { ...data })
                   .then(() => {
-                    message.success(`Cập nhật thành công`);
+                    dispatch(setLogin({ ...user, ...data }));
+                    userLocalStorage.set({ ...user, ...data });
+                    message.success(`Cập nhật thông tin thành công`);
                     fetchUser(id);
                     console.log({
                       ...values,
-                      gender: values.gender === "nam" ? true : false,
+                      gender: values.gender === "nam",
                     });
                   })
                   .catch(err => {
