@@ -1,7 +1,6 @@
 import { DatePicker, Form, Input, Select, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { userServ } from "../api/api";
-import moment from "moment/moment";
 
 export default function RegisterPage() {
   const [form] = Form.useForm();
@@ -10,7 +9,7 @@ export default function RegisterPage() {
   };
   const navigate = useNavigate();
   const onFinish = values => {
-    const processValues = { ...values, gender: values.gender === "male" ? true : false, birthday: moment(values.date).format("DD-MM-YYYY") };
+    const processValues = { ...values, gender: values.gender === "male" ? true : false };
     userServ
       .signup(processValues)
       .then(() => {

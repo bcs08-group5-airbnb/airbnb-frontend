@@ -8,7 +8,6 @@ import { https, httpsNoLoading } from "../api/config";
 import ListRooms from "../components/ListRooms";
 import Spinner from "../components/Spinner";
 import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect, ProFormText } from "@ant-design/pro-components";
-import moment from "moment";
 import { noImageAvaiable } from "../constants/defaultValues";
 
 const waitTime = (time = 100) => {
@@ -139,7 +138,7 @@ export default function UserPage() {
             <img
               className='mx-auto w-36 h-36 object-cover rounded-full'
               alt=''
-              src={userInfo.avatar ?? "https://a0.muscache.com/defaults/user_pic-50x50.png"}
+              src={userInfo.avatar !== "" ? userInfo.avatar : "https://a0.muscache.com/defaults/user_pic-50x50.png"}
             />
             <div className='w-full flex justify-center'>
               <button className='mx-auto w-auto underline font-bold text-sm' onClick={showModal}>
@@ -220,7 +219,6 @@ export default function UserPage() {
                   onClick={() => {
                     form.setFieldsValue({
                       ...userInfo,
-                      birthday: moment(userInfo.birthday).format("DD-MM-YYYY"),
                       gender: userInfo.gender ? "nam" : "nu",
                     });
                   }}
@@ -240,12 +238,15 @@ export default function UserPage() {
                 https
                   .put(`/users/${id}`, {
                     ...values,
-                    birthday: moment(values.birthday).format("DD-MM-YYYY"),
                     gender: values.gender === "nam" ? true : false,
                   })
                   .then(() => {
                     message.success(`Cập nhật thành công`);
                     fetchUser(id);
+                    console.log({
+                      ...values,
+                      gender: values.gender === "nam" ? true : false,
+                    });
                   })
                   .catch(err => {
                     message.error(err.response.data);
@@ -306,9 +307,7 @@ export default function UserPage() {
                 <ProFormDatePicker
                   width='md'
                   name='birthday'
-                  fieldProps={{
-                    format: "DD-MM-YYYY",
-                  }}
+                  format='DD-MM-YYYY'
                   label='Ngày sinh'
                   placeholder='Chọn ngày sinh'
                   rules={[
