@@ -11,7 +11,7 @@ export default function Header({ div2Ref }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (div2Ref.current) {
+      if (div2Ref && div2Ref.current) {
         const div2Position = div2Ref.current.getBoundingClientRect();
         if (div2Position.top - 64 > window.innerHeight || div2Position.bottom - 64 < 0) {
           setDiv2Visible(false);
@@ -42,11 +42,23 @@ export default function Header({ div2Ref }) {
   const items = [
     {
       key: "1",
-      label: user ? <Link to='/account'>{user.name}</Link> : <Link to='/register'>Đăng ký</Link>,
+      label: user ? (
+        <Link className='font-bold' to='/personal-info'>
+          Thông tin cá nhân
+        </Link>
+      ) : (
+        <Link to='/register'>Đăng ký</Link>
+      ),
     },
     {
       key: "2",
-      label: user ? <a onClick={handleLogout}>Đăng xuất</a> : <Link to='/login'>Đăng nhập</Link>,
+      label: user ? (
+        <button className='font-bold' onClick={handleLogout}>
+          Đăng xuất
+        </button>
+      ) : (
+        <Link to='/login'>Đăng nhập</Link>
+      ),
     },
     {
       key: "3",
@@ -173,5 +185,5 @@ export default function Header({ div2Ref }) {
 }
 
 Header.propTypes = {
-  div2Ref: PropTypes.object.isRequired,
+  div2Ref: PropTypes.object,
 };

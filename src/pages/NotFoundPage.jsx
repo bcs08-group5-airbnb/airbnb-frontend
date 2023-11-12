@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import { Link } from "react-router-dom";
+import SpaceManSVG from "../components/SpaceMan";
 
 export default function NotFoundPage() {
   return (
@@ -34,11 +35,9 @@ export default function NotFoundPage() {
           </div>
         </div>
         <div className='hidden md:block'>
-          <img
-            alt=''
-            src='https://a0.muscache.com/airbnb/static/error_pages/404-Airbnb_final-d652ff855b1335dd3eedc3baa8dc8b69.gif'
-            className='mx-auto w-52'
-          />
+          <div className='mx-auto my-auto w-72'>
+            <SpaceManSVG />
+          </div>
         </div>
       </div>
       <Footer />

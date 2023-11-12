@@ -15,7 +15,7 @@ export default function RegisterPage() {
       .signup(processValues)
       .then(() => {
         message.success("Đăng ký thành công!");
-        navigate("/");
+        navigate("/login");
       })
       .catch(err => {
         message.error(err.response.data.content);
