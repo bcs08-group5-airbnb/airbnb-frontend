@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/city/:cityName' element={<CityPage />} />
+          <Route path='/roombycity/:cityName' element={<CityPage />} />
           <Route
             path='/roomdetail/:roomId'
             element={
