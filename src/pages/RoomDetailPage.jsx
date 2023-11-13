@@ -6,7 +6,21 @@ import { https } from "../api/config";
 import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAward, faHeart, faStar, faUpload } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAirFreshener,
+  faAward,
+  faBlackboard,
+  faCalendar,
+  faElevator,
+  faHeadset,
+  faHeart,
+  faKitchenSet,
+  faParking,
+  faStar,
+  faTv,
+  faUpload,
+  faWifi,
+} from "@fortawesome/free-solid-svg-icons";
 import convertToSlug from "../utils/convertToSlug";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -54,9 +68,12 @@ export default function RoomDetailPage() {
   const { roomId } = useParams();
   const [room, setRoom] = useState(null);
   const [error, setError] = useState(null);
+  const [tienNghi, setTienNghi] = useState(5);
+  const [hienThiTatCaTienNghi, setHienThiTatCaTienNghi] = useState(false);
   const { user } = useSelector(state => {
     return state.userSlice;
   });
+  const [trungBinhRating, setTrungBinhRating] = useState(0);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -70,6 +87,21 @@ export default function RoomDetailPage() {
           quocGia: cityResponse.data.content.quocGia,
           danhSachBinhLuan: commentListResponse.data.content.reverse(),
         });
+        console.log({
+          ...roomResponse.data.content,
+          tinhThanh: cityResponse.data.content.tinhThanh,
+          quocGia: cityResponse.data.content.quocGia,
+          danhSachBinhLuan: commentListResponse.data.content.reverse(),
+        });
+        const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
+        if (commentListResponse.data.content.length === 0) {
+          setTrungBinhRating("Chưa có đánh giá");
+        } else {
+          setTrungBinhRating((totalSao / commentListResponse.data.content.length).toFixed(2));
+        }
+        const tempObjectRoom = { ...roomResponse.data.content };
+        const trueValueCount = Object.keys(tempObjectRoom).filter(key => key !== "banLa" && tempObjectRoom[key] === true).length;
+        setTienNghi(5 + trueValueCount);
       } catch (err) {
         setError("Đã xảy ra lỗi khi tìm nạp dữ liệu. Vui lòng thử lại sau.");
         console.error(err);
@@ -89,6 +121,8 @@ export default function RoomDetailPage() {
         ...prevRoom,
         danhSachBinhLuan: commentListResponse.data.content.reverse(),
       }));
+      const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
+      setTrungBinhRating((totalSao / commentListResponse.data.content.length).toFixed(2));
     } catch (err) {
       setError("Đã xảy ra lỗi khi tìm nạp dữ liệu. Vui lòng thử lại sau.");
       console.error(err);
@@ -140,16 +174,18 @@ export default function RoomDetailPage() {
       <h1 className='font-bold text-black text-3xl'>{room.tenPhong}</h1>
       <div className='grid grid-cols-1 md:flex justify-between items-center gap-6'>
         <div className='grid md:flex gap-x-6 gap-y-3'>
-          <span className='space-x-2'>
-            <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faStar} />
-            <span className='text-black font-bold'>5,0</span>
-            <span
-              onClick={() => binhLuanRef.current.scrollIntoView({ behavior: "smooth" })}
-              className='underline cursor-pointer text-gray-600 hover:text-[#FF5A5F] duration-300'
-            >
-              ({room.danhSachBinhLuan.length}) đánh giá
+          {room.danhSachBinhLuan.length > 0 && (
+            <span className='space-x-2'>
+              <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faStar} />
+              <span className='text-black font-bold'>{trungBinhRating}</span>
+              <span
+                onClick={() => binhLuanRef.current.scrollIntoView({ behavior: "smooth" })}
+                className='underline cursor-pointer text-gray-600 hover:text-[#FF5A5F] duration-300'
+              >
+                ({room.danhSachBinhLuan.length}) đánh giá
+              </span>
             </span>
-          </span>
+          )}
           <span className='space-x-2'>
             <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faAward} />
             <span className='text-gray-600'>Chủ nhà siêu cấp</span>
@@ -178,20 +214,133 @@ export default function RoomDetailPage() {
             <SwiperSlide key={index}>
               <div className='w-full cursor-pointer'>
                 <ConfigProvider locale={viVN}>
-                  <Image width='100%' alt='' src={room.hinhAnh} className='rounded-lg' />
+                  <Image width='100%' height='470px' alt='' src={room.hinhAnh} className='rounded-lg object-cover' />
                 </ConfigProvider>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div ref={binhLuanRef} className='pb-[39px]'></div>
-      <div className='w-full h-px bg-gray-300 mb-6'></div>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-12 h-[300px] overscroll-y-auto overflow-y-auto px-2'>
-        {room.danhSachBinhLuan.map((item, index) => (
-          <CommentSection key={index} item={item} />
-        ))}
+      <div className='space-y-6'>
+        <h1 className='font-bold text-black text-3xl'>Tiện nghi</h1>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          {room.bep && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faKitchenSet} />
+              </span>
+              <span>Bếp</span>
+            </div>
+          )}
+          {room.wifi && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faWifi} />
+              </span>
+              <span>Wifi</span>
+            </div>
+          )}
+          {room.tivi && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faTv} />
+              </span>
+              <span>TV với truyền hình cáp tiêu chuẩn</span>
+            </div>
+          )}
+          {true && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faElevator} />
+              </span>
+              <span>Thang máy</span>
+            </div>
+          )}
+          {room.dieuHoa && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faAirFreshener} />
+              </span>
+              <span>Điều hòa nhiệt độ</span>
+            </div>
+          )}
+          {true && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faBlackboard} />
+              </span>
+              <span>Sân hoặc ban công</span>
+            </div>
+          )}
+          {true && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faHeadset} />
+              </span>
+              <span>Lò sưởi trong nhà</span>
+            </div>
+          )}
+          {true && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faHeadset} />
+              </span>
+              <span>Tủ lạnh</span>
+            </div>
+          )}
+          {room.doXe && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faParking} />
+              </span>
+              <span>Bãi đỗ xe thu phí nằm ngoài khuôn viên</span>
+            </div>
+          )}
+          {true && (
+            <div className='space-x-3'>
+              <span>
+                <FontAwesomeIcon className='w-5 h-5' icon={faCalendar} />
+              </span>
+              <span>Cho phép dài hạn</span>
+            </div>
+          )}
+        </div>
+        <div>
+          {!hienThiTatCaTienNghi ? (
+            <button
+              onClick={() => setHienThiTatCaTienNghi(true)}
+              className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
+            >
+              Hiển thị tất cả {tienNghi} tiện nghi
+            </button>
+          ) : (
+            <div>
+              <div>1</div>
+              <div>
+                <button
+                  onClick={() => setHienThiTatCaTienNghi(false)}
+                  className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
+                >
+                  Ẩn bớt tiện nghi
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+      {room.danhSachBinhLuan.length > 0 && <div ref={binhLuanRef} className='pb-[50px]'></div>}
+      <div className='w-full h-px bg-gray-300 mb-6'></div>
+      {room.danhSachBinhLuan.length > 0 ? (
+        <>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-12 h-[300px] overscroll-y-auto overflow-y-auto px-2'>
+            {room.danhSachBinhLuan.map((item, index) => (
+              <CommentSection key={index} item={item} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <p>Chưa có bình luận nào! Bạn hãy trở thành người đầu tiên nhé 😍</p>
+      )}
       <div className='w-full h-px bg-gray-300 mb-6'></div>
       {user === null ? (
         <div>Vui lòng đăng nhập để bình luận!</div>
