@@ -5,11 +5,14 @@ import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
 import AdminLayout from "./layout/AdminLayout";
-import Dashboard from "./pages/Admin/Dashboard";
+import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import CityPage from "./pages/CityPage";
 import UserPage from "./pages/UserPage";
 import MainLayout from "./layouts/MainLayout";
 import RoomDetailPage from "./pages/RoomDetailPage";
+import LoginAdmin from "./pages/Admin/LoginAdmin/LoginAdmin";
+import RegisterAdmin from "./pages/Admin/RegisterAdmin/RegisterAdmin";
+import ForgetPassword from "./pages/Admin/ForgetPassword";
 
 function App() {
   return (
@@ -31,8 +34,6 @@ function App() {
               </MainLayout>
             }
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
           <Route
             path="/personal-info"
             element={
@@ -44,6 +45,9 @@ function App() {
           {/* ADMIN PAGE */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="login" element={<LoginAdmin />} />
+            <Route path="register" element={<RegisterAdmin />} />
+            <Route path="forgot-password" element={<ForgetPassword />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />

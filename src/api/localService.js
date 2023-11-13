@@ -18,7 +18,6 @@ export const themeLocalStorage = {
     localStorage.getItem("theme")
       ? (isDark = JSON.parse(localStorage.getItem("theme")))
       : (isDark = null);
-    console.log(isDark);
     return isDark;
   },
   set: (isDrak) => {

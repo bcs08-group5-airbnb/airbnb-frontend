@@ -1,10 +1,10 @@
 import React from "react";
 
-const Hamburger = () => {
+const Hamburger = ({ handleToggleSideMenu }) => {
   return (
     <button
       className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
-      //   onClick={toggleSideMenu}
+      onClick={handleToggleSideMenu}
       aria-label="Menu"
     >
       <svg
