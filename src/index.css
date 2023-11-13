@@ -14,6 +14,10 @@ body {
   background-color: blue;
 }
 
+.ant-image-mask {
+  border-radius: 0.5rem;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: black;

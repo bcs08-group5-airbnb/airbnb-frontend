@@ -11,6 +11,7 @@ import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect, ProFormText } fro
 import { noImageAvaiable, defaultNoAvatar } from "../constants/defaultValues";
 import { setLogin } from "../redux/userSlice";
 import { userLocalStorage } from "../api/localService";
+import { capitalizeString } from "../utils/capitalizeString";
 
 const waitTime = (time = 100) => {
   return new Promise(resolve => {
@@ -169,14 +170,7 @@ export default function UserPage() {
             <p className='text-justify'>Xác minh danh tính của bạn với huy hiệu xác minh danh tính.</p>
             <Button>Nhận huy hiệu</Button>
             <div className='w-full h-px bg-gray-300'></div>
-            <p className='text-xl font-bold'>
-              {userInfo.name
-                .trim()
-                .split(" ")
-                .pop()
-                .replace(/^\w/, c => c.toUpperCase())}{" "}
-              đã xác nhận
-            </p>
+            <p className='text-xl font-bold'>{capitalizeString(userInfo.name)} đã xác nhận</p>
             <p className='space-x-3'>
               <span>
                 <FontAwesomeIcon icon={faCheck} />
@@ -186,14 +180,7 @@ export default function UserPage() {
           </div>
         </Card>
         <div className='basis-9/12 space-y-3'>
-          <p className='font-bold text-xl'>
-            Xin chào, tôi là{" "}
-            {userInfo.name
-              .trim()
-              .split(" ")
-              .pop()
-              .replace(/^\w/, c => c.toUpperCase())}
-          </p>
+          <p className='font-bold text-xl'>Xin chào, tôi là {capitalizeString(userInfo.name)}</p>
           <p className='text-gray-500 text-sm'>Bắt đầu tham gia vào {new Date().getFullYear()}</p>
 
           <ConfigProvider button={{ className: "bg-blue-500" }} locale={viVN}>
