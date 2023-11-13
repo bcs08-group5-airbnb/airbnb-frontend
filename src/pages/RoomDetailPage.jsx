@@ -9,16 +9,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAirFreshener,
   faAward,
+  faBacon,
   faBlackboard,
   faCalendar,
   faElevator,
+  faHandsWash,
   faHeadset,
   faHeart,
   faKitchenSet,
   faParking,
   faStar,
+  faSwimmingPool,
   faTv,
   faUpload,
+  faWarehouse,
   faWifi,
 } from "@fortawesome/free-solid-svg-icons";
 import convertToSlug from "../utils/convertToSlug";
@@ -97,7 +101,9 @@ export default function RoomDetailPage() {
         if (commentListResponse.data.content.length === 0) {
           setTrungBinhRating("Chưa có đánh giá");
         } else {
-          setTrungBinhRating((totalSao / commentListResponse.data.content.length).toFixed(2));
+          const tempNumber = totalSao / commentListResponse.data.content.length;
+          const formatNumber = tempNumber % 1 === 0 ? tempNumber.toFixed(0) : tempNumber.toFixed(2);
+          setTrungBinhRating(formatNumber);
         }
         const tempObjectRoom = { ...roomResponse.data.content };
         const trueValueCount = Object.keys(tempObjectRoom).filter(key => key !== "banLa" && tempObjectRoom[key] === true).length;
@@ -177,7 +183,7 @@ export default function RoomDetailPage() {
           {room.danhSachBinhLuan.length > 0 && (
             <span className='space-x-2'>
               <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faStar} />
-              <span className='text-black font-bold'>{trungBinhRating}</span>
+              <span className='text-black font-bold'>{trungBinhRating} / 5</span>
               <span
                 onClick={() => binhLuanRef.current.scrollIntoView({ behavior: "smooth" })}
                 className='underline cursor-pointer text-gray-600 hover:text-[#FF5A5F] duration-300'
@@ -283,7 +289,7 @@ export default function RoomDetailPage() {
           {true && (
             <div className='space-x-3'>
               <span>
-                <FontAwesomeIcon className='w-5 h-5' icon={faHeadset} />
+                <FontAwesomeIcon className='w-5 h-5' icon={faWarehouse} />
               </span>
               <span>Tủ lạnh</span>
             </div>
@@ -304,6 +310,34 @@ export default function RoomDetailPage() {
               <span>Cho phép dài hạn</span>
             </div>
           )}
+          {hienThiTatCaTienNghi && (
+            <>
+              {room.banUi && (
+                <div className='space-x-3'>
+                  <span>
+                    <FontAwesomeIcon className='w-5 h-5' icon={faBacon} />
+                  </span>
+                  <span>Bàn ủi</span>
+                </div>
+              )}
+              {room.hoBoi && (
+                <div className='space-x-3'>
+                  <span>
+                    <FontAwesomeIcon className='w-5 h-5' icon={faSwimmingPool} />
+                  </span>
+                  <span>Hồ bơi</span>
+                </div>
+              )}
+              {room.mayGiat && (
+                <div className='space-x-3'>
+                  <span>
+                    <FontAwesomeIcon className='w-5 h-5' icon={faHandsWash} />
+                  </span>
+                  <span>Máy giặt</span>
+                </div>
+              )}
+            </>
+          )}
         </div>
         <div>
           {!hienThiTatCaTienNghi ? (
@@ -314,25 +348,27 @@ export default function RoomDetailPage() {
               Hiển thị tất cả {tienNghi} tiện nghi
             </button>
           ) : (
-            <div>
-              <div>1</div>
-              <div>
-                <button
-                  onClick={() => setHienThiTatCaTienNghi(false)}
-                  className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
-                >
-                  Ẩn bớt tiện nghi
-                </button>
-              </div>
+            <div className='mt-6'>
+              <button
+                onClick={() => setHienThiTatCaTienNghi(false)}
+                className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
+              >
+                Ẩn bớt tiện nghi
+              </button>
             </div>
           )}
         </div>
       </div>
       {room.danhSachBinhLuan.length > 0 && <div ref={binhLuanRef} className='pb-[50px]'></div>}
       <div className='w-full h-px bg-gray-300 mb-6'></div>
+      <h1 className='font-bold text-3xl text-black'>Bình luận</h1>
       {room.danhSachBinhLuan.length > 0 ? (
         <>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-12 h-[300px] overscroll-y-auto overflow-y-auto px-2'>
+          <div
+            className={`grid grid-cols-1 md:grid-cols-2 gap-12 ${
+              room.danhSachBinhLuan.length > 4 && "h-[300px]"
+            } overscroll-y-auto overflow-y-auto px-2`}
+          >
             {room.danhSachBinhLuan.map((item, index) => (
               <CommentSection key={index} item={item} />
             ))}
