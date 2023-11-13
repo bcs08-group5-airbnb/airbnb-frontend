@@ -1,3 +1,4 @@
+import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import viVN from "antd/es/locale/vi_VN";
 import { useEffect, useRef, useState } from "react";
@@ -9,14 +10,22 @@ import { faAward, faHeart, faStar, faUpload } from "@fortawesome/free-solid-svg-
 import convertToSlug from "../utils/convertToSlug";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import { Avatar, Button, ConfigProvider, Form, Image, message } from "antd";
+import { Avatar, Button, ConfigProvider, Form, Image, Rate, message } from "antd";
 import { useSelector } from "react-redux";
 import CommentSection from "../components/Comment";
 import TextArea from "antd/es/input/TextArea";
 import { Comment } from "@ant-design/compatible";
 import { defaultNoAvatar } from "../constants/defaultValues";
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
+const customIcons = {
+  1: <FrownOutlined />,
+  2: <FrownOutlined />,
+  3: <MehOutlined />,
+  4: <SmileOutlined />,
+  5: <SmileOutlined />,
+};
+
+const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }) => (
   <>
     <Form.Item>
       <TextArea
@@ -28,6 +37,9 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
         }}
         placeholder='Viết đánh giá...'
       />
+    </Form.Item>
+    <Form.Item>
+      <Rate onChange={onRateChange} defaultValue={3} value={rateNum} character={({ index }) => customIcons[index + 1]} />
     </Form.Item>
     <Form.Item>
       <Button disabled={!value} htmlType='submit' loading={submitting} onClick={onSubmit} type='primary'>
@@ -69,6 +81,7 @@ export default function RoomDetailPage() {
 
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState("");
+  const [rating, setRating] = useState(3);
   const fetchCommentData = async () => {
     try {
       const commentListResponse = await https.get(`/binh-luan/lay-binh-luan-theo-phong/${roomId}`);
@@ -87,10 +100,11 @@ export default function RoomDetailPage() {
     setTimeout(() => {
       setSubmitting(false);
       setValue("");
+      setRating(3);
       https
         .post(
           `/binh-luan`,
-          { maPhong: roomId, maNguoiBinhLuan: user.id, ngayBinhLuan: Date(), noiDung: value, saoBinhLuan: 5 },
+          { maPhong: roomId, maNguoiBinhLuan: user.id, ngayBinhLuan: Date(), noiDung: value, saoBinhLuan: rating },
           {
             headers: { token: user.token },
           },
@@ -107,6 +121,10 @@ export default function RoomDetailPage() {
 
   const handleChange = e => {
     setValue(e.target.value);
+  };
+
+  const handleRateChange = star => {
+    setRating(star); // 1, 2, 3, 4, 5
   };
 
   if (error) {
@@ -181,7 +199,16 @@ export default function RoomDetailPage() {
         <div>
           <Comment
             avatar={<Avatar src={user?.avatar !== "" ? user?.avatar : defaultNoAvatar} alt='' />}
-            content={<Editor onChange={handleChange} onSubmit={handleSubmit} submitting={submitting} value={value} />}
+            content={
+              <Editor
+                onRateChange={handleRateChange}
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+                submitting={submitting}
+                value={value}
+                rateNum={rating}
+              />
+            }
           />
         </div>
       )}
@@ -191,7 +218,9 @@ export default function RoomDetailPage() {
 
 Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onRateChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,
+  rateNum: PropTypes.number.isRequired,
 };

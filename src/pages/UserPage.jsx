@@ -234,10 +234,6 @@ export default function UserPage() {
                     userLocalStorage.set({ ...user, ...data });
                     message.success(`Cập nhật thông tin thành công`);
                     fetchUser(id);
-                    console.log({
-                      ...values,
-                      gender: values.gender === "nam",
-                    });
                   })
                   .catch(err => {
                     message.error(err.response.data);
