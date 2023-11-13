@@ -91,12 +91,6 @@ export default function RoomDetailPage() {
           quocGia: cityResponse.data.content.quocGia,
           danhSachBinhLuan: commentListResponse.data.content.reverse(),
         });
-        console.log({
-          ...roomResponse.data.content,
-          tinhThanh: cityResponse.data.content.tinhThanh,
-          quocGia: cityResponse.data.content.quocGia,
-          danhSachBinhLuan: commentListResponse.data.content.reverse(),
-        });
         const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
         if (commentListResponse.data.content.length === 0) {
           setTrungBinhRating("Chưa có đánh giá");
