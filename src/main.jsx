@@ -7,6 +7,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./redux/userSlice";
 import spinnerSlice from "./redux/spinnerSlice";
 
+import "alpinejs";
+
 export const store = configureStore({
   reducer: {
     userSlice,
@@ -19,5 +21,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
