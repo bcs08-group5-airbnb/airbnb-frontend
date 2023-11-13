@@ -14,11 +14,18 @@ export default function ListRooms({ item, cityNoSlug }) {
         <Card hoverable>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
             <div>
-              <Swiper slidesPerView={1} spaceBetween={0} loop={true} modules={[Pagination]} pagination={true} className='mySwiper mx-auto rounded-lg'>
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={0}
+                loop={true}
+                modules={[Pagination]}
+                pagination={true}
+                className='mySwiper mx-auto w-[90%] h-48 rounded-lg'
+              >
                 {Array.from({ length: 5 }).map((_, index) => (
                   <SwiperSlide key={index}>
                     <div className='w-full cursor-pointer'>
-                      <img className='w-full h-52 object-cover' src={item.hinhAnh} alt='' />
+                      <img className='w-full h-52 object-cover object-left' src={item.hinhAnh} alt='' />
                     </div>
                   </SwiperSlide>
                 ))}
