@@ -10,6 +10,10 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.ant-btn-primary {
+  background-color: blue;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: black;
@@ -28,4 +32,32 @@ body {
 .swiper-button-next::after {
   line-height: 10px;
   font-size: 10px;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+.ant-picker-focused {
+  box-shadow: none;
+}
+
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+    border-radius: 20px;
+  }
+
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.3);
+  }
 }

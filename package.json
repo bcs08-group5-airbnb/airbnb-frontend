@@ -11,12 +11,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/pro-components": "^2.6.35",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^1.9.7",
     "alpinejs": "^3.13.2",
     "antd": "^5.10.3",
+    "antd-img-crop": "^4.17.0",
     "axios": "^1.6.0",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
