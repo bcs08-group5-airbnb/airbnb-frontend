@@ -26,6 +26,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
         style={{
           resize: "none",
         }}
+        placeholder='Viết đánh giá...'
       />
     </Form.Item>
     <Form.Item>
@@ -73,7 +74,7 @@ export default function RoomDetailPage() {
       const commentListResponse = await https.get(`/binh-luan/lay-binh-luan-theo-phong/${roomId}`);
       setRoom(prevRoom => ({
         ...prevRoom,
-        danhSachBinhLuan: commentListResponse.data.content,
+        danhSachBinhLuan: commentListResponse.data.content.reverse(),
       }));
     } catch (err) {
       setError("Đã xảy ra lỗi khi tìm nạp dữ liệu. Vui lòng thử lại sau.");

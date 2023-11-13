@@ -48,7 +48,9 @@ export default function Header({ div2Ref }) {
           Thông tin cá nhân
         </Link>
       ) : (
-        <Link to='/register'>Đăng ký</Link>
+        <Link className='font-bold' to='/register'>
+          Đăng ký
+        </Link>
       ),
     },
     {
@@ -58,7 +60,9 @@ export default function Header({ div2Ref }) {
           Đăng xuất
         </a>
       ) : (
-        <Link to='/login'>Đăng nhập</Link>
+        <Link className='font-bold' to='/login'>
+          Đăng nhập
+        </Link>
       ),
     },
     {
