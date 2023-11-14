@@ -454,7 +454,7 @@ export default function RoomDetailPage() {
                       <button
                         onClick={() => {
                           if (countOfVisitors === room.khach) {
-                            message.warning("Đã đạt tới số khách tối đa của phòng thuê!");
+                            message.warning("Đã đạt tới số khách tối đa!");
                           } else {
                             setCountOfVisitors(countOfVisitors + 1);
                           }
