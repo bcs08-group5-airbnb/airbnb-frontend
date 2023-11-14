@@ -1,9 +1,49 @@
 import React, { useEffect } from "react";
+import { Form, Input, message } from "antd";
+import { userServ } from "../../../api/api";
+import { setLoginAdmin } from "../../../redux/userSlice";
+import { userAdminLocalStorage } from "../../../api/localService";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginAdmin = () => {
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Airbnb - Admin - Đăng nhập";
   }, []);
+
+  const onFinishFailed = (errorInfo) => {
+    console.error("Failed:", errorInfo);
+  };
+
+  const onFinish = (values) => {
+    userServ
+      .login(values)
+      .then((res) => {
+        const data = {
+          ...res.data.content.user,
+          token: res.data.content.token,
+        };
+        if (data.role !== "ADMIN") {
+          message.error(
+            "Tài khoản người dùng KHÔNG có quyền truy cập vào trang quản trị"
+          );
+          return null;
+        }
+
+        dispatch(setLoginAdmin({ ...data }));
+        userAdminLocalStorage.set({ ...data });
+        message.success("Đăng nhập thành công!");
+        navigate("/admin");
+      })
+      .catch((err) => {
+        message.error(err.response.data.content);
+      });
+  };
+
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
       <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
@@ -27,31 +67,47 @@ const LoginAdmin = () => {
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
                 Login
               </h1>
-              <label className="block text-sm">
-                <span className="text-gray-700 dark:text-gray-400">Email</span>
-                <input
-                  className="block border-[1px] p-2 rounded-md  w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="Jane Doe"
-                />
-              </label>
-              <label className="block mt-4 text-sm">
-                <span className="text-gray-700 dark:text-gray-400">
-                  Password
-                </span>
-                <input
-                  className="block border-[1px] p-2 rounded-md w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="***************"
-                  type="password"
-                />
-              </label>
-
-              {/* <!-- You should use a button here, as the anchor is only used for the example  --> */}
-              <a
-                className="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-primary border border-transparent rounded-lg active:bg-purple-600 hover:bg-primary-dark focus:outline-none focus:shadow-outline-purple"
-                href="../index.html"
+              <Form
+                form={form}
+                layout="vertical"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
               >
-                Log in
-              </a>
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập email!",
+                    },
+                    {
+                      type: "email",
+                      message: "Không đúng định dạng email!",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label="Mật khẩu"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập mật khẩu!",
+                    },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+                <div className="grid lg:flex justify-center items-center gap-3">
+                  <button className="cursor-pointer text-white w-full bg-primary hover:bg-primary-dark duration-300 px-6 py-2 rounded-lg">
+                    Đăng nhập
+                  </button>
+                </div>
+              </Form>
 
               <hr className="my-8" />
 
