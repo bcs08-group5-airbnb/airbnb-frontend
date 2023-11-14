@@ -1,11 +1,11 @@
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { addDays } from "date-fns";
+import { addDays, differenceInDays } from "date-fns";
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import viVN from "antd/es/locale/vi_VN";
-import { useEffect, useRef, useState } from "react";
-import { https } from "../api/config";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { https, httpsNoLoading } from "../api/config";
 import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -99,6 +99,7 @@ export default function RoomDetailPage() {
       key: "selection",
     },
   ]);
+  const totalNights = useMemo(() => differenceInDays(bookedRangeDates[0].endDate, bookedRangeDates[0].startDate), [bookedRangeDates]);
   const binhLuanRef = useRef(null);
   const [save, setSave] = useState(false);
   const { roomId } = useParams();
@@ -110,7 +111,7 @@ export default function RoomDetailPage() {
     return state.userSlice;
   });
   const handleBookHirePlace = () => {
-    https
+    httpsNoLoading
       .post("/dat-phong", {
         maPhong: roomId,
         ngayDen: bookedRangeDates[0].startDate,
@@ -475,18 +476,18 @@ export default function RoomDetailPage() {
               <p className='text-center'>Bạn vẫn chưa bị trừ tiền</p>
               <div className='flex justify-between items-center'>
                 <p className='underline'>
-                  ${room.giaTien.toLocaleString(countryFormat)} x {(1).toLocaleString(countryFormat)} đêm
+                  ${room.giaTien.toLocaleString(countryFormat)} x {totalNights.toLocaleString(countryFormat)} đêm
                 </p>
-                <p className=''>${(room.giaTien * 1).toLocaleString(countryFormat)}</p>
+                <p>${(room.giaTien * totalNights).toLocaleString(countryFormat)}</p>
               </div>
               <div className='flex justify-between items-center'>
                 <p className='underline'>Phí dịch vụ</p>
-                <p className=''>${phiDichVu.toLocaleString(countryFormat)}</p>
+                <p>${phiDichVu.toLocaleString(countryFormat)}</p>
               </div>
               <div className='w-full h-px bg-gray-300 mb-6'></div>
               <div className='flex justify-between items-center'>
                 <p className='font-bold'>Tổng</p>
-                <p className='font-bold'>${(room.giaTien + phiDichVu).toLocaleString(countryFormat)}</p>
+                <p className='font-bold'>${(room.giaTien * totalNights + phiDichVu).toLocaleString(countryFormat)}</p>
               </div>
             </div>
             <p className='flex justify-center items-center gap-3 cursor-pointer'>
