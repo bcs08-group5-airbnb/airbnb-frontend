@@ -12,7 +12,6 @@ import {
   faBacon,
   faBlackboard,
   faCalendar,
-  faCircleArrowRight,
   faElevator,
   faHandsWash,
   faHeadset,
@@ -24,6 +23,8 @@ import {
   faUpload,
   faWarehouse,
   faWifi,
+  faChevronCircleUp,
+  faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import convertToSlug from "../utils/convertToSlug";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -122,6 +123,8 @@ export default function RoomDetailPage() {
   }, [roomId]);
 
   const [submitting, setSubmitting] = useState(false);
+  const [toEnglish, setToEnglish] = useState(true);
+  const [hienThiMoTa, setHienThiMoTa] = useState(true);
   const [value, setValue] = useState("");
   const [rating, setRating] = useState(3);
   const fetchCommentData = async () => {
@@ -315,34 +318,46 @@ export default function RoomDetailPage() {
               đề khác như sự cố trong quá trình nhận phòng.
             </p>
             <div>
-              <span className='font-bold underline text-black cursor-pointer'>Tìm hiểu thêm</span>
+              <a href='https://www.airbnb.com/help/article/3218' target='blank' className='font-bold underline text-black cursor-pointer'>
+                Tìm hiểu thêm
+              </a>
             </div>
           </div>
           <div className='w-full h-px bg-gray-300 mb-6'></div>
           <div>
-            <button className='w-full text-black bg-white border-2 border-black rounded-lg py-3 hover:bg-gray-200 duration-300 flex justify-between items-center px-6'>
-              <span>Dịch sang tiếng Việt</span>
+            <button
+              className='w-full text-black bg-white border-2 border-black rounded-lg py-3 hover:bg-gray-200 duration-300 flex justify-between items-center px-6'
+              onClick={() => setToEnglish(!toEnglish)}
+            >
+              <span>Dịch sang tiếng {toEnglish ? "Việt" : "Anh"}</span>
               <Languages />
             </button>
           </div>
-          <p className='text-justify'>
-            My apartment located on nearly top floor of condominium in Vung Tau. The balcony and 2 bedrooms windows face to mountains, ocean, big lake
-            and whole city view. You can easily access to attractions nearby: Beaches, temples, church, fresh seafood market, convenient stores,
-            coffee shops, pharmacy, lighthouse, night market...
+          <p className={`text-justify ${!hienThiMoTa && "line-clamp-2"}`}>
+            {toEnglish
+              ? "My apartment located on nearly top floor of condominium in Vung Tau. The balcony and 2 bedrooms windows face to mountains, ocean, big lake and whole city view. You can easily access to attractions nearby: Beaches, temples, church, fresh seafood market, convenient stores, coffee shops, pharmacy, lighthouse, night market..."
+              : "Căn hộ của tôi nằm ở tầng cao nhất của chung cư ở Vũng Tàu. Ban công và cửa sổ 2 phòng ngủ hướng ra núi, biển, hồ lớn và view toàn thành phố. Bạn có thể dễ dàng tiếp cận các điểm tham quan lân cận: Bãi biển, đền chùa, nhà thờ, chợ hải sản tươi sống, cửa hàng tiện lợi, quán cà phê, hiệu thuốc, hải đăng, chợ đêm..."}
           </p>
           <div>
-            <span className='font-bold underline text-black cursor-pointer space-x-2'>
-              <span>Hiển thị thêm</span>
-              <span>
-                <FontAwesomeIcon icon={faCircleArrowRight} />
-              </span>
+            <span
+              onClick={() => {
+                if (hienThiMoTa) {
+                  setHienThiMoTa(false);
+                } else {
+                  setHienThiMoTa(true);
+                }
+              }}
+              className='font-bold underline text-black cursor-pointer space-x-2'
+            >
+              <span>{!hienThiMoTa ? "Hiển thị thêm" : "Ẩn bớt"}</span>
+              <span>{hienThiMoTa ? <FontAwesomeIcon icon={faChevronCircleUp} /> : <FontAwesomeIcon icon={faChevronCircleDown} />}</span>
             </span>
           </div>
           <div className='w-full h-px bg-gray-300 mb-6'></div>
         </div>
         <div className='basis-1/12 empty'></div>
         <div className='basis-3/12 space-y-6 sticky w-full lg:h-[30px] top-28'>
-          <div className='p-6 rounded-lg border-2 border-gray-600 space-y-6'>
+          <div className='p-6 rounded-lg border-2 border-gray-300 space-y-6 shadow-xl'>
             <div className='flex flex-wrap justify-between items-center gap-3'>
               <div>
                 <span className='font-bold'>${room.giaTien.toLocaleString(countryFormat)}</span> / đêm
