@@ -92,12 +92,6 @@ const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }
 
 export default function RoomDetailPage() {
   const [openBookCalendar, setOpenBookCalendar] = useState(false);
-  const handleBookCalendarOk = () => {
-    setOpenBookCalendar(false);
-  };
-  const handleBookCalendarCancel = () => {
-    setOpenBookCalendar(false);
-  };
   const [bookedRangeDates, setBookedRangeDates] = useState([
     {
       startDate: new Date(),
@@ -115,6 +109,22 @@ export default function RoomDetailPage() {
   const { user } = useSelector(state => {
     return state.userSlice;
   });
+  const handleBookHirePlace = () => {
+    https
+      .post("/dat-phong", {
+        maPhong: roomId,
+        ngayDen: bookedRangeDates[0].startDate,
+        ngayDi: bookedRangeDates[0].endDate,
+        soLuongKhach: countOfVisitors,
+        maNguoiDung: user.id,
+      })
+      .then(res => {
+        message.success(res.data.message);
+      })
+      .catch(err => {
+        message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
+      });
+  };
   const [trungBinhRating, setTrungBinhRating] = useState(0);
   useEffect(() => {
     async function fetchData() {
@@ -199,7 +209,7 @@ export default function RoomDetailPage() {
     }, 1000);
   };
 
-  const [soKhach, setSoKhach] = useState(1);
+  const [countOfVisitors, setCountOfVisitors] = useState(1);
 
   const handleChange = e => {
     setValue(e.target.value);
@@ -427,10 +437,10 @@ export default function RoomDetailPage() {
                     <div>
                       <button
                         onClick={() => {
-                          if (soKhach === 1) {
+                          if (countOfVisitors === 1) {
                             message.warning("Phải có tối thiểu 1 khách!");
                           } else {
-                            setSoKhach(soKhach - 1);
+                            setCountOfVisitors(countOfVisitors - 1);
                           }
                         }}
                         className='font-bold w-9 h-9 text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-full duration-300 flex items-center justify-center'
@@ -438,14 +448,14 @@ export default function RoomDetailPage() {
                         <div>–</div>
                       </button>
                     </div>
-                    <div>{soKhach} khách</div>
+                    <div>{countOfVisitors} khách</div>
                     <div>
                       <button
                         onClick={() => {
-                          if (soKhach === room.khach) {
+                          if (countOfVisitors === room.khach) {
                             message.warning("Đã đạt tới số khách tối đa của phòng thuê!");
                           } else {
-                            setSoKhach(soKhach + 1);
+                            setCountOfVisitors(countOfVisitors + 1);
                           }
                         }}
                         className='font-bold w-9 h-9 text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-full duration-300 flex items-center justify-center'
@@ -456,7 +466,10 @@ export default function RoomDetailPage() {
                   </div>
                 </div>
               </div>
-              <button onClick={() => {}} className='font-bold w-full text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-lg py-3 duration-300'>
+              <button
+                onClick={handleBookHirePlace}
+                className='font-bold w-full text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-lg py-3 duration-300'
+              >
                 Đặt phòng
               </button>
               <p className='text-center'>Bạn vẫn chưa bị trừ tiền</p>
@@ -653,7 +666,15 @@ export default function RoomDetailPage() {
           </div>
         )}
       </div>
-      <Modal okType='danger' className='!w-max' open={openBookCalendar} onCancel={handleBookCalendarCancel} onOk={handleBookCalendarOk} centered>
+      <Modal
+        okType='primary'
+        cancelButtonProps={{ style: { display: "none" } }}
+        okButtonProps={{ style: { display: "none" } }}
+        className='!w-max'
+        open={openBookCalendar}
+        onCancel={() => setOpenBookCalendar(false)}
+        centered
+      >
         <BookCalendar bookedRangeDates={bookedRangeDates} setBookedRangeDates={setBookedRangeDates} />
       </Modal>
     </>
