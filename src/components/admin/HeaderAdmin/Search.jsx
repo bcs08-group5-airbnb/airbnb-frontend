@@ -6,7 +6,7 @@ const Search = () => {
       <div className="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
         <div className="absolute inset-y-0 flex items-center pl-2">
           <svg
-            className="w-4 h-4"
+            className="w-4 h-4 fill-primary"
             aria-hidden="true"
             fill="currentColor"
             viewBox="0 0 20 20"

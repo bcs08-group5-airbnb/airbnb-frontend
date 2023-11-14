@@ -4,7 +4,6 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
-import AdminLayout from "./layout/AdminLayout";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import CityPage from "./pages/CityPage";
 import UserPage from "./pages/UserPage";
@@ -12,7 +11,8 @@ import MainLayout from "./layouts/MainLayout";
 import RoomDetailPage from "./pages/RoomDetailPage";
 import LoginAdmin from "./pages/Admin/LoginAdmin/LoginAdmin";
 import RegisterAdmin from "./pages/Admin/RegisterAdmin/RegisterAdmin";
-import ForgetPassword from "./pages/Admin/ForgetPassword";
+import ForgetPassword from "./pages/Admin/ForgetPassword/ForgetPassword";
+import AdminLayout from "./layouts/AdminLayout";
 
 function App() {
   return (

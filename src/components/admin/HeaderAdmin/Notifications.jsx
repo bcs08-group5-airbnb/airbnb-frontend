@@ -17,7 +17,7 @@ const Notifications = ({
         aria-haspopup="true"
       >
         <svg
-          className="w-5 h-5"
+          className="w-5 h-5 fill-primary"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -27,7 +27,7 @@ const Notifications = ({
         {/* <!-- Notification badge --> */}
         <span
           aria-hidden="true"
-          className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
+          className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-green-600 border-2 border-white rounded-full dark:border-gray-800"
         ></span>
       </button>
       {isNotificationsMenuOpen && (
