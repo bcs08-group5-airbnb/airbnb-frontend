@@ -12,13 +12,13 @@ import {
   faBacon,
   faBlackboard,
   faCalendar,
+  faCircleArrowRight,
   faElevator,
   faHandsWash,
   faHeadset,
   faHeart,
   faKitchenSet,
   faParking,
-  faStar,
   faSwimmingPool,
   faTv,
   faUpload,
@@ -33,8 +33,9 @@ import { useSelector } from "react-redux";
 import CommentSection from "../components/Comment";
 import TextArea from "antd/es/input/TextArea";
 import { Comment } from "@ant-design/compatible";
-import { defaultNoAvatar } from "../constants/defaultValues";
-import { Home, Trophy, CalendarCheck2, Languages, ChevronRight } from "lucide-react";
+import { defaultNoAvatar, countryFormat } from "../constants/defaultValues";
+import { Home, Trophy, CalendarCheck2, Languages, Flag } from "lucide-react";
+import ShowRating from "../components/ShowRating";
 
 const customIcons = {
   1: <FrownOutlined />,
@@ -45,7 +46,7 @@ const customIcons = {
 };
 
 const chuNha = "Phong";
-
+const phiDichVu = 31;
 const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }) => (
   <>
     <Form.Item>
@@ -98,7 +99,7 @@ export default function RoomDetailPage() {
           ...roomResponse.data.content,
           tinhThanh: cityResponse.data.content.tinhThanh,
           quocGia: cityResponse.data.content.quocGia,
-          danhSachBinhLuan: commentListResponse.data.content.reverse(),
+          danhSachBinhLuan: commentListResponse.data.content,
         });
         const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
         if (commentListResponse.data.content.length === 0) {
@@ -183,22 +184,15 @@ export default function RoomDetailPage() {
       <h1 className='font-bold text-black text-3xl'>{room.tenPhong}</h1>
       <div className='grid grid-cols-1 md:flex justify-between items-center gap-6'>
         <div className='grid md:flex gap-x-6 gap-y-3'>
-          {room.danhSachBinhLuan.length > 0 && (
+          <div className='flex gap-x-6'>
+            {room.danhSachBinhLuan.length > 0 && (
+              <ShowRating trungBinhRating={trungBinhRating} binhLuanRef={binhLuanRef} ratingLength={room.danhSachBinhLuan.length} />
+            )}
             <span className='space-x-2'>
-              <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faStar} />
-              <span className='text-black font-bold'>{trungBinhRating} / 5</span>
-              <span
-                onClick={() => binhLuanRef.current.scrollIntoView({ behavior: "smooth" })}
-                className='underline cursor-pointer text-gray-600 hover:text-[#FF5A5F] duration-300'
-              >
-                ({room.danhSachBinhLuan.length}) đánh giá
-              </span>
+              <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faAward} />
+              <span className='text-gray-600'>Chủ nhà siêu cấp</span>
             </span>
-          )}
-          <span className='space-x-2'>
-            <FontAwesomeIcon className='w-4 h-4 text-[#FF5A5F]' icon={faAward} />
-            <span className='text-gray-600'>Chủ nhà siêu cấp</span>
-          </span>
+          </div>
           <Link
             className='underline cursor-pointer text-gray-600 hover:text-[#FF5A5F] duration-300'
             to={`/roombycity/${convertToSlug(room.tinhThanh)}`}
@@ -206,7 +200,7 @@ export default function RoomDetailPage() {
             {room.tinhThanh}, {room.quocGia}
           </Link>
         </div>
-        <div className='space-x-6'>
+        <div className='flex justify-between md:block space-x-6'>
           <span className='text-black hover:text-[#FF5A5F] duration-300 cursor-pointer space-x-2'>
             <FontAwesomeIcon className='w-4 h-4' icon={faUpload} />
             <span className='underline'>Chia sẻ</span>
@@ -230,8 +224,8 @@ export default function RoomDetailPage() {
           ))}
         </Swiper>
       </div>
-      <div className='grid grid-cols-1 md:flex gap-3'>
-        <div className='basis-9/12 space-y-6'>
+      <div className='grid grid-cols-1 lg:flex gap-3'>
+        <div className='basis-8/12 space-y-6'>
           <div className='flex items-center justify-between'>
             <div className='space-y-3'>
               <h1 className='font-bold text-black text-2xl'>Toàn bộ căn hộ. Chủ nhà {chuNha}</h1>
@@ -320,9 +314,9 @@ export default function RoomDetailPage() {
               Mọi đặt phòng đều được bảo vệ miễn phí trong trường hợp chủ nhà {chuNha} hủy, thông tin nhà/phòng cho thuê không chính xác và những vấn
               đề khác như sự cố trong quá trình nhận phòng.
             </p>
-            <p className='font-bold underline text-black flex cursor-pointer'>
-              <span>Tìm hiểu thêm</span>
-            </p>
+            <div>
+              <span className='font-bold underline text-black cursor-pointer'>Tìm hiểu thêm</span>
+            </div>
           </div>
           <div className='w-full h-px bg-gray-300 mb-6'></div>
           <div>
@@ -336,13 +330,52 @@ export default function RoomDetailPage() {
             and whole city view. You can easily access to attractions nearby: Beaches, temples, church, fresh seafood market, convenient stores,
             coffee shops, pharmacy, lighthouse, night market...
           </p>
-          <p className='font-bold underline text-black flex cursor-pointer'>
-            <span>Hiển thị thêm</span>
-            <ChevronRight />
-          </p>
+          <div>
+            <span className='font-bold underline text-black cursor-pointer space-x-2'>
+              <span>Hiển thị thêm</span>
+              <span>
+                <FontAwesomeIcon icon={faCircleArrowRight} />
+              </span>
+            </span>
+          </div>
           <div className='w-full h-px bg-gray-300 mb-6'></div>
         </div>
-        <div className='basis-3/12'>2</div>
+        <div className='basis-1/12 empty'></div>
+        <div className='basis-3/12 space-y-6 sticky w-full lg:h-[30px] top-28'>
+          <div className='p-6 rounded-lg border-2 border-gray-600 space-y-6'>
+            <div className='flex flex-wrap justify-between items-center gap-3'>
+              <div>
+                <span className='font-bold'>${room.giaTien.toLocaleString(countryFormat)}</span> / đêm
+              </div>
+              <div>
+                <ShowRating trungBinhRating={trungBinhRating} binhLuanRef={binhLuanRef} ratingLength={room.danhSachBinhLuan.length} />
+              </div>
+            </div>
+            <button onClick={() => {}} className='font-bold w-full text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-lg py-3 duration-300'>
+              Đặt phòng
+            </button>
+            <p className='text-center'>Bạn vẫn chưa bị trừ tiền</p>
+            <div className='flex justify-between items-center'>
+              <p className='underline'>
+                ${room.giaTien} x {1} đêm
+              </p>
+              <p className=''>${(room.giaTien * 1).toLocaleString(countryFormat)}</p>
+            </div>
+            <div className='flex justify-between items-center'>
+              <p className='underline'>Phí dịch vụ</p>
+              <p className=''>${phiDichVu.toLocaleString(countryFormat)}</p>
+            </div>
+            <div className='w-full h-px bg-gray-300 mb-6'></div>
+            <div className='flex justify-between items-center'>
+              <p className='font-bold'>Tổng</p>
+              <p className='font-bold'>${(room.giaTien + phiDichVu).toLocaleString(countryFormat)}</p>
+            </div>
+          </div>
+          <p className='flex justify-center items-center gap-3 cursor-pointer'>
+            <Flag className='w-3 h-3 text-gray-500' />
+            <span className='underline text-gray-500 font-bold text-sm'>Báo cáo phòng cho thuê này</span>
+          </p>
+        </div>
       </div>
       <div className='space-y-6'>
         <h1 className='font-bold text-black text-3xl'>Tiện nghi</h1>
@@ -368,7 +401,7 @@ export default function RoomDetailPage() {
               <span>
                 <FontAwesomeIcon className='w-5 h-5' icon={faTv} />
               </span>
-              <span>TV với truyền hình cáp tiêu chuẩn</span>
+              <span>Tivi</span>
             </div>
           )}
           {true && (
