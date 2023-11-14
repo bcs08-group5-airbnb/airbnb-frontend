@@ -292,7 +292,7 @@ export default function RoomDetailPage() {
                 <h1 className='text-sm font-bold'>Vệ sinh tăng cường</h1>
                 <p className='text-sm text-gray-600 text-justify space-x-1'>
                   <span>Chủ nhà này đã cam kết thực hiện quy trình vệ sinh tăng cường 5 bước của Airbnb.</span>
-                  <span className='font-bold underline text-black'>Hiển thị thêm</span>
+                  <span className='font-bold underline text-black cursor-pointer'>Hiển thị thêm</span>
                 </p>
               </div>
             </div>
