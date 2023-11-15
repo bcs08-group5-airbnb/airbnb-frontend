@@ -25,6 +25,9 @@ const LoginAdmin = () => {
       .then((res) => {
         const data = {
           ...res.data.content.user,
+          avatar: res.data.content.user.avatar
+            ? res.data.content.user.avatar
+            : `https://i.pravatar.cc/150?img=${Math.ceil(Math.random() * 59)}`,
           token: res.data.content.token,
         };
         if (data.role !== "ADMIN") {
