@@ -6,6 +6,7 @@ import { setLogin } from "../redux/userSlice";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { defaultNoAvatar } from "../constants/defaultValues";
+import SearchPlaces from "./SearchPlaces";
 
 export default function Header({ div2Ref }) {
   const [div2Visible, setDiv2Visible] = useState(true);
@@ -92,7 +93,7 @@ export default function Header({ div2Ref }) {
               className={`w-24 ${location.pathname === "/" && div2Visible && "grayscale invert brightness-0"} duration-300`}
             />
           </Link>
-          {location.pathname === "/" && (
+          {/* {location.pathname === "/" && (
             <ul className='hidden lg:flex justify-center items-center gap-x-12 grow w-full'>
               <li
                 className={`text-black cursor-pointer ${
@@ -131,7 +132,8 @@ export default function Header({ div2Ref }) {
                 ></div>
               </li>
             </ul>
-          )}
+          )} */}
+          <SearchPlaces />
           <div className='flex justify-end w-[50%]'>
             <div className='flex justify-between items-center gap-x-3'>
               <div

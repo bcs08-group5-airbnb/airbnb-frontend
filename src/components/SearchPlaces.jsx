@@ -1,51 +1,25 @@
-import { DatePicker, Form, Select } from "antd";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SearchPlaces() {
-  const [form] = Form.useForm();
-  const onFinishFailed = errorInfo => {
-    console.error("Failed:", errorInfo);
-  };
-  const onFinish = values => {
-    console.log(values);
-  };
   return (
-    <Form
-      form={form}
-      layout='vertical'
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete='off'
-      className='bg-black w-full h-auto rounded-full px-6 py-3 text-white grid grid-cols-4 gap-3'
-    >
-      <div>
-        <h1>Địa điểm</h1>
-        <Select className='w-full border-none border-transparent focus:shadow-transparent' placeholder='Chọn giới tính'>
-          <Select.Option value='male'>Nam</Select.Option>
-          <Select.Option value='female'>Nữ</Select.Option>
-        </Select>
-        <DatePicker className='w-full border-none border-transparent focus:shadow-transparent' />
+    <div className='bg-white w-1/2 rounded-full border-[1px] border-gray-300'>
+      <div className='flex'>
+        <div className='flex-1 p-3 flex justify-center items-center cursor-pointer'>
+          <p>Địa điểm bất kỳ</p>
+        </div>
+        <div className='my-4 border-l border-gray-400'></div>
+        <div className='flex-1 p-3 flex justify-center items-center cursor-pointer'>
+          <p>Tuần bất kỳ</p>
+        </div>
+        <div className='my-4 border-l border-gray-400'></div>
+        <div className='flex-1 p-3 flex justify-center items-center cursor-pointer group gap-3'>
+          <p>Thêm khách</p>
+          <div className='bg-[#FF5A5F] group-hover:bg-[#9e3e4e] duration-300 text-white rounded-full p-2 flex justify-center items-center'>
+            <FontAwesomeIcon className='h-3 w-3' icon={faSearch} />
+          </div>
+        </div>
       </div>
-      <div>
-        <h1>Nhận phòng</h1>
-        <Select className='w-full' placeholder='Chọn giới tính'>
-          <Select.Option value='male'>Nam</Select.Option>
-          <Select.Option value='female'>Nữ</Select.Option>
-        </Select>
-      </div>
-      <div>
-        <h1>Trả phòng</h1>
-        <Select className='w-full' placeholder='Chọn giới tính'>
-          <Select.Option value='male'>Nam</Select.Option>
-          <Select.Option value='female'>Nữ</Select.Option>
-        </Select>
-      </div>
-      <div>
-        <h1>Khách</h1>
-        <Select className='w-full' placeholder='Chọn giới tính'>
-          <Select.Option value='male'>Nam</Select.Option>
-          <Select.Option value='female'>Nữ</Select.Option>
-        </Select>
-      </div>
-    </Form>
+    </div>
   );
 }
