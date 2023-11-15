@@ -1,6 +1,8 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const DesktopSidebar = () => {
+  const { pathname } = useLocation();
   return (
     <aside className="admin-sidebar fixed z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
       <div className="py-4 text-gray-500 dark:text-gray-400">
@@ -13,13 +15,15 @@ const DesktopSidebar = () => {
         </a>
         <ul className="mt-6">
           <li className="relative px-6 py-3">
-            <span
-              className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"
-            ></span>
+            {pathname === "/admin" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <a
               className="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-              href="index.html"
+              href="/admin"
             >
               <svg
                 className="w-5 h-5"
@@ -39,9 +43,15 @@ const DesktopSidebar = () => {
         </ul>
         <ul>
           <li className="relative px-6 py-3">
+            {pathname === "/admin/user" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <a
               className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="forms.html"
+              href="/admin/user"
             >
               <svg
                 className="w-5 h-5"
@@ -55,7 +65,7 @@ const DesktopSidebar = () => {
               >
                 <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
               </svg>
-              <span className="ml-4">Forms</span>
+              <span className="ml-4">Người dùng</span>
             </a>
           </li>
           <li className="relative px-6 py-3">
