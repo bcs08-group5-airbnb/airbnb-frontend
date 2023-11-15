@@ -208,7 +208,7 @@ export default function RoomDetailPage() {
 
   const [submitting, setSubmitting] = useState(false);
   const [toEnglish, setToEnglish] = useState(true);
-  const [hienThiMoTa, setHienThiMoTa] = useState(true);
+  const [hienThiMoTa, setHienThiMoTa] = useState(false);
   const [value, setValue] = useState("");
   const [baoCao, setBaoCao] = useState("");
   const [rating, setRating] = useState(3);
