@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { addDays, differenceInDays } from "date-fns";
@@ -92,7 +93,9 @@ const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }
 );
 
 export default function RoomDetailPage() {
+  const navigate = useNavigate();
   const [openBookCalendar, setOpenBookCalendar] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [openReport, setOpenReport] = useState(false);
   const [hienThiVeSinh, setHienThiVeSinh] = useState(false);
   const [bookedRangeDates, setBookedRangeDates] = useState([
@@ -125,39 +128,52 @@ export default function RoomDetailPage() {
       });
     }, 1000);
   };
-  const handleBookHirePlace = () => {
-    if (
-      userBookedPlaces.some(
-        place =>
-          place.maPhong.toString() === roomId &&
-          isRangeOverlap(
-            new Date(bookedRangeDates[0].startDate),
-            new Date(bookedRangeDates[0].endDate),
-            new Date(place.ngayDen),
-            new Date(place.ngayDi),
-          ),
-      )
-    ) {
-      message.error("Lịch trình bị chồng chéo hoặc người khác đã đặt khung giờ này!");
+  const [loginRequireModal, setLoginRequireModal] = useState(false);
+  const handleConfirm = () => {
+    if (user?.id === undefined) {
+      setLoginRequireModal(true);
     } else {
-      httpsNoLoading
-        .post("/dat-phong", {
-          maPhong: roomId,
-          ngayDen: bookedRangeDates[0].startDate,
-          ngayDi: bookedRangeDates[0].endDate,
-          soLuongKhach: countOfVisitors,
-          maNguoiDung: user.id,
-        })
-        .then(res => {
-          notification.success({
-            message: res.data.message,
-          });
-          getBookedData();
-        })
-        .catch(err => {
-          message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
-        });
+      setShowConfirmModal(true);
     }
+  };
+  const handleBookHirePlace = () => {
+    if (user?.id === undefined) {
+      setLoginRequireModal(true);
+    } else {
+      if (
+        userBookedPlaces.some(
+          place =>
+            place.maPhong.toString() === roomId &&
+            isRangeOverlap(
+              new Date(bookedRangeDates[0].startDate),
+              new Date(bookedRangeDates[0].endDate),
+              new Date(place.ngayDen),
+              new Date(place.ngayDi),
+            ),
+        )
+      ) {
+        message.error("Lịch trình bị chồng chéo hoặc người khác đã đặt khung giờ này!");
+      } else {
+        httpsNoLoading
+          .post("/dat-phong", {
+            maPhong: roomId,
+            ngayDen: bookedRangeDates[0].startDate,
+            ngayDi: bookedRangeDates[0].endDate,
+            soLuongKhach: countOfVisitors,
+            maNguoiDung: user.id,
+          })
+          .then(res => {
+            notification.success({
+              message: res.data.message,
+            });
+            getBookedData();
+          })
+          .catch(err => {
+            message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
+          });
+      }
+    }
+    setShowConfirmModal(false);
   };
   const [trungBinhRating, setTrungBinhRating] = useState(0);
   const getBookedData = () => {
@@ -536,10 +552,7 @@ export default function RoomDetailPage() {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={handleBookHirePlace}
-                className='font-bold w-full text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-lg py-3 duration-300'
-              >
+              <button onClick={handleConfirm} className='font-bold w-full text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-lg py-3 duration-300'>
                 Đặt phòng
               </button>
               <p className='text-center'>Bạn vẫn chưa bị trừ tiền</p>
@@ -739,6 +752,7 @@ export default function RoomDetailPage() {
         )}
       </div>
       <Modal
+        title={`${totalNights.toLocaleString(countryFormat)} đêm`}
         okType='primary'
         cancelButtonProps={{ style: { display: "none" } }}
         okButtonProps={{ style: { display: "none" } }}
@@ -748,6 +762,37 @@ export default function RoomDetailPage() {
         centered
       >
         <BookCalendar bookedRangeDates={bookedRangeDates} setBookedRangeDates={setBookedRangeDates} />
+      </Modal>
+      <Modal
+        cancelButtonProps={{ style: { display: "none" } }}
+        title='Bạn chưa đăng nhập'
+        okType='primary'
+        className='!w-max'
+        open={loginRequireModal}
+        onCancel={() => setLoginRequireModal(false)}
+        onOk={() => navigate("/login")}
+        centered
+      >
+        Vui lòng đăng nhập để đặt phòng!
+      </Modal>
+      <Modal
+        cancelButtonProps={{ style: { display: "none" } }}
+        title='Xác nhận đặt phòng'
+        okType='primary'
+        className='!w-max'
+        open={showConfirmModal}
+        onCancel={() => setShowConfirmModal(false)}
+        onOk={handleBookHirePlace}
+        centered
+      >
+        <p>Bạn có chắc muốn đặt phòng #{roomId} này?</p>
+        <p>
+          Ngày sử dụng: {moment(bookedRangeDates[0].startDate).format("DD-MM-YYYY")} {"->"} {moment(bookedRangeDates[0].endDate).format("DD-MM-YYYY")}
+        </p>
+        <p>
+          Lượng khách: {countOfVisitors < 10 && "0"}
+          {countOfVisitors}
+        </p>
       </Modal>
       <Modal
         cancelButtonProps={{ style: { display: "none" } }}

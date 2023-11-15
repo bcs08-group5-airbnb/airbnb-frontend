@@ -1,6 +1,6 @@
 import { Dropdown, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { userLocalStorage } from "../api/localService";
 import { setLogin } from "../redux/userSlice";
 import { useEffect, useState } from "react";
@@ -28,7 +28,6 @@ export default function Header({ div2Ref }) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [div2Ref]);
-  const navigate = useNavigate();
   const { user } = useSelector(state => {
     return state.userSlice;
   });
@@ -37,7 +36,6 @@ export default function Header({ div2Ref }) {
     userLocalStorage.remove();
     dispatch(setLogin(null));
     message.success("Đăng xuất thành công!");
-    navigate("/");
   };
   const location = useLocation();
   const items = [
