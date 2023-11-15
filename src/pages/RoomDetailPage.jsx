@@ -33,7 +33,7 @@ import {
 import convertToSlug from "../utils/convertToSlug";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import { Avatar, Button, ConfigProvider, Form, Image, Modal, Rate, message } from "antd";
+import { Avatar, Button, ConfigProvider, Form, Image, Modal, Rate, message, notification } from "antd";
 import { useSelector } from "react-redux";
 import CommentSection from "../components/Comment";
 import TextArea from "antd/es/input/TextArea";
@@ -92,6 +92,8 @@ const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }
 
 export default function RoomDetailPage() {
   const [openBookCalendar, setOpenBookCalendar] = useState(false);
+  const [openReport, setOpenReport] = useState(false);
+  const [hienThiVeSinh, setHienThiVeSinh] = useState(false);
   const [bookedRangeDates, setBookedRangeDates] = useState([
     {
       startDate: new Date(),
@@ -110,6 +112,17 @@ export default function RoomDetailPage() {
   const { user } = useSelector(state => {
     return state.userSlice;
   });
+  const onSubmitReport = () => {
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setOpenReport(false);
+      setBaoCao("");
+      notification.success({
+        message: "Phản ánh thành công!",
+      });
+    }, 1000);
+  };
   const handleBookHirePlace = () => {
     httpsNoLoading
       .post("/dat-phong", {
@@ -120,7 +133,9 @@ export default function RoomDetailPage() {
         maNguoiDung: user.id,
       })
       .then(res => {
-        message.success(res.data.message);
+        notification.success({
+          message: res.data.message,
+        });
       })
       .catch(err => {
         message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
@@ -170,6 +185,7 @@ export default function RoomDetailPage() {
   const [toEnglish, setToEnglish] = useState(true);
   const [hienThiMoTa, setHienThiMoTa] = useState(true);
   const [value, setValue] = useState("");
+  const [baoCao, setBaoCao] = useState("");
   const [rating, setRating] = useState(3);
   const fetchCommentData = async () => {
     try {
@@ -346,8 +362,36 @@ export default function RoomDetailPage() {
                   <h1 className='text-sm font-bold'>Vệ sinh tăng cường</h1>
                   <p className='text-sm text-gray-600 text-justify space-x-1'>
                     <span>Chủ nhà này đã cam kết thực hiện quy trình vệ sinh tăng cường 5 bước của Airbnb.</span>
-                    <span className='font-bold underline text-black cursor-pointer'>Hiển thị thêm</span>
+                    {!hienThiVeSinh && (
+                      <span onClick={() => setHienThiVeSinh(true)} className='font-bold underline text-black cursor-pointer'>
+                        Hiển thị thêm
+                      </span>
+                    )}
                   </p>
+                  {hienThiVeSinh && (
+                    <ul className='text-sm text-gray-600'>
+                      <li>Bước 1: Chuẩn bị</li>
+                      <li>Bước 2: Làm sạch</li>
+                      <li>Bước 3: Sát trùng</li>
+                      <li>Bước 4: Kiểm tra</li>
+                      <li>Bước 5: Sửa soạn lại</li>
+                      <li>
+                        Xem thêm:{" "}
+                        <a
+                          href='https://www.airbnb.com.vn/help/article/2809'
+                          target='blank'
+                          className='font-bold underline text-black cursor-pointer'
+                        >
+                          Bài viết
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                  {hienThiVeSinh && (
+                    <span onClick={() => setHienThiVeSinh(false)} className='text-sm font-bold underline text-black cursor-pointer'>
+                      Ẩn bớt
+                    </span>
+                  )}
                 </div>
               </div>
               <div className='flex gap-3'>
@@ -375,7 +419,7 @@ export default function RoomDetailPage() {
                 vấn đề khác như sự cố trong quá trình nhận phòng.
               </p>
               <div>
-                <a href='https://www.airbnb.com/help/article/3218' target='blank' className='font-bold underline text-black cursor-pointer'>
+                <a href='https://www.airbnb.com.vn/help/article/3218' target='blank' className='font-bold underline text-black cursor-pointer'>
                   Tìm hiểu thêm
                 </a>
               </div>
@@ -492,7 +536,9 @@ export default function RoomDetailPage() {
             </div>
             <p className='flex justify-center items-center gap-3 cursor-pointer'>
               <Flag className='w-3 h-3 text-gray-500' />
-              <span className='underline text-gray-500 font-bold text-sm'>Báo cáo phòng cho thuê này</span>
+              <span onClick={() => setOpenReport(true)} className='underline text-gray-500 font-bold text-sm'>
+                Báo cáo phòng cho thuê này
+              </span>
             </p>
           </div>
         </div>
@@ -677,6 +723,34 @@ export default function RoomDetailPage() {
         centered
       >
         <BookCalendar bookedRangeDates={bookedRangeDates} setBookedRangeDates={setBookedRangeDates} />
+      </Modal>
+      <Modal
+        cancelButtonProps={{ style: { display: "none" } }}
+        okButtonProps={{ style: { display: "none" } }}
+        title='Báo cáo dịch vụ thuê (tên được bảo mật)'
+        okType='primary'
+        open={openReport}
+        onCancel={() => setOpenReport(false)}
+        centered
+      >
+        <Form.Item>
+          <TextArea
+            rows={4}
+            style={{
+              resize: "none",
+            }}
+            value={baoCao}
+            onChange={e => setBaoCao(e.target.value)}
+            placeholder='Viết báo cáo...'
+          />
+        </Form.Item>
+        <Form.Item>
+          <div className='flex justify-end'>
+            <Button disabled={!baoCao} right htmlType='submit' loading={submitting} onClick={onSubmitReport} type='primary'>
+              Gửi
+            </Button>
+          </div>
+        </Form.Item>
       </Modal>
     </>
   );
