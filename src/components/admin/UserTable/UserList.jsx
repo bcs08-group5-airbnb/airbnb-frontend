@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 const UserList = () => {
   const { pathname } = useLocation();
 
-  const [userFrom, setUserForm] = useState(1);
+  let [userFrom, setUserForm] = useState(1);
 
   const [users, setUsers] = useState(null);
 
@@ -27,6 +27,18 @@ const UserList = () => {
   const selectPagination = (number) => {
     setUserForm(number);
   };
+
+  const selectPaginationNextPrev = (number) => {
+    if (
+      (userFrom === 1 && number === -1) ||
+      (userFrom === Math.ceil(users?.length / 10) && number === 1)
+    ) {
+      return null;
+    }
+    const num = (userFrom += number);
+    setUserForm(num);
+  };
+
   return (
     <div className="w-full overflow-hidden rounded-lg shadow-xs">
       <div className="w-full overflow-x-auto">
@@ -66,6 +78,7 @@ const UserList = () => {
             userFrom={userFrom}
             users={users}
             selectPagination={selectPagination}
+            selectPaginationNextPrev={selectPaginationNextPrev}
           />
         )}
       </div>

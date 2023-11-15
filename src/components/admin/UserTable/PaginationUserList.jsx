@@ -1,6 +1,11 @@
 import React from "react";
 
-const PaginationUserList = ({ users, userFrom, selectPagination }) => {
+const PaginationUserList = ({
+  users,
+  userFrom,
+  selectPagination,
+  selectPaginationNextPrev,
+}) => {
   let totalPagination = Math.ceil(users?.length / 10);
 
   const renderPagination = () => {
@@ -10,29 +15,9 @@ const PaginationUserList = ({ users, userFrom, selectPagination }) => {
         continue;
       }
       array.push(i);
-      // if (i === userFrom) {
-      //   string.push(
-      //     <li>
-      //       <button class="px-3 py-1 text-white transition-colors duration-150 bg-primary border border-r-0 border-primary rounded-md focus:outline-none focus:shadow-outline-purple">
-      //         {i}
-      //       </button>
-      //     </li>
-      //   );
-      // } else {
-      //   string.push(
-      //     <li>
-      //       <button
-      //         className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-      //         onClick={() => selectPagination(i)}
-      //       >
-      //         {i}
-      //       </button>
-      //     </li>
-      //   );
-      // }
     }
 
-    return array.map((item) => {
+    return array.map((item, index) => {
       if (item === userFrom) {
         return (
           <li key={item}>
@@ -41,18 +26,25 @@ const PaginationUserList = ({ users, userFrom, selectPagination }) => {
             </button>
           </li>
         );
-      } else {
+      }
+      if (array[index] - array[index - 1] > 1) {
         return (
-          <li key={item}>
-            <button
-              className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-              onClick={() => selectPagination(item)}
-            >
-              {item}
-            </button>
+          <li key="00">
+            <span className="px-3 py-1">...</span>
           </li>
         );
       }
+
+      return (
+        <li key={item}>
+          <button
+            className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+            onClick={() => selectPagination(item)}
+          >
+            {item}
+          </button>
+        </li>
+      );
     });
   };
 
@@ -64,6 +56,7 @@ const PaginationUserList = ({ users, userFrom, selectPagination }) => {
             <button
               className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
               aria-label="Previous"
+              onClick={() => selectPaginationNextPrev(-1)}
             >
               <svg
                 aria-hidden="true"
@@ -83,6 +76,7 @@ const PaginationUserList = ({ users, userFrom, selectPagination }) => {
             <button
               className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
               aria-label="Next"
+              onClick={() => selectPaginationNextPrev(1)}
             >
               <svg
                 className="w-4 h-4 fill-current"
