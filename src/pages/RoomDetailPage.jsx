@@ -43,6 +43,7 @@ import { Home, Trophy, CalendarCheck2, Languages, Flag } from "lucide-react";
 import ShowRating from "../components/ShowRating";
 import { DateRangePicker } from "react-date-range";
 import moment from "moment";
+import { isRangeOverlap } from "range-overlap";
 
 const BookCalendar = ({ bookedRangeDates, setBookedRangeDates }) => (
   <DateRangePicker
@@ -104,6 +105,7 @@ export default function RoomDetailPage() {
   const totalNights = useMemo(() => differenceInDays(bookedRangeDates[0].endDate, bookedRangeDates[0].startDate), [bookedRangeDates]);
   const binhLuanRef = useRef(null);
   const [save, setSave] = useState(false);
+  const [userBookedPlaces, setUserBookedPlaces] = useState([]);
   const { roomId } = useParams();
   const [room, setRoom] = useState(null);
   const [error, setError] = useState(null);
@@ -124,24 +126,53 @@ export default function RoomDetailPage() {
     }, 1000);
   };
   const handleBookHirePlace = () => {
-    httpsNoLoading
-      .post("/dat-phong", {
-        maPhong: roomId,
-        ngayDen: bookedRangeDates[0].startDate,
-        ngayDi: bookedRangeDates[0].endDate,
-        soLuongKhach: countOfVisitors,
-        maNguoiDung: user.id,
-      })
-      .then(res => {
-        notification.success({
-          message: res.data.message,
+    if (
+      userBookedPlaces.some(
+        place =>
+          place.maPhong.toString() === roomId &&
+          isRangeOverlap(
+            new Date(bookedRangeDates[0].startDate),
+            new Date(bookedRangeDates[0].endDate),
+            new Date(place.ngayDen),
+            new Date(place.ngayDi),
+          ),
+      )
+    ) {
+      message.error("Lịch trình bị chồng chéo hoặc người khác đã đặt khung giờ này!");
+    } else {
+      httpsNoLoading
+        .post("/dat-phong", {
+          maPhong: roomId,
+          ngayDen: bookedRangeDates[0].startDate,
+          ngayDi: bookedRangeDates[0].endDate,
+          soLuongKhach: countOfVisitors,
+          maNguoiDung: user.id,
+        })
+        .then(res => {
+          notification.success({
+            message: res.data.message,
+          });
+          getBookedData();
+        })
+        .catch(err => {
+          message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
         });
-      })
-      .catch(err => {
-        message.error(err.response.data.content.replace(/^\w/, c => c.toUpperCase()));
-      });
+    }
   };
   const [trungBinhRating, setTrungBinhRating] = useState(0);
+  const getBookedData = () => {
+    httpsNoLoading
+      .get(`dat-phong`)
+      .then(res => {
+        setUserBookedPlaces(res.data.content);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+  useEffect(() => {
+    getBookedData();
+  }, []);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -154,12 +185,6 @@ export default function RoomDetailPage() {
           tinhThanh: cityResponse.data.content.tinhThanh,
           quocGia: cityResponse.data.content.quocGia,
           danhSachBinhLuan: commentListResponse.data.content.reverse(),
-        });
-        console.log({
-          ...roomResponse.data.content,
-          tinhThanh: cityResponse.data.content.tinhThanh,
-          quocGia: cityResponse.data.content.quocGia,
-          danhSachBinhLuan: commentListResponse.data.content,
         });
         const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
         if (commentListResponse.data.content.length === 0) {
@@ -448,7 +473,7 @@ export default function RoomDetailPage() {
             <div className='w-full h-px bg-gray-300 mb-6'></div>
           </div>
           <div className='basis-1/12 empty'></div>
-          <div className='basis-4/12 space-y-6 sticky w-full lg:h-[250px] top-28'>
+          <div className='basis-4/12 space-y-6 sticky w-full lg:h-[350px] top-28'>
             <div className='p-6 rounded-lg border-2 border-gray-300 space-y-6 shadow-xl'>
               <div className='flex flex-wrap justify-between items-center gap-3'>
                 <div>
@@ -582,7 +607,7 @@ export default function RoomDetailPage() {
                 <span>
                   <FontAwesomeIcon className='w-5 h-5' icon={faAirFreshener} />
                 </span>
-                <span>Điều hòa nhiệt độ</span>
+                <span>Điều hòa</span>
               </div>
             )}
             {true && (
@@ -598,7 +623,7 @@ export default function RoomDetailPage() {
                 <span>
                   <FontAwesomeIcon className='w-5 h-5' icon={faHeadset} />
                 </span>
-                <span>Lò sưởi trong nhà</span>
+                <span>Lò sưởi</span>
               </div>
             )}
             {true && (
@@ -727,7 +752,7 @@ export default function RoomDetailPage() {
       <Modal
         cancelButtonProps={{ style: { display: "none" } }}
         okButtonProps={{ style: { display: "none" } }}
-        title='Báo cáo dịch vụ thuê (tên được bảo mật)'
+        title='Báo cáo dịch vụ cho thuê (tên được bảo mật)'
         okType='primary'
         open={openReport}
         onCancel={() => setOpenReport(false)}

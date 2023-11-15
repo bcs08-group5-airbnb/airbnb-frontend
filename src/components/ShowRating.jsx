@@ -18,7 +18,7 @@ export default function ShowRating({ trungBinhRating, binhLuanRef, ratingLength 
 }
 
 ShowRating.propTypes = {
-  trungBinhRating: PropTypes.number,
+  trungBinhRating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   binhLuanRef: PropTypes.object,
   ratingLength: PropTypes.number,
 };

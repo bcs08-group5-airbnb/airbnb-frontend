@@ -96,15 +96,11 @@ export default function UserPage() {
 
         Promise.all(promises)
           .then(roomResponses => {
-            // Extract room data from roomResponses
             const roomsData = roomResponses.map(response => response.data.content);
-
-            // Map room data and perform additional mapping
             const transformedPromises = roomsData.map(room => {
               return httpsNoLoading
                 .get(`/vi-tri/${room.maViTri}`)
                 .then(res => {
-                  // Map the room data with additional tinhThanh property
                   return {
                     ...room,
                     tinhThanh: res.data.content.tinhThanh,
@@ -115,11 +111,8 @@ export default function UserPage() {
                 })
                 .catch(err => console.error(err));
             });
-
-            // Wait for all the additional mapping promises to complete
             Promise.all(transformedPromises)
               .then(transformedData => {
-                // Update the state with the final transformed data
                 setUserBookedPlaces(transformedData);
               })
               .catch(err => {

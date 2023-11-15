@@ -25,6 +25,7 @@
     "lucide-react": "^0.292.0",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
+    "range-overlap": "^1.0.0",
     "react": "^18.2.0",
     "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",

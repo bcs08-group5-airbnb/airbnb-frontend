@@ -61,7 +61,7 @@ export default function ListRooms({ item, cityNoSlug }) {
                 </p>
               </div>
               <div className='text-right mt-12'>
-                <span className='font-bold'>$ {item.giaTien.toLocaleString(countryFormat)}</span> / tháng
+                <span className='font-bold'>$ {item.giaTien.toLocaleString(countryFormat)}</span> / đêm
               </div>
             </div>
           </div>
