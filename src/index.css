@@ -11,7 +11,13 @@ body {
 }
 
 .ant-btn-primary {
-  background-color: blue;
+  background-color: #ff5a5f;
+  transition-duration: 300ms;
+}
+
+.ant-btn-primary:hover {
+  background-color: #9e3e4e !important;
+  transition-duration: 300ms;
 }
 
 .ant-image-mask {

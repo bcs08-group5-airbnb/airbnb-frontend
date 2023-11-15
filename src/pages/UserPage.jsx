@@ -114,6 +114,7 @@ export default function UserPage() {
             Promise.all(transformedPromises)
               .then(transformedData => {
                 setUserBookedPlaces(transformedData);
+                console.log(transformedData);
               })
               .catch(err => {
                 console.error(err);
@@ -329,8 +330,10 @@ export default function UserPage() {
                 <ListRooms key={index} item={item} cityNoSlug={item.tinhThanh} />
               ))}
             </div>
+          ) : userBookedPlaces.length === 0 ? (
+            <p>Bạn chưa đặt phòng nào.</p>
           ) : (
-            <p>Bạn chưa đặt phòng nào? Đang tải...</p>
+            <p>Đang tải...</p>
           )}
         </div>
       </div>

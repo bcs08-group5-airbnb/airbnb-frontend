@@ -529,7 +529,7 @@ export default function RoomDetailPage() {
                             setCountOfVisitors(countOfVisitors - 1);
                           }
                         }}
-                        className='font-bold w-9 h-9 text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-full duration-300 flex items-center justify-center'
+                        className='font-bold w-9 h-9 text-white bg-[#FF5A5F] hover:bg-[#9e3e4e] rounded-full duration-300 flex items-center justify-center'
                       >
                         <div>–</div>
                       </button>
@@ -544,7 +544,7 @@ export default function RoomDetailPage() {
                             setCountOfVisitors(countOfVisitors + 1);
                           }
                         }}
-                        className='font-bold w-9 h-9 text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-full duration-300 flex items-center justify-center'
+                        className='font-bold w-9 h-9 text-white bg-[#FF5A5F] hover:bg-[#9e3e4e] rounded-full duration-300 flex items-center justify-center'
                       >
                         <div>+</div>
                       </button>
@@ -552,7 +552,7 @@ export default function RoomDetailPage() {
                   </div>
                 </div>
               </div>
-              <button onClick={handleConfirm} className='font-bold w-full text-white bg-[#ff3858] hover:bg-[#FF5A5F] rounded-lg py-3 duration-300'>
+              <button onClick={handleConfirm} className='font-bold w-full text-white bg-[#FF5A5F] hover:bg-[#9e3e4e] rounded-lg py-3 duration-300'>
                 Đặt phòng
               </button>
               <p className='text-center'>Bạn vẫn chưa bị trừ tiền</p>

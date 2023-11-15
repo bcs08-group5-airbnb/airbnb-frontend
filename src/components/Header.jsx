@@ -1,6 +1,6 @@
 import { Dropdown, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userLocalStorage } from "../api/localService";
 import { setLogin } from "../redux/userSlice";
 import { useEffect, useState } from "react";
@@ -32,10 +32,15 @@ export default function Header({ div2Ref }) {
     return state.userSlice;
   });
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const handleLogout = () => {
     userLocalStorage.remove();
     dispatch(setLogin(null));
     message.success("Đăng xuất thành công!");
+    if (pathname === "/personal-info") {
+      navigate("/");
+    }
   };
   const location = useLocation();
   const items = [

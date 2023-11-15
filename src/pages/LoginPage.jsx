@@ -20,7 +20,7 @@ export default function LoginPage() {
         dispatch(setLogin({ ...data }));
         userLocalStorage.set({ ...data });
         message.success("Đăng nhập thành công!");
-        navigate(-1);
+        navigate("/");
       })
       .catch(err => {
         message.error(err.response.data.content);
