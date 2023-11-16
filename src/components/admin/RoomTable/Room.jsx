@@ -1,20 +1,8 @@
 import React from "react";
+import PopupRoomPhoto from "./PopupRoomPhoto";
+import PopupRoomInfo from "./PopupRoomInfo";
 
-const User = ({ user, index }) => {
-  let DOB = user.birthday;
-  let showBirthday = "";
-  if (DOB.length < 9) {
-    showBirthday = "Invalid Date";
-  } else {
-    if (DOB !== "Invalid Date") {
-      showBirthday = DOB.slice(0, 9)
-        ?.replaceAll("-", "/")
-        ?.replaceAll(".", "/");
-    } else {
-      showBirthday = DOB;
-    }
-  }
-
+const Room = ({ room, index }) => {
   const status = [
     <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
       Approved
@@ -31,35 +19,23 @@ const User = ({ user, index }) => {
   ];
 
   return (
-    <tr className="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600">
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          {/* <!-- Avatar with inset shadow --> */}
-          <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-            <img
-              className="object-cover w-full h-full rounded-full"
-              src={user.avatar}
-              alt="avatar"
-              loading="lazy"
-            />
-            <div
-              className="absolute inset-0 rounded-full shadow-inner"
-              aria-hidden="true"
-            ></div>
-          </div>
-          <div>
-            <p className="font-semibold">{user.name}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400">
-              {user.role}
-            </p>
-          </div>
+    <tr className="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 relative cursor-pointer group">
+      <td className="px-4 py-3 text-sm">{room.id}</td>
+      <td className="px-4 py-3 text-sm ">{room.tenPhong}</td>
+
+      <td className="px-4 py-3 text-sm">
+        {room.giaTien} <b>$</b>
+      </td>
+      <td className="px-4 py-3 text-sm">
+        <div className="w-[20px] h-[20px] leading-[20px] rounded-full text-center font-bold bg-primary text-white relative cursor-pointer group/item">
+          !
+          <PopupRoomInfo room={room} index={index} />
         </div>
       </td>
-      <td className="px-4 py-3 text-sm">$ 863.45</td>
+
       <td className="px-4 py-3 text-xs">
         {status[Math.floor(Math.random() * 4)]}
       </td>
-      <td className="px-4 py-3 text-sm">{showBirthday}</td>
       <td className="px-4 py-3">
         <div className="flex items-center space-x-4 text-sm">
           <button
@@ -94,8 +70,9 @@ const User = ({ user, index }) => {
           </button>
         </div>
       </td>
+      <PopupRoomPhoto photo={room.hinhAnh} index={index} />
     </tr>
   );
 };
 
-export default User;
+export default Room;

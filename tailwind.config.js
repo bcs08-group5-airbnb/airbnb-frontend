@@ -6,6 +6,7 @@ export default {
       colors: {
         primary: "#ff595f",
         "primary-dark": "#f15359",
+        "bg-popup": "rgba(230, 230, 230, 1)",
       },
     },
   },

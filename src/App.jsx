@@ -14,6 +14,7 @@ import RegisterAdmin from "./pages/Admin/RegisterAdmin/RegisterAdmin";
 import ForgetPassword from "./pages/Admin/ForgetPassword/ForgetPassword";
 import AdminLayout from "./layouts/AdminLayout";
 import UserAdminPage from "./pages/Admin/User/UserAdminPage";
+import RoomAdminPage from "./pages/Admin/Room/RoomAdminPage";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="user" element={<UserAdminPage />} />
+            <Route path="room" element={<RoomAdminPage />} />
             <Route path="login" element={<LoginAdmin />} />
             <Route path="register" element={<RegisterAdmin />} />
             <Route path="forgot-password" element={<ForgetPassword />} />

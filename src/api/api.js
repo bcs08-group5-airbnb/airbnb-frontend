@@ -5,3 +5,7 @@ export const userServ = {
   signup: (values) => httpsNoLoading.post("/auth/signup", values),
   getAllUsers: () => httpsAdmin.get("/users"),
 };
+
+export const roomServ = {
+  getAllRooms: () => httpsAdmin.get("/phong-thue"),
+};
