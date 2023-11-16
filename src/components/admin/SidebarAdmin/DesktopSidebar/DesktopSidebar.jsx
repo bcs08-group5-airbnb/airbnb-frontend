@@ -22,7 +22,11 @@ const DesktopSidebar = () => {
               ></span>
             )}
             <a
-              className="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+              className={`inline-flex items-center w-full text-sm font-semibold ${
+                pathname === "/admin"
+                  ? "text-gray-800 dark:text-gray-200"
+                  : "dark:text-gray-400"
+              }  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 `}
               href="/admin"
             >
               <svg
@@ -50,7 +54,11 @@ const DesktopSidebar = () => {
               ></span>
             )}
             <a
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm ${
+                pathname === "/admin/user"
+                  ? "text-gray-800 dark:text-gray-200"
+                  : "dark:text-gray-400"
+              } font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 `}
               href="/admin/user"
             >
               <svg
@@ -76,7 +84,11 @@ const DesktopSidebar = () => {
               ></span>
             )}
             <a
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full ${
+                pathname === "/admin/room"
+                  ? "text-gray-800 dark:text-gray-200"
+                  : "dark:text-gray-400"
+              } text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 `}
               href="/admin/room"
             >
               <svg
