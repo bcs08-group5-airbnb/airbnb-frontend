@@ -79,11 +79,12 @@ export default function UserPage() {
   useEffect(() => {
     fetchUser(id);
   }, [id]);
-  const [userBookedPlaces, setUserBookedPlaces] = useState([]);
+  const [userBookedPlaces, setUserBookedPlaces] = useState(null);
   useEffect(() => {
     let ngayDen = "";
     let ngayDi = "";
     let soLuongKhach = "";
+
     httpsNoLoading
       .get(`dat-phong/lay-theo-nguoi-dung/${id}`)
       .then(userBookedPlacesResponse => {
@@ -91,12 +92,18 @@ export default function UserPage() {
           ngayDen = item.ngayDen;
           ngayDi = item.ngayDi;
           soLuongKhach = item.soLuongKhach;
-          return httpsNoLoading.get(`phong-thue/${item.maPhong}`);
+          return httpsNoLoading.get(`phong-thue/${item.maPhong}`).catch(err => {
+            // Handle error when a room is not found (possibly deleted)
+            console.error(`Error fetching room: ${err.message}`);
+            return null; // Return null to be filtered out later
+          });
         });
 
         Promise.all(promises)
           .then(roomResponses => {
-            const roomsData = roomResponses.map(response => response.data.content);
+            const validRoomResponses = roomResponses.filter(response => response !== null);
+
+            const roomsData = validRoomResponses.map(response => response.data.content);
             const transformedPromises = roomsData.map(room => {
               return httpsNoLoading
                 .get(`/vi-tri/${room.maViTri}`)
@@ -109,12 +116,14 @@ export default function UserPage() {
                     soLuongKhach,
                   };
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                  console.error(err);
+                });
             });
+
             Promise.all(transformedPromises)
               .then(transformedData => {
                 setUserBookedPlaces(transformedData);
-                console.log(transformedData);
               })
               .catch(err => {
                 console.error(err);
@@ -324,16 +333,16 @@ export default function UserPage() {
             </ModalForm>
           </ConfigProvider>
           <h1 className='font-bold text-2xl'>Phòng đã thuê</h1>
-          {userBookedPlaces !== null && userBookedPlaces.length > 0 ? (
+          {userBookedPlaces === null ? (
+            <p>Đang tải...</p>
+          ) : userBookedPlaces.length === 0 ? (
+            <p>Bạn chưa đặt phòng nào.</p>
+          ) : (
             <div className='space-y-6'>
               {userBookedPlaces.map((item, index) => (
                 <ListRooms key={index} item={item} cityNoSlug={item.tinhThanh} />
               ))}
             </div>
-          ) : userBookedPlaces.length === 0 ? (
-            <p>Bạn chưa đặt phòng nào.</p>
-          ) : (
-            <p>Đang tải...</p>
           )}
         </div>
       </div>

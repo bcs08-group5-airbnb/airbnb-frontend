@@ -82,7 +82,7 @@ export default function HomePage() {
     <div className='bg-black'>
       <Header div2Ref={div2Ref} />
       <div ref={div2Ref} className='bg-black px-12 h-[calc(100vh-64px)] lg:h-[calc(100vh-48px-64px)] flex justify-center items-center'>
-        <div className='space-y-28 lg:space-y-3'>
+        <div className='space-y-28 lg:space-y-6'>
           <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
           <p className='text-center text-white font-bold text-3xl'>Nhờ có Host, mọi điều đều có thể</p>
           <div className='flex justify-center items-center'>
