@@ -1,4 +1,5 @@
 import boopSfx from "../assets/sounds/iphone-notification-fx.mp3";
+import errSfx from "../assets/sounds/Error.mp3";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -98,14 +99,15 @@ const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }
 export default function RoomDetailPage() {
   const navigate = useNavigate();
   const [play] = useSound(boopSfx);
+  const [errSound] = useSound(errSfx);
   const [openBookCalendar, setOpenBookCalendar] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [openReport, setOpenReport] = useState(false);
   const [hienThiVeSinh, setHienThiVeSinh] = useState(false);
   const [bookedRangeDates, setBookedRangeDates] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: addDays(new Date(), 1),
+      endDate: addDays(new Date(), 8),
       key: "selection",
     },
   ]);
@@ -155,9 +157,16 @@ export default function RoomDetailPage() {
               new Date(place.ngayDen),
               new Date(place.ngayDi),
             ),
-        )
+        ) ||
+        new Date(bookedRangeDates[0].startDate) < new Date() ||
+        new Date(bookedRangeDates[0].endDate) < new Date()
       ) {
-        message.error("Lịch trình bị chồng chéo hoặc người khác đã đặt khung giờ này!");
+        message.error(
+          new Date(bookedRangeDates[0].startDate) < new Date() || new Date(bookedRangeDates[0].endDate) < new Date()
+            ? "Vui lòng không chọn thời gian quá khứ hoặc hôm nay!"
+            : "Lịch trình bị chồng chéo hoặc người khác đã đặt khung giờ này!",
+        );
+        errSound();
       } else {
         httpsNoLoading
           .post("/dat-phong", {
