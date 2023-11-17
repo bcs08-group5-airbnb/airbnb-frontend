@@ -51,11 +51,16 @@ export default function Comment({ item }) {
             </span>
           </p>
           <p className='text-gray-600'>
-            {convertDateTimeFormat(item.ngayBinhLuan) === null
+            {/* {convertDateTimeFormat(item.ngayBinhLuan) === null
               ? "ngày 01 tháng 10 năm 2023"
-              : `ngày ${moment(item.ngayBinhLuan).format("DD")} tháng ${moment(item.ngayBinhLuan).format("MM")} năm ${moment(
-                  item.ngayBinhLuan,
-                ).format("YYYY")}`}
+              : `ngày ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format("DD")} tháng ${moment(
+                  convertDateTimeFormat(item.ngayBinhLuan),
+                ).format("MM")} năm ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format("YYYY")}`} */}
+            {convertDateTimeFormat(item.ngayBinhLuan) === null
+              ? "tháng 10 năm 2023"
+              : `tháng ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format("MM")} năm ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format(
+                  "YYYY",
+                )}`}
           </p>
         </div>
       </div>
