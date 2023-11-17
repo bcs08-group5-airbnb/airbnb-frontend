@@ -35,7 +35,8 @@
     "react-remove-scroll-bar": "^2.3.4",
     "react-router-dom": "^6.17.0",
     "react-spinners": "^0.13.8",
-    "swiper": "^11.0.3"
+    "swiper": "^11.0.3",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

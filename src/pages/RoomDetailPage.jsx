@@ -1,6 +1,8 @@
+import boopSfx from "../assets/sounds/iphone-notification-fx.mp3";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import "swiper/css/autoplay";
 import { addDays, differenceInDays } from "date-fns";
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -33,7 +35,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import convertToSlug from "../utils/convertToSlug";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import { Avatar, Button, ConfigProvider, Form, Image, Modal, Rate, message, notification } from "antd";
 import { useSelector } from "react-redux";
 import CommentSection from "../components/CommentSection";
@@ -45,6 +47,7 @@ import ShowRating from "../components/ShowRating";
 import { DateRangePicker } from "react-date-range";
 import moment from "moment";
 import { isRangeOverlap } from "range-overlap";
+import useSound from "use-sound";
 
 const BookCalendar = ({ bookedRangeDates, setBookedRangeDates }) => (
   <DateRangePicker
@@ -94,6 +97,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, rateNum, onRateChange }
 
 export default function RoomDetailPage() {
   const navigate = useNavigate();
+  const [play] = useSound(boopSfx);
   const [openBookCalendar, setOpenBookCalendar] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [openReport, setOpenReport] = useState(false);
@@ -126,6 +130,7 @@ export default function RoomDetailPage() {
       notification.success({
         message: "Phản ánh thành công!",
       });
+      play();
     }, 1000);
   };
   const [loginRequireModal, setLoginRequireModal] = useState(false);
@@ -260,6 +265,7 @@ export default function RoomDetailPage() {
         )
         .then(() => {
           message.success("Bình luận đã được gửi đi!");
+          play();
           fetchCommentData();
         })
         .catch(err => {
@@ -309,7 +315,13 @@ export default function RoomDetailPage() {
             </Link>
           </div>
           <div className='flex justify-between md:block space-x-6'>
-            <span onClick={() => message.success("Đã chia sẻ!")} className='text-black hover:text-[#FF5A5F] duration-300 cursor-pointer space-x-2'>
+            <span
+              onClick={() => {
+                message.success("Đã chia sẻ!");
+                play();
+              }}
+              className='text-black hover:text-[#FF5A5F] duration-300 cursor-pointer space-x-2'
+            >
               <FontAwesomeIcon className='w-4 h-4' icon={faUpload} />
               <span className='underline'>Chia sẻ</span>
             </span>
@@ -317,6 +329,7 @@ export default function RoomDetailPage() {
               onClick={() => {
                 setSave(!save);
                 message.success(`Đã ${save ? "hủy" : ""} lưu`);
+                play();
               }}
               className='text-black hover:text-[#FF5A5F] duration-300 cursor-pointer space-x-2'
             >
@@ -326,7 +339,18 @@ export default function RoomDetailPage() {
           </div>
         </div>
         <div className='w-full'>
-          <Swiper slidesPerView={1} spaceBetween={0} loop={true} modules={[Pagination]} pagination={true} className='mySwiper mx-auto rounded-lg'>
+          <Swiper
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+            }}
+            slidesPerView={1}
+            spaceBetween={0}
+            loop={true}
+            modules={[Pagination, Autoplay]}
+            pagination={true}
+            className='mySwiper mx-auto rounded-lg'
+          >
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index}>
                 <div className='w-full cursor-pointer'>
