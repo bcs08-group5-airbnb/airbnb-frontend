@@ -1,3 +1,5 @@
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { httpsNoLoading } from "../api/config";
@@ -6,6 +8,7 @@ import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import convertToSlug from "../utils/convertToSlug";
 import ListRooms from "../components/ListRooms";
+import Loading from "../components/Loading";
 
 export default function CityPage() {
   const [cityId, setCityId] = useState(null);
@@ -37,13 +40,12 @@ export default function CityPage() {
         });
     }
   }, [cityId]);
-  if (phongThue === null)
-    return (
-      <div className='flex w-screen h-screen justify-center items-center'>
-        <img src='https://demo4.cybersoft.edu.vn/static/media/loading.385774bd589cf582d0f4.gif' alt='loading gif' />
-      </div>
-    );
   const filter = ["Loại nơi ở", "Giá", "Đặt ngay", "Phòng và phòng ngủ", "Bộ lọc khác"];
+  const [mapMounted, setMapMounted] = useState(false);
+  const handleLoadMap = () => {
+    setMapMounted(true);
+  };
+  if (phongThue === null) return <Loading />;
   return (
     <>
       <Header />
@@ -73,9 +75,11 @@ export default function CityPage() {
             width='100%'
             height='550px'
             allowFullScreen=''
-            loading='lazy'
             referrerPolicy='no-referrer-when-downgrade'
+            onLoad={() => handleLoadMap()}
+            className={`${mapMounted ? "block" : "hidden"} rounded-lg`}
           ></iframe>
+          {!mapMounted && <Skeleton height={550} className='rounded-lg' />}
         </div>
       </div>
       <FooterFixed />

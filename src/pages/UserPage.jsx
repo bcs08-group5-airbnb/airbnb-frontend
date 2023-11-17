@@ -1,3 +1,5 @@
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import viVN from "antd/locale/vi_VN";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,6 +26,21 @@ const waitTime = (time = 100) => {
 const onImageError = e => {
   e.target.src = noImageAvaiable;
 };
+
+const LoadingUserPlaces = () => (
+  <div className='flex grid-cols-2 h-[210px] gap-3'>
+    <div className='basis-5/12'>
+      <Skeleton className='w-full h-full rounded-lg' />
+    </div>
+    <div className='basis-7/12 space-y-3'>
+      {Array.from({ length: 3 }).map((_, indexChild) => (
+        <div key={indexChild}>
+          <Skeleton height={30} className='w-full rounded-lg' />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 export default function UserPage() {
   const [file, setFile] = useState("");
@@ -334,7 +351,12 @@ export default function UserPage() {
           </ConfigProvider>
           <h1 className='font-bold text-2xl'>Phòng đã thuê</h1>
           {userBookedPlaces === null ? (
-            <p>Đang tải...</p>
+            <div className='space-y-3'>
+              <LoadingUserPlaces />
+              <div className='hidden lg:block'>
+                <LoadingUserPlaces />
+              </div>
+            </div>
           ) : userBookedPlaces.length === 0 ? (
             <p>Bạn chưa đặt phòng nào.</p>
           ) : (

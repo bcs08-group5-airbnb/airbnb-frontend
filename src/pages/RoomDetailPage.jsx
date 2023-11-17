@@ -36,7 +36,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Avatar, Button, ConfigProvider, Form, Image, Modal, Rate, message, notification } from "antd";
 import { useSelector } from "react-redux";
-import CommentSection from "../components/Comment";
+import CommentSection from "../components/CommentSection";
 import TextArea from "antd/es/input/TextArea";
 import { Comment } from "@ant-design/compatible";
 import { defaultNoAvatar, countryFormat } from "../constants/defaultValues";
