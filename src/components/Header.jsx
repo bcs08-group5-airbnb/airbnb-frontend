@@ -368,6 +368,7 @@ export default function Header({ div2Ref }) {
                           className={`font-bold w-6 h-6 text-white bg-[#FF5A5F] hover:bg-[#9e3e4e] rounded-full duration-300 flex items-center justify-center ${
                             khach === 1 && "cursor-not-allowed opacity-50"
                           }`}
+                          disabled={khach === 1}
                         >
                           <div>-</div>
                         </button>
