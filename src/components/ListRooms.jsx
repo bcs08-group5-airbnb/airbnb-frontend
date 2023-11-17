@@ -45,7 +45,7 @@ export default function ListRooms({ item, cityNoSlug }) {
                 </div>
                 <div className='w-[15%] bg-gray-300 h-[3px] rounded-lg my-2'></div>
                 <p className='text-gray-500 text-md truncate'>
-                  {item.khach} khách {item.tenPhong.toLowerCase().includes("studio") ? "• Phòng studio" : ""}
+                  {item.khach} khách {item.tenPhong.toLowerCase().includes("studio") && "• Phòng studio"}
                   {item.phongNgu > 0 && " • " + item.phongNgu + " phòng ngủ"}
                   {item.giuong > 0 && " • " + item.phongNgu + " giường"}
                   {item.phongTam > 0 && " • " + item.phongNgu + " phòng tắm"}

@@ -171,6 +171,7 @@ export default function RoomDetailPage() {
             notification.success({
               message: res.data.message,
             });
+            play();
             getBookedData();
           })
           .catch(err => {
@@ -368,7 +369,8 @@ export default function RoomDetailPage() {
               <div className='space-y-3'>
                 <h1 className='font-bold text-black text-2xl'>Toàn bộ căn hộ. Chủ nhà {chuNha}</h1>
                 <p>
-                  {room.khach} khách • {room.phongNgu} phòng ngủ • {room.giuong} giường • {room.phongTam} phòng tắm
+                  {room.khach} khách • {room.tenPhong.toLowerCase().includes("studio") && "Phòng studio •"} {room.phongNgu} phòng ngủ • {room.giuong}{" "}
+                  giường • {room.phongTam} phòng tắm
                 </p>
               </div>
               <div className='relative'>
