@@ -56,7 +56,7 @@ export default function Comment({ item }) {
               : `ngày ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format("DD")} tháng ${moment(
                   convertDateTimeFormat(item.ngayBinhLuan),
                 ).format("MM")} năm ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format("YYYY")}`} */}
-            {convertDateTimeFormat(item.ngayBinhLuan) === null
+            {convertDateTimeFormat(item.ngayBinhLuan) === null || convertDateTimeFormat(item.ngayBinhLuan).getFullYear() < 2023
               ? "tháng 10 năm 2023"
               : `tháng ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format("MM")} năm ${moment(convertDateTimeFormat(item.ngayBinhLuan)).format(
                   "YYYY",
