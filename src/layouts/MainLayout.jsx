@@ -8,8 +8,8 @@ export default function MainLayout({ children }) {
     <>
       <Header />
       <div>{children}</div>
-      <FooterFixed />
       <Footer />
+      <FooterFixed />
     </>
   );
 }

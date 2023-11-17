@@ -6,8 +6,37 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import { countryFormat } from "../constants/defaultValues";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function ListRooms({ item, cityNoSlug }) {
+  const [usefulThings, setUsefulThings] = useState([]);
+  useEffect(() => {
+    const updatedThings = [];
+    if (item.wifi) {
+      updatedThings.push("Wifi");
+    }
+    if (item.bep) {
+      updatedThings.push("Bếp");
+    }
+    if (item.dieuHoa) {
+      updatedThings.push("Điều hòa nhiệt độ");
+    }
+    if (item.mayGiat) {
+      updatedThings.push("Máy giặt");
+    }
+    if (item.tivi) {
+      updatedThings.push("Tivi");
+    }
+    if (item.doXe) {
+      updatedThings.push("Đỗ xe");
+    }
+    if (item.hoBoi) {
+      updatedThings.push("Hồ bơi");
+    }
+    setUsefulThings(updatedThings);
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className='space-y-6'>
       <div className='w-full h-px bg-gray-300 mb-6'></div>
@@ -51,13 +80,14 @@ export default function ListRooms({ item, cityNoSlug }) {
                   {item.phongTam > 0 && " • " + item.phongNgu + " phòng tắm"}
                 </p>
                 <p className='text-gray-500 text-md truncate'>
-                  {item.wifi ? "Wifi • " : ""}
-                  {item.bep ? "Bếp • " : ""}
-                  {item.dieuHoa ? "Điều hòa nhiệt độ • " : ""}
-                  {item.mayGiat ? "Máy giặt • " : ""}
-                  {item.tivi ? "Tivi • " : ""}
-                  {item.doXe ? "Đỗ xe • " : ""}
-                  {item.hoBoi ? "Hồ bơi" : ""}
+                  {usefulThings.map((item, index) => {
+                    return (
+                      <span key={index}>
+                        {item}
+                        {index === usefulThings.length - 1 ? "" : " • "}
+                      </span>
+                    );
+                  })}
                 </p>
               </div>
               <div className='text-right mt-12'>

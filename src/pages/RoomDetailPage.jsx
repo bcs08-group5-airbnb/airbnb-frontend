@@ -17,18 +17,13 @@ import {
   faAirFreshener,
   faAward,
   faBacon,
-  faBlackboard,
-  faCalendar,
-  faElevator,
   faHandsWash,
-  faHeadset,
   faHeart,
   faKitchenSet,
   faParking,
   faSwimmingPool,
   faTv,
   faUpload,
-  faWarehouse,
   faWifi,
   faChevronCircleUp,
   faChevronCircleDown,
@@ -118,7 +113,7 @@ export default function RoomDetailPage() {
   const { roomId } = useParams();
   const [room, setRoom] = useState(null);
   const [error, setError] = useState(null);
-  const [tienNghi, setTienNghi] = useState(5);
+  const [tienNghi, setTienNghi] = useState(0);
   const [hienThiTatCaTienNghi, setHienThiTatCaTienNghi] = useState(false);
   const { user } = useSelector(state => {
     return state.userSlice;
@@ -190,6 +185,7 @@ export default function RoomDetailPage() {
     }
     setShowConfirmModal(false);
   };
+  const [usefulThings, setUsefulThings] = useState([]);
   const [trungBinhRating, setTrungBinhRating] = useState(0);
   const getBookedData = () => {
     httpsNoLoading
@@ -217,6 +213,56 @@ export default function RoomDetailPage() {
           quocGia: cityResponse.data.content.quocGia,
           danhSachBinhLuan: commentListResponse.data.content.reverse(),
         });
+        const updatedUsefulThings = [];
+        if (roomResponse.data.content.bep) {
+          updatedUsefulThings.push({
+            name: "Bếp",
+            icon: faKitchenSet,
+          });
+        }
+        if (roomResponse.data.content.wifi) {
+          updatedUsefulThings.push({
+            name: "Wifi",
+            icon: faWifi,
+          });
+        }
+        if (roomResponse.data.content.tivi) {
+          updatedUsefulThings.push({
+            name: "Tivi",
+            icon: faTv,
+          });
+        }
+        if (roomResponse.data.content.dieuHoa) {
+          updatedUsefulThings.push({
+            name: "Điều hòa",
+            icon: faAirFreshener,
+          });
+        }
+        if (roomResponse.data.content.doXe) {
+          updatedUsefulThings.push({
+            name: "Bãi đỗ xe",
+            icon: faParking,
+          });
+        }
+        if (roomResponse.data.content.banUi) {
+          updatedUsefulThings.push({
+            name: "Bàn ủi",
+            icon: faBacon,
+          });
+        }
+        if (roomResponse.data.content.hoBoi) {
+          updatedUsefulThings.push({
+            name: "Hồ bơi",
+            icon: faSwimmingPool,
+          });
+        }
+        if (roomResponse.data.content.mayGiat) {
+          updatedUsefulThings.push({
+            name: "Máy giặt",
+            icon: faHandsWash,
+          });
+        }
+        setUsefulThings(updatedUsefulThings);
         const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
         if (commentListResponse.data.content.length === 0) {
           setTrungBinhRating("Chưa có đánh giá");
@@ -227,7 +273,7 @@ export default function RoomDetailPage() {
         }
         const tempObjectRoom = { ...roomResponse.data.content };
         const trueValueCount = Object.keys(tempObjectRoom).filter(key => key !== "banLa" && tempObjectRoom[key] === true).length;
-        setTienNghi(5 + trueValueCount);
+        setTienNghi(trueValueCount);
       } catch (err) {
         setError("Đã xảy ra lỗi khi tìm nạp dữ liệu. Vui lòng thử lại sau.");
         console.error(err);
@@ -338,7 +384,7 @@ export default function RoomDetailPage() {
             <span
               onClick={() => {
                 setSave(!save);
-                message.success(`Đã ${save ? "hủy" : ""} lưu`);
+                message.success(`Đã ${save ? "hủy" : ""} lưu!`);
                 play();
               }}
               className='text-black hover:text-[#FF5A5F] duration-300 cursor-pointer space-x-2'
@@ -619,134 +665,48 @@ export default function RoomDetailPage() {
         <div className='space-y-6'>
           <h1 className='font-bold text-black text-3xl'>Tiện nghi</h1>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            {room.bep && (
-              <div className='space-x-3'>
+            {usefulThings.slice(0, 2).map((item, index) => (
+              <div key={index} className='space-x-3'>
                 <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faKitchenSet} />
+                  <FontAwesomeIcon className='w-5 h-5' icon={item.icon} />
                 </span>
-                <span>Bếp</span>
+                <span>{item.name}</span>
               </div>
-            )}
-            {room.wifi && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faWifi} />
-                </span>
-                <span>Wifi</span>
-              </div>
-            )}
-            {room.tivi && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faTv} />
-                </span>
-                <span>Tivi</span>
-              </div>
-            )}
-            {true && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faElevator} />
-                </span>
-                <span>Thang máy</span>
-              </div>
-            )}
-            {room.dieuHoa && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faAirFreshener} />
-                </span>
-                <span>Điều hòa</span>
-              </div>
-            )}
-            {true && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faBlackboard} />
-                </span>
-                <span>Ban công</span>
-              </div>
-            )}
-            {true && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faHeadset} />
-                </span>
-                <span>Lò sưởi</span>
-              </div>
-            )}
-            {true && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faWarehouse} />
-                </span>
-                <span>Tủ lạnh</span>
-              </div>
-            )}
-            {room.doXe && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faParking} />
-                </span>
-                <span>Bãi đỗ xe thu phí nằm ngoài khuôn viên</span>
-              </div>
-            )}
-            {true && (
-              <div className='space-x-3'>
-                <span>
-                  <FontAwesomeIcon className='w-5 h-5' icon={faCalendar} />
-                </span>
-                <span>Dài hạn</span>
-              </div>
-            )}
+            ))}
             {hienThiTatCaTienNghi && (
               <>
-                {room.banUi && (
-                  <div className='space-x-3'>
+                {usefulThings.slice(2).map((item, index) => (
+                  <div key={index} className='space-x-3'>
                     <span>
-                      <FontAwesomeIcon className='w-5 h-5' icon={faBacon} />
+                      <FontAwesomeIcon className='w-5 h-5' icon={item.icon} />
                     </span>
-                    <span>Bàn ủi</span>
+                    <span>{item.name}</span>
                   </div>
-                )}
-                {room.hoBoi && (
-                  <div className='space-x-3'>
-                    <span>
-                      <FontAwesomeIcon className='w-5 h-5' icon={faSwimmingPool} />
-                    </span>
-                    <span>Hồ bơi</span>
-                  </div>
-                )}
-                {room.mayGiat && (
-                  <div className='space-x-3'>
-                    <span>
-                      <FontAwesomeIcon className='w-5 h-5' icon={faHandsWash} />
-                    </span>
-                    <span>Máy giặt</span>
-                  </div>
-                )}
+                ))}
               </>
             )}
           </div>
-          <div>
-            {!hienThiTatCaTienNghi ? (
-              <button
-                onClick={() => setHienThiTatCaTienNghi(true)}
-                className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
-              >
-                Hiển thị tất cả {tienNghi} tiện nghi
-              </button>
-            ) : (
-              <div className='mt-6'>
+          {usefulThings.length > 2 && (
+            <div>
+              {!hienThiTatCaTienNghi ? (
                 <button
-                  onClick={() => setHienThiTatCaTienNghi(false)}
+                  onClick={() => setHienThiTatCaTienNghi(true)}
                   className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
                 >
-                  Ẩn bớt tiện nghi
+                  Hiển thị tất cả {tienNghi} tiện nghi
                 </button>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className='mt-6'>
+                  <button
+                    onClick={() => setHienThiTatCaTienNghi(false)}
+                    className='w-56 text-black bg-white border-2 border-black rounded-lg p-3 hover:bg-gray-200 duration-300'
+                  >
+                    Ẩn bớt tiện nghi
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         {room.danhSachBinhLuan.length > 0 && <div ref={binhLuanRef} className='pb-[50px]'></div>}
         <div className='w-full h-px bg-gray-300 mb-6'></div>
