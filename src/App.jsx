@@ -8,12 +8,16 @@ import CityPage from "./pages/CityPage";
 import UserPage from "./pages/UserPage";
 import MainLayout from "./layouts/MainLayout";
 import RoomDetailPage from "./pages/RoomDetailPage";
+import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
     <>
       <Spinner />
+      <ScrollToTopButton />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/roombycity/:cityName' element={<CityPage />} />

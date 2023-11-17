@@ -237,6 +237,7 @@ export default function RoomDetailPage() {
       }));
       const totalSao = commentListResponse.data.content.reduce((sum, item) => sum + item.saoBinhLuan, 0);
       setTrungBinhRating((totalSao / commentListResponse.data.content.length).toFixed(2));
+      console.log(commentListResponse.data.content);
     } catch (err) {
       setError("Đã xảy ra lỗi khi tìm nạp dữ liệu. Vui lòng thử lại sau.");
       console.error(err);
@@ -252,7 +253,7 @@ export default function RoomDetailPage() {
       https
         .post(
           `/binh-luan`,
-          { maPhong: roomId, maNguoiBinhLuan: user.id, ngayBinhLuan: Date(), noiDung: value, saoBinhLuan: rating },
+          { maPhong: roomId, maNguoiBinhLuan: user.id, ngayBinhLuan: new Date(), noiDung: value, saoBinhLuan: rating },
           {
             headers: { token: user.token },
           },
@@ -718,7 +719,7 @@ export default function RoomDetailPage() {
         {room.danhSachBinhLuan.length > 0 ? (
           <>
             <div
-              className={`grid grid-cols-1 md:grid-cols-2 gap-12 ${
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 ${
                 room.danhSachBinhLuan.length > 4 && "h-[300px]"
               } overscroll-y-auto overflow-y-auto px-2`}
             >

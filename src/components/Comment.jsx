@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { addSpaceBeforeUppercase } from "../utils/addSpaceBeforeUppercase";
 import { capitalizeString } from "../utils/capitalizeString";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { checkDatetimeFormat } from "../utils/checkDatetimeFormat";
 import moment from "moment";
 import { faChevronCircleDown, faChevronCircleUp, faStar } from "@fortawesome/free-solid-svg-icons";
 import { defaultNoAvatar } from "../constants/defaultValues";
 import { useEffect, useRef, useState } from "react";
+import { convertDateTimeFormat } from "../utils/convertDateTimeFormat";
 
 const onImageError = e => {
   e.target.src = defaultNoAvatar;
@@ -51,7 +51,7 @@ export default function Comment({ item }) {
             </span>
           </p>
           <p className='text-gray-600'>
-            {!checkDatetimeFormat(item.ngayBinhLuan)
+            {convertDateTimeFormat(item.ngayBinhLuan) === null
               ? "ngày 01 tháng 10 năm 2023"
               : `ngày ${moment(item.ngayBinhLuan).format("DD")} tháng ${moment(item.ngayBinhLuan).format("MM")} năm ${moment(
                   item.ngayBinhLuan,

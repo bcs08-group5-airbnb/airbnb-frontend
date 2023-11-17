@@ -15,10 +15,13 @@ import { addDays } from "date-fns";
 
 export default function Header({ div2Ref }) {
   const [extendSearchBar, setExtendSearchBar] = useState(false);
-  const headerRef = useRef(null);
+  const overlayRef = useRef(null);
   const handleClickOutside = event => {
-    if (headerRef.current && !headerRef.current.contains(event.target)) {
+    if (overlayRef.current && overlayRef.current.contains(event.target)) {
       setExtendSearchBar(false);
+      setShowSearchLocaiton(false);
+      setShowSearchDateRange(false);
+      setShowSearchGuests(false);
     }
   };
   useEffect(() => {
@@ -134,10 +137,10 @@ export default function Header({ div2Ref }) {
 
   return (
     <>
-      <div
-        ref={headerRef}
-        className={`w-full fixed ${location.pathname === "/" && div2Visible ? "bg-black" : "bg-white"} duration-300 z-50 left-0 top-0 shadow-md`}
-      >
+      <div className='invisible lg:visible'>
+        {extendSearchBar && <div ref={overlayRef} className='fixed top-0 left-0 z-50 w-screen h-screen bg-black opacity-50'></div>}
+      </div>
+      <div className={`w-full fixed ${location.pathname === "/" && div2Visible ? "bg-black" : "bg-white"} duration-300 z-50 left-0 top-0 shadow-md`}>
         <div className='w-[95%] mx-auto py-6 flex flex-grow justify-between items-center h-16 duration-300 transition-all'>
           <div className='w-[50%] flex justify-start items-center'>
             <Link to='/' className='inline-flex'>
@@ -197,7 +200,7 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer'
                 >
-                  <p>Địa điểm bất kỳ</p>
+                  <p className='truncate'>Địa điểm bất kỳ</p>
                 </div>
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
@@ -207,7 +210,7 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer'
                 >
-                  <p>Tuần bất kỳ</p>
+                  <p className='truncate'>Tuần bất kỳ</p>
                 </div>
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
@@ -217,7 +220,7 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer group gap-3'
                 >
-                  <p>Thêm khách</p>
+                  <p className='truncate'>Thêm khách</p>
                   <div className='bg-[#FF5A5F] group-hover:bg-[#9e3e4e] duration-300 text-white rounded-full p-2 flex justify-center items-center'>
                     <FontAwesomeIcon className='h-3 w-3' icon={faSearch} />
                   </div>
@@ -338,7 +341,7 @@ export default function Header({ div2Ref }) {
                         months={2}
                         ranges={bookedRangeDates}
                         direction='horizontal'
-                        className='p-6 flex overflow-auto'
+                        className='p-6 flex max-h-[calc(100vh-250px)] overflow-auto overscroll-auto'
                       />
                     </div>
                   )}

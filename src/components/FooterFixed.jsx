@@ -5,7 +5,7 @@ export default function FooterFixed() {
   return (
     <>
       <div className='mt-0 lg:mt-12'></div>
-      <div className='hidden lg:block fixed left-0 bottom-0 bg-[#f9fafb] text-gray-500 w-full z-50'>
+      <div className='hidden lg:block fixed left-0 bottom-0 bg-[#f9fafb] text-gray-500 w-full z-40'>
         <div className='mx-auto w-[95%] py-3 flex justify-between items-center'>
           <div>
             <span>© 2023 Airbnb, Inc.</span>
