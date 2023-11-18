@@ -20,10 +20,6 @@ body {
   transition-duration: 300ms;
 }
 
-.ant-image-mask {
-  border-radius: 0.5rem;
-}
-
 .swiper-button-prev,
 .swiper-button-next {
   color: black;

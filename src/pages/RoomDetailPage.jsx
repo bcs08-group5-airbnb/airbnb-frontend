@@ -405,13 +405,13 @@ export default function RoomDetailPage() {
             loop={true}
             modules={[Pagination, Autoplay]}
             pagination={true}
-            className='mySwiper mx-auto rounded-lg'
+            className='mySwiper mx-auto'
           >
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index}>
                 <div className='w-full cursor-pointer'>
                   <ConfigProvider locale={viVN}>
-                    <Image width='100%' height='470px' alt='' src={room.hinhAnh} className='rounded-lg object-cover' />
+                    <Image width='100%' height='470px' alt='' src={room.hinhAnh} className='object-cover' />
                   </ConfigProvider>
                 </div>
               </SwiperSlide>
