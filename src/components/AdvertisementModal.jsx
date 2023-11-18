@@ -51,7 +51,7 @@ export default function AdvertisementModal() {
         ref={modalRef}
         className={`${showAdvertisementModal ? "opacity-50" : "opacity-0"} ${
           removeAdvertisementModal ? "hidden" : "block"
-        } fixed left-0 top-0 z-[90] w-screen h-screen bg-black transition-all duration-500`}
+        } fixed left-0 top-0 z-[90] w-screen h-screen bg-black transition-opacity duration-500`}
       >
         {showAdvertisementModal && <RemoveScrollBar />}
       </div>
@@ -76,8 +76,8 @@ export default function AdvertisementModal() {
               <img className='h-full w-full object-cover rounded-lg' alt='' src={phoneAdImg} />
             </div>
           </div>
-          <div className={`z-[100] lg:hidden fixed bottom-0 right-0 bg-white w-full rounded-t-lg`}>
-            <div className='relative'>
+          <div className='z-[100] lg:hidden fixed bottom-0 right-0 bg-white w-full rounded-t-lg'>
+            <div className='relative rounded-t-lg overflow-hidden'>
               <div className='absolute left-3 top-3'>
                 <FontAwesomeIcon
                   className='cursor-pointer bg-gray-200 hover:bg-gray-300 duration-300 rounded-full w-3.5 h-3.5 p-2 text-black'
@@ -88,7 +88,7 @@ export default function AdvertisementModal() {
               <div
                 className={`grid grid-cols-1 overflow-auto overscroll-auto ${
                   showAdvertisementModal ? "opacity-100 h-[calc(100vh-52px)]" : "opacity-0 h-0"
-                } transition-all duration-500 rounded-t-lg`}
+                } transition-all duration-500`}
               >
                 <div>
                   <img className='w-full h-96 object-cover' alt='' src={phoneAdImg} />
