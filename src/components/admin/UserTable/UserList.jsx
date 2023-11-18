@@ -5,23 +5,32 @@ import ShowTotalNumber from "./ShowTotalNumber";
 import PaginationUserList from "./PaginationUserList";
 import ViewMore from "./ViewMore";
 import { useLocation } from "react-router-dom";
+import { getAllUsers, setTotalUsers } from "../../../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserList = () => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+
+  const { allUsers: users } = useSelector((state) => state.userSlice);
+  const { totalUsers } = useSelector((state) => state.userSlice);
 
   let [userFrom, setUserForm] = useState(1);
 
-  const [users, setUsers] = useState(null);
-
-  useEffect(() => {
+  const renderUserPage = (index) => {
     userServ
-      .getAllUsers()
+      .getUsersPage(index ? index : userFrom)
       .then((result) => {
-        setUsers(result.data.content);
+        dispatch(setTotalUsers(result.data.content.totalRow));
+        dispatch(getAllUsers(result.data.content.data));
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    renderUserPage(1);
   }, []);
 
   const selectPagination = (number) => {
@@ -45,6 +54,7 @@ const UserList = () => {
         <table className="w-full whitespace-no-wrap">
           <thead>
             <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+              <th className="px-4 py-3">ID</th>
               <th className="px-4 py-3">Người Dùng</th>
               <th className="px-4 py-3">Amount</th>
               <th className="px-4 py-3">Trạng Thái</th>
@@ -53,22 +63,27 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            {users
-              ?.slice((userFrom - 1) * 10, userFrom * 10)
-              .map((user, index) => {
-                if (!user.avatar) {
-                  user = {
-                    ...user,
-                    avatar: `https://i.pravatar.cc/300/${index}`,
-                  };
-                }
-                return <User user={user} index={index} key={index} />;
-              })}
+            {users?.map((user, index) => {
+              if (!user.avatar) {
+                user = {
+                  ...user,
+                  avatar: `https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg`,
+                };
+              }
+              return (
+                <User
+                  user={user}
+                  index={index}
+                  key={index}
+                  renderUserPage={renderUserPage}
+                />
+              );
+            })}
           </tbody>
         </table>
       </div>
       <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-        <ShowTotalNumber users={users} userFrom={userFrom} />
+        <ShowTotalNumber totalUsers={totalUsers} userFrom={userFrom} />
         <span className="col-span-2"></span>
         {/* <!-- Pagination --> */}
         {pathname === "/admin" ? (
@@ -76,9 +91,10 @@ const UserList = () => {
         ) : (
           <PaginationUserList
             userFrom={userFrom}
-            users={users}
+            totalUsers={totalUsers}
             selectPagination={selectPagination}
             selectPaginationNextPrev={selectPaginationNextPrev}
+            renderUserPage={renderUserPage}
           />
         )}
       </div>

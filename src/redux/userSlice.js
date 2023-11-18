@@ -3,7 +3,11 @@ import { userAdminLocalStorage, userLocalStorage } from "../api/localService";
 
 const initialState = {
   user: userLocalStorage.get(),
+
+  // admin page
   userAdmin: userAdminLocalStorage.get(),
+  allUsers: null,
+  totalUsers: null,
 };
 
 const userSlice = createSlice({
@@ -16,8 +20,15 @@ const userSlice = createSlice({
     setLoginAdmin: (state, action) => {
       state.userAdmin = action.payload;
     },
+    getAllUsers: (state, action) => {
+      state.allUsers = action.payload;
+    },
+    setTotalUsers: (state, action) => {
+      state.totalUsers = action.payload;
+    },
   },
 });
 
-export const { setLogin, setLoginAdmin } = userSlice.actions;
+export const { setLogin, setLoginAdmin, getAllUsers, setTotalUsers } =
+  userSlice.actions;
 export default userSlice.reducer;

@@ -3,7 +3,15 @@ import { httpsNoLoading, httpsAdmin } from "./config";
 export const userServ = {
   login: (values) => httpsNoLoading.post("/auth/signin", values),
   signup: (values) => httpsNoLoading.post("/auth/signup", values),
-  getAllUsers: () => httpsAdmin.get("/users"),
+
+  // ADMIN PAGE
+  getUsersPage: (index) =>
+    httpsAdmin.get(`/users/phan-trang-tim-kiem?pageIndex=${index}&pageSize=10`),
+  getUserByID: (id) => httpsAdmin.get(`/users/${id}`),
+  createNewUser: (user) => httpsAdmin.post("/users", user),
+  deleteUser: (id) => httpsAdmin.delete(`/users/?id=${id}`),
+  updateUser: (userUpdate) =>
+    httpsAdmin.put(`/users/${userUpdate.id}`, userUpdate),
 };
 
 export const roomServ = {

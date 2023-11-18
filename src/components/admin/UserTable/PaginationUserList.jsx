@@ -1,12 +1,13 @@
 import React from "react";
 
 const PaginationUserList = ({
-  users,
+  totalUsers,
   userFrom,
   selectPagination,
   selectPaginationNextPrev,
+  renderUserPage,
 }) => {
-  let totalPagination = Math.ceil(users?.length / 10);
+  let totalPagination = Math.ceil(totalUsers / 10);
 
   const renderPagination = () => {
     let array = [];
@@ -39,7 +40,10 @@ const PaginationUserList = ({
         <li key={item}>
           <button
             className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-            onClick={() => selectPagination(item)}
+            onClick={() => {
+              selectPagination(item);
+              renderUserPage(item);
+            }}
           >
             {item}
           </button>
