@@ -37,7 +37,7 @@ import { useSelector } from "react-redux";
 import CommentSection from "../components/CommentSection";
 import TextArea from "antd/es/input/TextArea";
 import { Comment } from "@ant-design/compatible";
-import { defaultNoAvatar, countryFormat } from "../constants/defaultValues";
+import { DEFAULT_NO_AVATAR, COUNTRY_FORMAT } from "../constants/defaultValues";
 import { Home, Trophy, CalendarCheck2, Languages, Flag } from "lucide-react";
 import ShowRating from "../components/ShowRating";
 import { DateRangePicker } from "react-date-range";
@@ -575,7 +575,7 @@ export default function RoomDetailPage() {
             <div className='p-6 rounded-lg border-2 border-gray-300 space-y-6 shadow-xl'>
               <div className='flex flex-wrap justify-between items-center gap-3'>
                 <div>
-                  <span className='font-bold'>${room.giaTien.toLocaleString(countryFormat)}</span> / đêm
+                  <span className='font-bold'>${room.giaTien.toLocaleString(COUNTRY_FORMAT)}</span> / đêm
                 </div>
                 <div>
                   <ShowRating trungBinhRating={trungBinhRating} binhLuanRef={binhLuanRef} ratingLength={room.danhSachBinhLuan.length} />
@@ -640,18 +640,18 @@ export default function RoomDetailPage() {
               <p className='text-center'>Bạn vẫn chưa bị trừ tiền</p>
               <div className='flex justify-between items-center'>
                 <p className='underline'>
-                  ${room.giaTien.toLocaleString(countryFormat)} x {totalNights.toLocaleString(countryFormat)} đêm
+                  ${room.giaTien.toLocaleString(COUNTRY_FORMAT)} x {totalNights.toLocaleString(COUNTRY_FORMAT)} đêm
                 </p>
-                <p>${(room.giaTien * totalNights).toLocaleString(countryFormat)}</p>
+                <p>${(room.giaTien * totalNights).toLocaleString(COUNTRY_FORMAT)}</p>
               </div>
               <div className='flex justify-between items-center'>
                 <p className='underline'>Phí dịch vụ</p>
-                <p>${phiDichVu.toLocaleString(countryFormat)}</p>
+                <p>${phiDichVu.toLocaleString(COUNTRY_FORMAT)}</p>
               </div>
               <div className='w-full h-px bg-gray-300 mb-6'></div>
               <div className='flex justify-between items-center'>
                 <p className='font-bold'>Tổng</p>
-                <p className='font-bold'>${(room.giaTien * totalNights + phiDichVu).toLocaleString(countryFormat)}</p>
+                <p className='font-bold'>${(room.giaTien * totalNights + phiDichVu).toLocaleString(COUNTRY_FORMAT)}</p>
               </div>
             </div>
             <p className='flex justify-center items-center gap-3 cursor-pointer'>
@@ -732,7 +732,7 @@ export default function RoomDetailPage() {
         ) : (
           <div>
             <Comment
-              avatar={<Avatar src={user?.avatar !== "" ? user?.avatar : defaultNoAvatar} alt='' />}
+              avatar={<Avatar src={user?.avatar !== "" ? user?.avatar : DEFAULT_NO_AVATAR} alt='' />}
               content={
                 <Editor
                   onRateChange={handleRateChange}
@@ -748,7 +748,7 @@ export default function RoomDetailPage() {
         )}
       </div>
       <Modal
-        title={`${totalNights.toLocaleString(countryFormat)} đêm`}
+        title={`${totalNights.toLocaleString(COUNTRY_FORMAT)} đêm`}
         okType='primary'
         cancelButtonProps={{ style: { display: "none" } }}
         okButtonProps={{ style: { display: "none" } }}

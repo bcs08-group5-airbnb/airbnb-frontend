@@ -10,7 +10,7 @@ import { https, httpsNoLoading } from "../api/config";
 import ListRooms from "../components/ListRooms";
 import Spinner from "../components/Spinner";
 import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect, ProFormText } from "@ant-design/pro-components";
-import { noImageAvaiable, defaultNoAvatar } from "../constants/defaultValues";
+import { NO_IMAGE_AVAILABLE, DEFAULT_NO_AVATAR } from "../constants/defaultValues";
 import { setLogin } from "../redux/userSlice";
 import { userLocalStorage } from "../api/localService";
 import { capitalizeString } from "../utils/capitalizeString";
@@ -24,7 +24,7 @@ const waitTime = (time = 100) => {
 };
 
 const onImageError = e => {
-  e.target.src = noImageAvaiable;
+  e.target.src = NO_IMAGE_AVAILABLE;
 };
 
 const LoadingUserPlaces = () => (
@@ -161,7 +161,7 @@ export default function UserPage() {
       <div className='mx-auto w-[95%] grid lg:flex gap-12 py-6'>
         <Card className='basis-auto h-[500px] block lg:sticky top-0 lg:top-20'>
           <div className='space-y-3'>
-            <img className='mx-auto w-36 h-36 object-cover rounded-full' alt='' src={userInfo.avatar !== "" ? userInfo.avatar : defaultNoAvatar} />
+            <img className='mx-auto w-36 h-36 object-cover rounded-full' alt='' src={userInfo.avatar !== "" ? userInfo.avatar : DEFAULT_NO_AVATAR} />
             <div className='w-full flex justify-center'>
               <button className='mx-auto w-auto underline font-bold text-sm' onClick={showModal}>
                 Cập nhật ảnh

@@ -4,11 +4,11 @@ import { capitalizeString } from "../utils/capitalizeString";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { defaultNoAvatar } from "../constants/defaultValues";
+import { DEFAULT_NO_AVATAR } from "../constants/defaultValues";
 import { convertDateTimeFormat } from "../utils/convertDateTimeFormat";
 
 const onImageError = e => {
-  e.target.src = defaultNoAvatar;
+  e.target.src = DEFAULT_NO_AVATAR;
 };
 
 export default function CommentSection({ item }) {

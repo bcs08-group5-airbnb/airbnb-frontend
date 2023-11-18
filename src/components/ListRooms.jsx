@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
-import { countryFormat } from "../constants/defaultValues";
+import { COUNTRY_FORMAT } from "../constants/defaultValues";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -91,7 +91,7 @@ export default function ListRooms({ item, cityNoSlug }) {
                 </p>
               </div>
               <div className='text-right mt-12'>
-                <span className='font-bold'>$ {item.giaTien.toLocaleString(countryFormat)}</span> / đêm
+                <span className='font-bold'>$ {item.giaTien.toLocaleString(COUNTRY_FORMAT)}</span> / đêm
               </div>
             </div>
           </div>

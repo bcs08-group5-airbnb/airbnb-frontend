@@ -2,10 +2,10 @@ import { Dropdown, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userLocalStorage } from "../api/localService";
-import { setLogin } from "../redux/userSlice";
+import { setLogin, setSoNguoi, setNgayNhanPhong, setNgayTraPhong, setDiaDiem } from "../redux/userSlice";
 import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import { defaultNoAvatar } from "../constants/defaultValues";
+import { DEFAULT_NO_AVATAR } from "../constants/defaultValues";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { httpsNoLoading } from "../api/config";
@@ -77,7 +77,7 @@ export default function Header({ div2Ref }) {
       });
   }, []);
 
-  const { user } = useSelector(state => {
+  const { user, diaDiem, ngayNhanPhong, ngayTraPhong, soNguoi } = useSelector(state => {
     return state.userSlice;
   });
   const dispatch = useDispatch();
@@ -270,7 +270,7 @@ export default function Header({ div2Ref }) {
                     </g>
                   </svg>
                   {user?.avatar ? (
-                    <img alt='' className='h-5 w-5 mx-auto rounded-full object-cover' src={user?.avatar ?? defaultNoAvatar} />
+                    <img alt='' className='h-5 w-5 mx-auto rounded-full object-cover' src={user?.avatar ?? DEFAULT_NO_AVATAR} />
                   ) : (
                     <svg
                       viewBox='0 0 32 32'
@@ -299,15 +299,26 @@ export default function Header({ div2Ref }) {
                     setShowSearchDateRange(false);
                     setShowSearchGuests(false);
                   }}
-                  className='flex-1 p-3 flex justify-center items-center cursor-pointer relative'
+                  className='flex-1 px-6 py-3 flex justify-start items-center cursor-pointer relative'
                 >
-                  <p>Địa điểm bất kỳ</p>
+                  <div>
+                    <p className='text-sm'>Địa điểm</p>
+                    <p className='text-sm font-bold'>{diaDiem}</p>
+                  </div>
                   {showSearchLocation && (
                     <div className='absolute w-[500px] top-16 left-0 bg-white rounded-lg p-6 border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto max-h-[calc(100vh-250px)]'>
                       <h1 className='font-bold text-md mb-6'>Tìm kiếm địa điểm</h1>
                       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
                         {cities.map((item, index) => (
-                          <div key={index} className='space-y-1 group cursor-pointer'>
+                          <div
+                            key={index}
+                            onClick={() => {
+                              dispatch(setDiaDiem(item.tinhThanh));
+                              setShowSearchLocaiton(false);
+                              setShowSearchDateRange(true);
+                            }}
+                            className='space-y-1 group cursor-pointer'
+                          >
                             <div>
                               <img
                                 className='w-full h-20 object-cover rounded-lg border-2 group-hover:border-gray-600 duration-300'

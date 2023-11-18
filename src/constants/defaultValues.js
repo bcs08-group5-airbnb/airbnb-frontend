@@ -1,3 +1,4 @@
-export const noImageAvaiable = `https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png`;
-export const defaultNoAvatar = "https://a0.muscache.com/defaults/user_pic-50x50.png";
-export const countryFormat = "vi-VN";
+export const NO_IMAGE_AVAILABLE = `https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png`;
+export const DEFAULT_NO_AVATAR = "https://a0.muscache.com/defaults/user_pic-50x50.png";
+export const COUNTRY_FORMAT = "vi-VN";
+export const DEFAULT_CHOSEN_PLACE = "Địa điểm bất kỳ";
