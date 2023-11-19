@@ -1,3 +1,4 @@
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import boopSfx from "../assets/sounds/iphone-notification-fx.mp3";
 import errSfx from "../assets/sounds/Error.mp3";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +45,7 @@ import { DateRangePicker } from "react-date-range";
 import moment from "moment";
 import { isRangeOverlap } from "range-overlap";
 import useSound from "use-sound";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 const BookCalendar = ({ bookedRangeDates, setBookedRangeDates }) => (
   <DateRangePicker
@@ -800,15 +802,7 @@ export default function RoomDetailPage() {
         centered
       >
         <Form.Item>
-          <TextArea
-            rows={4}
-            style={{
-              resize: "none",
-            }}
-            value={baoCao}
-            onChange={e => setBaoCao(e.target.value)}
-            placeholder='Viết báo cáo...'
-          />
+          <CKEditor height={"500px"} onChange={(_, editor) => setBaoCao(editor.getData())} editor={ClassicEditor} />
         </Form.Item>
         <Form.Item>
           <div className='flex justify-end'>
