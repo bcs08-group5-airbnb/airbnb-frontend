@@ -57,25 +57,31 @@ export default function CityPage() {
       <div className='mx-auto w-[95%] grid grid-cols-1 lg:grid-cols-2 gap-3'>
         <div className='py-12 space-y-3 h-auto'>
           <p>
-            Có {phongThue.length ?? 0} chỗ ở • {moment(dateRange[0].startDate).format("DD/MM/YYYY")} –{" "}
+            Có {phongThue.length ?? 0} chỗ ở tại {cityNoSlug} • {moment(dateRange[0].startDate).format("DD/MM/YYYY")} –{" "}
             {moment(dateRange[0].endDate).format("DD/MM/YYYY")}
           </p>
-          <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
-          <div className='flex flex-wrap gap-3'>
-            {filter.map((item, index) => (
-              <button
-                className='rounded-lg text-md bg-white text-black border border-gray-300 hover:border-gray-900 duration-300 px-6 py-2'
-                key={index}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-          <div className='space-y-6'>
-            {phongThue.map((item, index) => (
-              <ListRooms key={index} item={item} cityNoSlug={cityNoSlug} />
-            ))}
-          </div>
+          {phongThue.length > 0 ? (
+            <>
+              <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
+              <div className='flex flex-wrap gap-3'>
+                {filter.map((item, index) => (
+                  <button
+                    className='rounded-lg text-md bg-white text-black border border-gray-300 hover:border-gray-900 duration-300 px-6 py-2'
+                    key={index}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <div className='space-y-6'>
+                {phongThue.map((item, index) => (
+                  <ListRooms key={index} item={item} cityNoSlug={cityNoSlug} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <p>Hiện tại chưa có chỗ ở trong khoảng thời gian này!</p>
+          )}
         </div>
         <div className='h-screen w-full block sticky top-28 mt-16'>
           <iframe
