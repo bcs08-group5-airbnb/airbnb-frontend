@@ -32,13 +32,6 @@ export default function Header({ div2Ref }) {
     };
   }, [extendSearchBar]);
   const [div2Visible, setDiv2Visible] = useState(true);
-  const [bookedRangeDates, setBookedRangeDates] = useState([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
-      key: "selection",
-    },
-  ]);
   useEffect(() => {
     const handleScroll = () => {
       if (div2Ref && div2Ref.current) {
