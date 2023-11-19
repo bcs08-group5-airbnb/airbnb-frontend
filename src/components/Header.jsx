@@ -361,6 +361,10 @@ export default function Header({ div2Ref }) {
                       if (diaDiem) {
                         navigate(`/roombycity/${convertToSlug(diaDiem)}`);
                       }
+                      setExtendSearchBar(false);
+                      setShowSearchGuests(false);
+                      setShowSearchLocation(false);
+                      setShowSearchDateRange(false);
                     }}
                   >
                     <FontAwesomeIcon className='h-3 w-3' icon={faSearch} />

@@ -7,8 +7,8 @@ export const DEFAULT_PLACE = "";
 export const DEFAULT_PEOPLE_COUNT = 1;
 export const DEFAULT_DATE_RANGE = [
   {
-    startDate: new Date(),
-    endDate: addDays(new Date(), 7),
+    startDate: addDays(new Date(), 1),
+    endDate: addDays(new Date(), 8),
     key: "selection",
   },
 ];
