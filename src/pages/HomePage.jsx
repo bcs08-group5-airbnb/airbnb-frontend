@@ -14,18 +14,22 @@ import AdvertisementModal from "../components/AdvertisementModal";
 const anywherePlaces = [
   {
     name: "Toàn bộ nhà",
+    link_slug: "ho-chi-minh",
     url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329222%2Fmjwqhra4wbzlvoo2pe27.jpg&w=1920&q=75",
   },
   {
     name: "Chỗ ở độc đáo",
+    link_slug: "nha-trang",
     url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329186%2Ffmoml05qcd0yk2stvl9r.jpg&w=1920&q=75",
   },
   {
     name: "Trang trại và thiên nhiên",
+    link_slug: "da-lat",
     url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329121%2Fguagj5r2bkccgr1paez3.jpg&w=1920&q=75",
   },
   {
     name: "Cho phép mang theo thú cưng",
+    link_slug: "da-nang",
     url: "https://rawn-airbnb.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Frawn%2Fimage%2Fupload%2Ff_webp%2Fq_auto%3Abest%2Fv1628329252%2Fgqhtg9ua6jdrffhbrfv1.jpg&w=1920&q=75",
   },
 ];
@@ -130,9 +134,11 @@ export default function HomePage() {
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
                 {anywherePlaces.map((item, index) => {
                   return (
-                    <Card key={index} hoverable className='w-full' cover={<img alt='' src={item.url} />}>
-                      <Meta title={item.name} />
-                    </Card>
+                    <Link key={index} to={`/roombycity/${item.link_slug}`}>
+                      <Card hoverable className='w-full' cover={<img alt='' src={item.url} />}>
+                        <Meta title={item.name} />
+                      </Card>
+                    </Link>
                   );
                 })}
               </div>
