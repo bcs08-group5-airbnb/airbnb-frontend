@@ -19,7 +19,7 @@ export default function Header({ div2Ref }) {
   const handleClickOutside = event => {
     if (overlayRef.current && overlayRef.current.contains(event.target)) {
       setExtendSearchBar(false);
-      setShowSearchLocaiton(false);
+      setShowSearchLocation(false);
       setShowSearchDateRange(false);
       setShowSearchGuests(false);
     }
@@ -130,7 +130,7 @@ export default function Header({ div2Ref }) {
       label: <div>Trợ giúp</div>,
     },
   ];
-  const [showSearchLocation, setShowSearchLocaiton] = useState(false);
+  const [showSearchLocation, setShowSearchLocation] = useState(false);
   const [showSearchDateRange, setShowSearchDateRange] = useState(false);
   const [showSearchGuests, setShowSearchGuests] = useState(false);
   const [khach, setKhach] = useState(1);
@@ -196,7 +196,7 @@ export default function Header({ div2Ref }) {
                 <div
                   onClick={() => {
                     setExtendSearchBar(true);
-                    setShowSearchLocaiton(true);
+                    setShowSearchLocation(true);
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer'
                 >
@@ -295,7 +295,7 @@ export default function Header({ div2Ref }) {
               <div className='flex'>
                 <div
                   onClick={() => {
-                    setShowSearchLocaiton(true);
+                    setShowSearchLocation(true);
                     setShowSearchDateRange(false);
                     setShowSearchGuests(false);
                   }}
@@ -314,7 +314,7 @@ export default function Header({ div2Ref }) {
                             key={index}
                             onClick={() => {
                               dispatch(setDiaDiem(item.tinhThanh));
-                              setShowSearchLocaiton(false);
+                              setShowSearchLocation(false);
                               setShowSearchDateRange(true);
                             }}
                             className='space-y-1 group cursor-pointer'
@@ -336,7 +336,7 @@ export default function Header({ div2Ref }) {
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
                   onClick={() => {
-                    setShowSearchLocaiton(false);
+                    setShowSearchLocation(false);
                     setShowSearchDateRange(true);
                     setShowSearchGuests(false);
                   }}
@@ -360,7 +360,7 @@ export default function Header({ div2Ref }) {
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
                   onClick={() => {
-                    setShowSearchLocaiton(false);
+                    setShowSearchLocation(false);
                     setShowSearchDateRange(false);
                     setShowSearchGuests(true);
                   }}
