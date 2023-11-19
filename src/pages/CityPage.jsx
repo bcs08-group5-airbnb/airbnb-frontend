@@ -9,6 +9,8 @@ import FooterFixed from "../components/FooterFixed";
 import convertToSlug from "../utils/convertToSlug";
 import ListRooms from "../components/ListRooms";
 import Loading from "../components/Loading";
+import moment from "moment";
+import { useSelector } from "react-redux";
 
 export default function CityPage() {
   const [cityId, setCityId] = useState(null);
@@ -45,13 +47,19 @@ export default function CityPage() {
   const handleLoadMap = () => {
     setMapMounted(true);
   };
+  const { dateRange } = useSelector(state => {
+    return state.userSlice;
+  });
   if (phongThue === null) return <Loading />;
   return (
     <>
       <Header />
       <div className='mx-auto w-[95%] grid grid-cols-1 lg:grid-cols-2 gap-3'>
         <div className='py-12 space-y-3 h-auto'>
-          <p>Có {phongThue.length ?? 0} chỗ ở • 16 thg 4 - 14 thg 5 </p>
+          <p>
+            Có {phongThue.length ?? 0} chỗ ở • {moment(dateRange[0].startDate).format("DD/MM/YYYY")} –{" "}
+            {moment(dateRange[0].endDate).format("DD/MM/YYYY")}
+          </p>
           <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
           <div className='flex flex-wrap gap-3'>
             {filter.map((item, index) => (

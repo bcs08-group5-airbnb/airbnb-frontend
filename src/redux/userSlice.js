@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLocalStorage } from "../api/localService";
-import { DEFAULT_CHOSEN_PLACE, DEFAULT_DATE_RANGE, DEFAULT_PEOPLE_COUNT } from "../constants/defaultValues";
+import { DEFAULT_DATE_RANGE, DEFAULT_PEOPLE_COUNT, DEFAULT_PLACE } from "../constants/defaultValues";
 
 const initialState = {
   user: userLocalStorage.get(),
-  diaDiem: DEFAULT_CHOSEN_PLACE,
+  diaDiem: DEFAULT_PLACE,
   dateRange: DEFAULT_DATE_RANGE,
   soNguoi: DEFAULT_PEOPLE_COUNT,
 };

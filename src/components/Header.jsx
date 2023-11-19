@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { httpsNoLoading } from "../api/config";
 import { DateRangePicker } from "react-date-range";
 import { RemoveScrollBar } from "react-remove-scroll-bar";
-import { addDays } from "date-fns";
 import moment from "moment";
+import convertToSlug from "../utils/convertToSlug";
 
 export default function Header({ div2Ref }) {
   const [extendSearchBar, setExtendSearchBar] = useState(false);
@@ -57,14 +57,7 @@ export default function Header({ div2Ref }) {
     httpsNoLoading
       .get("vi-tri/phan-trang-tim-kiem?pageIndex=1&pageSize=8")
       .then(res => {
-        const realData = [
-          {
-            id: 0,
-            tinhThanh: "Địa điểm bất kỳ",
-            hinhAnh: "https://a0.muscache.com/pictures/f9ec8a23-ed44-420b-83e5-10ff1f071a13.jpg",
-          },
-        ];
-        setCities([...realData, ...res.data.content.data]);
+        setCities(res.data.content.data);
       })
       .catch(err => {
         console.error(err);
@@ -323,7 +316,7 @@ export default function Header({ div2Ref }) {
                 >
                   <div>
                     <p className='text-sm'>Địa điểm</p>
-                    <p className='text-sm font-bold'>{diaDiem}</p>
+                    <p className={`text-sm ${!diaDiem ? "text-gray-400" : "font-bold"}`}>{diaDiem ? diaDiem : "Bạn sắp đi đâu?"}</p>
                   </div>
                 </div>
                 <div className='my-3 border-l border-gray-400'></div>
@@ -336,7 +329,7 @@ export default function Header({ div2Ref }) {
                   className='flex-1 p-3 flex justify-center items-center cursor-pointer relative'
                 >
                   <p>
-                    {moment(dateRange[0].startDate).format("DD-MM-YYYY")} - {moment(dateRange[0].endDate).format("DD-MM-YYYY")}
+                    {moment(dateRange[0].startDate).format("DD/MM/YYYY")} – {moment(dateRange[0].endDate).format("DD/MM/YYYY")}
                   </p>
                   {showSearchDateRange && (
                     <div className='absolute top-[70px] left-1/2 transform -translate-x-1/2 bg-white rounded-lg border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto'>
@@ -359,10 +352,17 @@ export default function Header({ div2Ref }) {
                     setShowSearchDateRange(false);
                     setShowSearchGuests(true);
                   }}
-                  className='flex-1 p-3 flex justify-between items-center cursor-pointer relative group gap-3'
+                  className='flex-1 p-3 flex justify-between items-center cursor-pointer relative gap-3'
                 >
                   <p>Thêm khách</p>
-                  <div className='bg-[#FF5A5F] group-hover:bg-[#9e3e4e] duration-300 text-white rounded-full p-2 flex justify-center items-center'>
+                  <div
+                    className='bg-[#FF5A5F] hover:bg-[#9e3e4e] duration-300 text-white rounded-full p-2 flex justify-center items-center'
+                    onClick={() => {
+                      if (diaDiem) {
+                        navigate(`/roombycity/${convertToSlug(diaDiem)}`);
+                      }
+                    }}
+                  >
                     <FontAwesomeIcon className='h-3 w-3' icon={faSearch} />
                   </div>
                   {showSearchGuests && (
