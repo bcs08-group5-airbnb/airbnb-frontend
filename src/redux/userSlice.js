@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLocalStorage } from "../api/localService";
-import { DEFAULT_CHOSEN_PLACE } from "../constants/defaultValues";
+import { DEFAULT_CHOSEN_PLACE, DEFAULT_DATE_RANGE, DEFAULT_PEOPLE_COUNT } from "../constants/defaultValues";
 
 const initialState = {
   user: userLocalStorage.get(),
   diaDiem: DEFAULT_CHOSEN_PLACE,
-  ngayNhanPhong: null,
-  ngayTraPhong: null,
-  soNguoi: null,
+  dateRange: DEFAULT_DATE_RANGE,
+  soNguoi: DEFAULT_PEOPLE_COUNT,
 };
 
 const userSlice = createSlice({
@@ -20,8 +19,8 @@ const userSlice = createSlice({
     setDiaDiem: (state, action) => {
       state.diaDiem = action.payload;
     },
-    setNgayNhanPhong: (state, action) => {
-      state.ngayNhanPhong = action.payload;
+    setDateRange: (state, action) => {
+      state.dateRange = action.payload;
     },
     setNgayTraPhong: (state, action) => {
       state.ngayTraPhong = action.payload;
@@ -32,5 +31,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setLogin, setDiaDiem, setNgayNhanPhong, setNgayTraPhong, setSoNguoi } = userSlice.actions;
+export const { setLogin, setDiaDiem, setDateRange, setSoNguoi } = userSlice.actions;
 export default userSlice.reducer;

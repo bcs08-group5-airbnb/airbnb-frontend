@@ -2,7 +2,7 @@ import { Dropdown, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userLocalStorage } from "../api/localService";
-import { setLogin, setSoNguoi, setNgayNhanPhong, setNgayTraPhong, setDiaDiem } from "../redux/userSlice";
+import { setLogin, setSoNguoi, setDateRange, setDiaDiem } from "../redux/userSlice";
 import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { DEFAULT_NO_AVATAR } from "../constants/defaultValues";
@@ -12,6 +12,7 @@ import { httpsNoLoading } from "../api/config";
 import { DateRangePicker } from "react-date-range";
 import { RemoveScrollBar } from "react-remove-scroll-bar";
 import { addDays } from "date-fns";
+import moment from "moment";
 
 export default function Header({ div2Ref }) {
   const [extendSearchBar, setExtendSearchBar] = useState(false);
@@ -77,7 +78,7 @@ export default function Header({ div2Ref }) {
       });
   }, []);
 
-  const { user, diaDiem, ngayNhanPhong, ngayTraPhong, soNguoi } = useSelector(state => {
+  const { user, diaDiem, dateRange, soNguoi } = useSelector(state => {
     return state.userSlice;
   });
   const dispatch = useDispatch();
@@ -133,7 +134,6 @@ export default function Header({ div2Ref }) {
   const [showSearchLocation, setShowSearchLocation] = useState(false);
   const [showSearchDateRange, setShowSearchDateRange] = useState(false);
   const [showSearchGuests, setShowSearchGuests] = useState(false);
-  const [khach, setKhach] = useState(1);
 
   return (
     <>
@@ -200,7 +200,7 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer'
                 >
-                  <p className='truncate'>Địa điểm bất kỳ</p>
+                  <p className='truncate font-bold text-black'>Địa điểm bất kỳ</p>
                 </div>
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
@@ -210,7 +210,7 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer'
                 >
-                  <p className='truncate'>Tuần bất kỳ</p>
+                  <p className='truncate font-bold text-black'>Tuần bất kỳ</p>
                 </div>
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
@@ -220,7 +220,7 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-1.5 flex justify-center items-center cursor-pointer group gap-3'
                 >
-                  <p className='truncate'>Thêm khách</p>
+                  <p className='truncate text-gray-500'>Thêm khách</p>
                   <div className='bg-[#FF5A5F] group-hover:bg-[#9e3e4e] duration-300 text-white rounded-full p-2 flex justify-center items-center'>
                     <FontAwesomeIcon className='h-3 w-3' icon={faSearch} />
                   </div>
@@ -291,7 +291,34 @@ export default function Header({ div2Ref }) {
         <div className={`transition-all duration-300 ${extendSearchBar ? "lg:h-16 lg:pb-6" : "h-0 pb-0"} flex justify-center items-center`}>
           {extendSearchBar && <RemoveScrollBar />}
           {extendSearchBar && (
-            <div className='hidden lg:block bg-white w-1/2 rounded-full border-[1px] border-gray-300'>
+            <div className='hidden lg:block bg-white w-1/2 rounded-full border-[1px] border-gray-300 relative'>
+              {showSearchLocation && (
+                <div className='absolute w-[500px] top-[70px] left-0 bg-white rounded-lg p-6 border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto max-h-[calc(100vh-250px)]'>
+                  <h1 className='font-bold text-md mb-6'>Tìm kiếm địa điểm</h1>
+                  <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                    {cities.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          dispatch(setDiaDiem(item.tinhThanh));
+                          setShowSearchLocation(false);
+                          setShowSearchDateRange(true);
+                        }}
+                        className='space-y-1 group cursor-pointer'
+                      >
+                        <div>
+                          <img
+                            className='w-full h-20 object-cover rounded-lg border-2 group-hover:border-gray-600 duration-300'
+                            alt=''
+                            src={item.hinhAnh}
+                          />
+                        </div>
+                        <p>{item.tinhThanh}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className='flex'>
                 <div
                   onClick={() => {
@@ -299,39 +326,12 @@ export default function Header({ div2Ref }) {
                     setShowSearchDateRange(false);
                     setShowSearchGuests(false);
                   }}
-                  className='flex-1 px-6 py-3 flex justify-start items-center cursor-pointer relative'
+                  className='flex-1 px-6 py-3 flex justify-start items-center cursor-pointer'
                 >
                   <div>
                     <p className='text-sm'>Địa điểm</p>
                     <p className='text-sm font-bold'>{diaDiem}</p>
                   </div>
-                  {showSearchLocation && (
-                    <div className='absolute w-[500px] top-16 left-0 bg-white rounded-lg p-6 border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto max-h-[calc(100vh-250px)]'>
-                      <h1 className='font-bold text-md mb-6'>Tìm kiếm địa điểm</h1>
-                      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                        {cities.map((item, index) => (
-                          <div
-                            key={index}
-                            onClick={() => {
-                              dispatch(setDiaDiem(item.tinhThanh));
-                              setShowSearchLocation(false);
-                              setShowSearchDateRange(true);
-                            }}
-                            className='space-y-1 group cursor-pointer'
-                          >
-                            <div>
-                              <img
-                                className='w-full h-20 object-cover rounded-lg border-2 group-hover:border-gray-600 duration-300'
-                                alt=''
-                                src={item.hinhAnh}
-                              />
-                            </div>
-                            <p>{item.tinhThanh}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
                 <div className='my-3 border-l border-gray-400'></div>
                 <div
@@ -342,15 +342,17 @@ export default function Header({ div2Ref }) {
                   }}
                   className='flex-1 p-3 flex justify-center items-center cursor-pointer relative'
                 >
-                  <p>Tuần bất kỳ</p>
+                  <p>
+                    {moment(dateRange[0].startDate).format("DD-MM-YYYY")} - {moment(dateRange[0].endDate).format("DD-MM-YYYY")}
+                  </p>
                   {showSearchDateRange && (
-                    <div className='absolute top-16 left-1/2 transform -translate-x-1/2 bg-white rounded-lg border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto'>
+                    <div className='absolute top-[70px] left-1/2 transform -translate-x-1/2 bg-white rounded-lg border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto'>
                       <DateRangePicker
-                        onChange={item => setBookedRangeDates([item.selection])}
+                        onChange={item => dispatch(setDateRange([item.selection]))}
                         showSelectionPreview={true}
                         moveRangeOnFirstSelection={false}
                         months={2}
-                        ranges={bookedRangeDates}
+                        ranges={dateRange}
                         direction='horizontal'
                         className='p-6 flex max-h-[calc(100vh-250px)] overflow-auto overscroll-auto'
                       />
@@ -371,21 +373,21 @@ export default function Header({ div2Ref }) {
                     <FontAwesomeIcon className='h-3 w-3' icon={faSearch} />
                   </div>
                   {showSearchGuests && (
-                    <div className='absolute w-[300px] top-16 right-0 bg-white rounded-full px-6 py-3 border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto flex justify-between items-center'>
+                    <div className='absolute w-[300px] top-[70px] right-0 bg-white rounded-full px-6 py-3 border-2 border-gray-300 overflow-y-auto overscroll-y-auto cursor-auto flex justify-between items-center'>
                       <div className='text-md'>Khách</div>
                       <div className='flex justify-between items-center gap-3'>
                         <button
-                          onClick={() => setKhach(khach - 1)}
+                          onClick={() => dispatch(setSoNguoi(soNguoi - 1))}
                           className={`font-bold w-6 h-6 text-white bg-[#FF5A5F] hover:bg-[#9e3e4e] rounded-full duration-300 flex items-center justify-center ${
-                            khach === 1 && "cursor-not-allowed opacity-50"
+                            soNguoi === 1 && "cursor-not-allowed opacity-50"
                           }`}
-                          disabled={khach === 1}
+                          disabled={soNguoi === 1}
                         >
                           <div>-</div>
                         </button>
-                        <div className='text-md'>{khach}</div>
+                        <div className='text-md'>{soNguoi}</div>
                         <button
-                          onClick={() => setKhach(khach + 1)}
+                          onClick={() => dispatch(setSoNguoi(soNguoi + 1))}
                           className='font-bold w-6 h-6 text-white bg-[#FF5A5F] hover:bg-[#9e3e4e] rounded-full duration-300 flex items-center justify-center'
                         >
                           <div>+</div>
