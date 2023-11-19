@@ -45,6 +45,17 @@ export default function AdvertisementModal() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === "Escape") {
+        closeAdvertisementModal();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   return (
     <>
       <div
