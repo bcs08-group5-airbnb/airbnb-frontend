@@ -806,7 +806,7 @@ export default function RoomDetailPage() {
         </Form.Item>
         <Form.Item>
           <div className='flex justify-end'>
-            <Button disabled={!baoCao} right htmlType='submit' loading={submitting} onClick={onSubmitReport} type='primary'>
+            <Button disabled={!baoCao} right htmlType='submit' loading={submitting} onClick={onSubmitReport}>
               Gửi
             </Button>
           </div>
