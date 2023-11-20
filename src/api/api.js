@@ -12,6 +12,8 @@ export const userServ = {
   deleteUser: (id) => httpsAdmin.delete(`/users/?id=${id}`),
   updateUser: (userUpdate) =>
     httpsAdmin.put(`/users/${userUpdate.id}`, userUpdate),
+  searchUser: (key) => httpsAdmin.get(`users/search/${key}`),
+  updateAvatar: (avatar) => httpsAdmin.post(`users/upload-avatar`, avatar),
 };
 
 export const roomServ = {

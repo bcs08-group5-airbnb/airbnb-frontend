@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Radio, Select, message } from "antd";
 import { userServ } from "../../../../../api/api";
-import { useDispatch } from "react-redux";
 
 const UpdateForm = ({ closeUpdateForm, userID, renderUserPage }) => {
   const [user, setUser] = useState(null);
-  console.log(user);
 
-  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -31,7 +28,6 @@ const UpdateForm = ({ closeUpdateForm, userID, renderUserPage }) => {
       gender: user.gender === "male" ? true : false,
     };
 
-    console.log(processValues);
     userServ
       .updateUser(processValues)
       .then((response) => {

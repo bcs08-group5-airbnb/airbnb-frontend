@@ -57,8 +57,8 @@ const tokenAdmin = userAdminLocalStorage.get()?.token;
 export const httpsAdmin = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${tokenAdmin}`,
-    TokenCybersoft: TOKEN_CYBER,
+    token: `${tokenAdmin}`,
+    tokenCybersoft: TOKEN_CYBER,
   },
 });
 

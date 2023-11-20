@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { userAdminLocalStorage } from "../../../api/localService";
 import ConfimLogoutModal from "./ConfimLogoutModal";
+import ProfileModal from "./ProfileModal";
 
 const Profile = ({ isProfileMenuOpen, toggleProfileMenu }) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const closeLogoutModal = () => {
     setShowLogoutModal(false);
+  };
+
+  const closeProfileModal = () => {
+    setShowProfileModal(false);
   };
 
   const user = userAdminLocalStorage.get();
@@ -36,9 +42,9 @@ const Profile = ({ isProfileMenuOpen, toggleProfileMenu }) => {
             >
               <p className="text-primary">{user.name}</p>
               <li className="flex">
-                <a
-                  className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                  href="#"
+                <div
+                  className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer"
+                  onClick={() => setShowProfileModal(!showProfileModal)}
                 >
                   <svg
                     className="w-4 h-4 mr-3"
@@ -53,13 +59,10 @@ const Profile = ({ isProfileMenuOpen, toggleProfileMenu }) => {
                     <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                   </svg>
                   <span>Tài khoản</span>
-                </a>
+                </div>
               </li>
               <li className="flex">
-                <a
-                  className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                  href="#"
-                >
+                <div className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer">
                   <svg
                     className="w-4 h-4 mr-3"
                     aria-hidden="true"
@@ -74,7 +77,7 @@ const Profile = ({ isProfileMenuOpen, toggleProfileMenu }) => {
                     <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
                   <span>Cài đặt</span>
-                </a>
+                </div>
               </li>
               <li className="flex">
                 <div
@@ -102,6 +105,9 @@ const Profile = ({ isProfileMenuOpen, toggleProfileMenu }) => {
       </li>
       {showLogoutModal && (
         <ConfimLogoutModal closeLogoutModal={closeLogoutModal} />
+      )}
+      {showProfileModal && (
+        <ProfileModal closeProfileModal={closeProfileModal} />
       )}
     </>
   );
