@@ -802,7 +802,7 @@ export default function RoomDetailPage() {
         centered
       >
         <Form.Item>
-          <CKEditor height={"500px"} onChange={(_, editor) => setBaoCao(editor.getData())} editor={ClassicEditor} />
+          <CKEditor onChange={(_, editor) => setBaoCao(editor.getData())} editor={ClassicEditor} />
         </Form.Item>
         <Form.Item>
           <div className='flex justify-end'>
