@@ -38,14 +38,25 @@ const UserList = () => {
   };
 
   const selectPaginationNextPrev = (number) => {
-    if (
-      (userFrom === 1 && number === -1) ||
-      (userFrom === Math.ceil(users?.length / 10) && number === 1)
-    ) {
-      return null;
+    // if (
+    //   (userFrom === 1 && number === -1) ||
+    //   (userFrom === Math.ceil(users?.length / 10) && number === 1)
+    // ) {
+    //   return null;
+    // } else {
+    //   const num = (userFrom += number);
+    //   setUserForm(num);
+    //   renderUserPage(num);
+    // }
+
+    const num = (userFrom += number * 1);
+
+    if (num >= 1 && num <= Math.ceil(totalUsers / 10)) {
+      console.log(num);
+
+      setUserForm(num * 1);
+      renderUserPage(num);
     }
-    const num = (userFrom += number);
-    setUserForm(num);
   };
 
   return (
