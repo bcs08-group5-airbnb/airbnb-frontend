@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const phoneAdImg = "https://a0.muscache.com/im/pictures/ffb461ba-275f-46f5-9b7f-ff508bcaa05f.jpg";
 const adContent = (
-  <div className='space-y-6'>
+  <div className='space-y-6 py-6'>
     <h1 className='font-bold text-3xl text-center'>Tìm các phòng được yêu thích</h1>
     <p className='text-center text-gray-500'>
       Những ngôi nhà được yêu thích nhất trên Airbnb, theo đánh giá của khách hàng. Cộng với những nâng cấp khác để giúp bạn tìm được một kỳ nghỉ
