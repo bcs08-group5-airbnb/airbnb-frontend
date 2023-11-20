@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { userAdminLocalStorage } from "../../../api/localService";
 import { message } from "antd";
 import { userServ } from "../../../api/api";
-import { useDispatch } from "react-redux";
-import axios from "axios";
 
 const ProfileModal = ({ closeProfileModal }) => {
-  const dispatch = useDispatch();
   const [user, setUser] = useState(userAdminLocalStorage.get());
 
   const [isUpdate, setIsUpdate] = useState(false);
@@ -14,23 +11,27 @@ const ProfileModal = ({ closeProfileModal }) => {
   const [isChangeAvatar, setIsChangeAvatar] = useState(false);
 
   const handleChange = (e) => {
+    if (e.target.name === "gender") {
+      let val = true;
+      e.target.value === "NAM" ? (val = true) : (val = false);
+      setUser({ ...user, gender: val });
+      return;
+    }
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const updateProfile = () => {
     // update normal
-    const { id, name, email, phone, birthday, gender, role, token } = user;
-    const userUpdate = { id, name, email, phone, birthday, gender, role };
-    if (!name || !email || !phone || !birthday || !gender) {
+    if (!user.name || !user.email || !user.phone || !user.birthday) {
       message.error("Tất cả các trường không được để trống");
       return;
     }
-    if (!email.includes("@")) {
+    if (!user.email.includes("@")) {
       message.error("Email không đúng định dạng");
       return;
     }
 
-    if (phone.length != 10) {
+    if (user.phone.length != 10) {
       message.error("Số điện thoại phải có 10 ký số");
       return;
     }
@@ -40,51 +41,32 @@ const ProfileModal = ({ closeProfileModal }) => {
       const input = document.querySelector("#avatar");
 
       var dataAvt = new FormData();
-      dataAvt.append("file", input.files[0]);
+      dataAvt.append("formFile", input.files[0]);
 
-      const body = { formFile: dataAvt };
       userServ
-        .updateAvatar(body)
+        .updateAvatar(dataAvt)
         .then((response) => {
-          const { avatar } = response.data.content;
-          userAdminLocalStorage.set({ ...data, avatar: avatar });
+          const avatar = response.data.content.avatar;
+          userAdminLocalStorage.set({ ...user, avatar });
 
           setIsChangeAvatar(false);
-          setIsUpdate(false);
         })
 
         .catch((error) => {
           console.log(error);
+          message.error(error.response.data.content);
         });
     }
 
     userServ
-      .updateUser(userUpdate)
+      .updateUser(user)
       .then((response) => {
         message.info(
           `Người dùng ${response.data.content.name} được cập nhật thành công.`
         );
-
         // cap nhat lai localStorage
-        userServ
-          .getUserByID(id)
-          .then((res) => {
-            const data = {
-              ...res.data.content,
-              avatar: res.data.content.avatar
-                ? res.data.content.avatar
-                : `https://i.pravatar.cc/150?img=${Math.ceil(
-                    Math.random() * 59
-                  )}`,
-              token: token,
-            };
-
-            userAdminLocalStorage.set({ ...data });
-            setIsUpdate(false);
-          })
-          .catch((err) => {
-            message.error(err.response.data.content);
-          });
+        userAdminLocalStorage.set({ ...user });
+        setIsUpdate(false);
       })
       .catch((error) => {
         console.log(error);
@@ -101,23 +83,6 @@ const ProfileModal = ({ closeProfileModal }) => {
     reader.onload = function (oFREvent) {
       document.getElementById("showAvatar").src = oFREvent.target.result;
     };
-
-    // POST API
-    var data = new FormData();
-    data.append("avatar", f);
-    userServ
-      .updateAvatar(data)
-      .then((response) => {
-        console.log(response);
-        // const { avatar } = response.data.content;
-        // userAdminLocalStorage.set({ ...data, avatar: avatar });
-        // setIsChangeAvatar(false);
-        // setIsUpdate(false);
-      })
-
-      .catch((error) => {
-        console.log(error);
-      });
 
     setIsChangeAvatar(true);
   };
@@ -258,14 +223,16 @@ const ProfileModal = ({ closeProfileModal }) => {
                         <select
                           name="gender"
                           onChange={handleChange}
-                          value={user.gender}
+                          value={user.gender ? "NAM" : "NỮ"}
                           className="w-full border-primary border px-3 rounded-[3px]"
                         >
-                          <option value={true}>Nam</option>
-                          <option value={false}>Nữ</option>
+                          <option value="NAM">Nam</option>
+                          <option value="NỮ">Nữ</option>
                         </select>
+                      ) : user.gender === true ? (
+                        "Nam"
                       ) : (
-                        user.role
+                        "Nữ"
                       )}
                     </div>
                   </div>
