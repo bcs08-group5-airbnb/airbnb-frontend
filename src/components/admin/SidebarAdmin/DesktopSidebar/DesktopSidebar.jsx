@@ -8,7 +8,7 @@ const DesktopSidebar = () => {
     <aside className='admin-sidebar fixed z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0'>
       <div className='py-4 text-gray-500 dark:text-gray-400'>
         <a href='#'>
-          <img src='../../../../../public/images/Airbnb_Logo_Bélo.svg.png' className='pl-6 w-[140px]' alt='' />
+          <img src='/images/Airbnb_Logo_Bélo.svg.png' className='pl-6 w-[140px]' alt='' />
         </a>
         <ul className='mt-6'>
           <li className='relative px-6 py-3'>

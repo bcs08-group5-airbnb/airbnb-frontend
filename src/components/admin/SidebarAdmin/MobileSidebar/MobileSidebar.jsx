@@ -18,7 +18,7 @@ const MobileSidebar = ({ toggleSideMenu }) => {
         >
           <div className='py-4 text-gray-500 dark:text-gray-400'>
             <a href='#'>
-              <img src='../../../../../public/images/Airbnb_Logo_Bélo.svg.png' className='pl-6 w-[120px]' alt='' />
+              <img src='/images/Airbnb_Logo_Bélo.svg.png' className='pl-6 w-[120px]' alt='' />
             </a>
             <ul className='mt-6'>
               <li className='relative px-6 py-3'>

@@ -9,16 +9,11 @@ const ForgetPassword = () => {
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800'>
         <div className='flex flex-col overflow-y-auto md:flex-row'>
           <div className='h-32 md:h-auto md:w-1/2'>
-            <img
-              aria-hidden='true'
-              className='object-cover w-full h-full dark:hidden'
-              src='../../../../../public/images/forgot-password-office.jpeg'
-              alt='Office'
-            />
+            <img aria-hidden='true' className='object-cover w-full h-full dark:hidden' src='/images/forgot-password-office.jpeg' alt='Office' />
             <img
               aria-hidden='true'
               className='hidden object-cover w-full h-full dark:block'
-              src='../../../../../public/images/forgot-password-office-dark.jpeg'
+              src='/images/forgot-password-office-dark.jpeg'
               alt='Office'
             />
           </div>
