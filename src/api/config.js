@@ -5,28 +5,28 @@ import { setLoadingOff, setLoadingOn } from "../redux/spinnerSlice";
 
 export const TOKEN_CYBER = import.meta.env.VITE_TOKEN_CYBERSOFT;
 
+const token = userLocalStorage.get()?.token;
+
 export const configHeaders = () => {
   return {
+    Authorization: `Bearer ${token}`,
     TokenCybersoft: TOKEN_CYBER,
+    token,
   };
 };
-
-const token = userLocalStorage.get()?.token;
 
 export const BASE_URL = "https://airbnbnew.cybersoft.edu.vn/api";
 export const https = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${token}`,
-    TokenCybersoft: TOKEN_CYBER,
+    ...configHeaders(),
   },
 });
 
 export const httpsNoLoading = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${token}`,
-    TokenCybersoft: TOKEN_CYBER,
+    ...configHeaders(),
   },
 });
 

@@ -5,8 +5,38 @@ import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
+import { COUNTRY_FORMAT } from "../constants/defaultValues";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function ListRooms({ item, cityNoSlug }) {
+  const [usefulThings, setUsefulThings] = useState([]);
+  useEffect(() => {
+    const updatedThings = [];
+    if (item.wifi) {
+      updatedThings.push("Wifi");
+    }
+    if (item.bep) {
+      updatedThings.push("Bếp");
+    }
+    if (item.dieuHoa) {
+      updatedThings.push("Điều hòa nhiệt độ");
+    }
+    if (item.mayGiat) {
+      updatedThings.push("Máy giặt");
+    }
+    if (item.tivi) {
+      updatedThings.push("Tivi");
+    }
+    if (item.doXe) {
+      updatedThings.push("Đỗ xe");
+    }
+    if (item.hoBoi) {
+      updatedThings.push("Hồ bơi");
+    }
+    setUsefulThings(updatedThings);
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className='space-y-6'>
       <div className='w-full h-px bg-gray-300 mb-6'></div>
@@ -14,11 +44,18 @@ export default function ListRooms({ item, cityNoSlug }) {
         <Card hoverable>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
             <div>
-              <Swiper slidesPerView={1} spaceBetween={0} loop={true} modules={[Pagination]} pagination={true} className='mySwiper mx-auto rounded-lg'>
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={0}
+                loop={true}
+                modules={[Pagination]}
+                pagination={true}
+                className='mySwiper mx-auto w-[90%] h-48 rounded-lg'
+              >
                 {Array.from({ length: 5 }).map((_, index) => (
                   <SwiperSlide key={index}>
                     <div className='w-full cursor-pointer'>
-                      <img className='w-full h-52 object-cover' src={item.hinhAnh} alt='' />
+                      <img className='w-full h-52 object-cover object-left' src={item.hinhAnh} alt='' />
                     </div>
                   </SwiperSlide>
                 ))}
@@ -37,23 +74,24 @@ export default function ListRooms({ item, cityNoSlug }) {
                 </div>
                 <div className='w-[15%] bg-gray-300 h-[3px] rounded-lg my-2'></div>
                 <p className='text-gray-500 text-md truncate'>
-                  {item.khach} khách {item.tenPhong.toLowerCase().includes("studio") ? "• Phòng studio" : ""}
+                  {item.khach} khách {item.tenPhong.toLowerCase().includes("studio") && "• Phòng studio"}
                   {item.phongNgu > 0 && " • " + item.phongNgu + " phòng ngủ"}
                   {item.giuong > 0 && " • " + item.phongNgu + " giường"}
                   {item.phongTam > 0 && " • " + item.phongNgu + " phòng tắm"}
                 </p>
                 <p className='text-gray-500 text-md truncate'>
-                  {item.wifi ? "Wifi • " : ""}
-                  {item.bep ? "Bếp • " : ""}
-                  {item.dieuHoa ? "Điều hòa nhiệt độ • " : ""}
-                  {item.mayGiat ? "Máy giặt • " : ""}
-                  {item.tivi ? "Tivi • " : ""}
-                  {item.doXe ? "Đỗ xe • " : ""}
-                  {item.hoBoi ? "Hồ bơi" : ""}
+                  {usefulThings.map((item, index) => {
+                    return (
+                      <span key={index}>
+                        {item}
+                        {index === usefulThings.length - 1 ? "" : " • "}
+                      </span>
+                    );
+                  })}
                 </p>
               </div>
               <div className='text-right mt-12'>
-                <span className='font-bold'>${item.giaTien}</span> / tháng
+                <span className='font-bold'>$ {item.giaTien.toLocaleString(COUNTRY_FORMAT)}</span> / đêm
               </div>
             </div>
           </div>
