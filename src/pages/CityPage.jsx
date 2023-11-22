@@ -1,3 +1,5 @@
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { httpsNoLoading } from "../api/config";
@@ -6,6 +8,9 @@ import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import convertToSlug from "../utils/convertToSlug";
 import ListRooms from "../components/ListRooms";
+import Loading from "../components/Loading";
+import moment from "moment";
+import { useSelector } from "react-redux";
 
 export default function CityPage() {
   const [cityId, setCityId] = useState(null);
@@ -37,35 +42,46 @@ export default function CityPage() {
         });
     }
   }, [cityId]);
-  if (phongThue === null)
-    return (
-      <div className='flex w-screen h-screen justify-center items-center'>
-        <img src='https://demo4.cybersoft.edu.vn/static/media/loading.385774bd589cf582d0f4.gif' alt='loading gif' />
-      </div>
-    );
   const filter = ["Loại nơi ở", "Giá", "Đặt ngay", "Phòng và phòng ngủ", "Bộ lọc khác"];
+  const [mapMounted, setMapMounted] = useState(false);
+  const handleLoadMap = () => {
+    setMapMounted(true);
+  };
+  const { dateRange } = useSelector(state => {
+    return state.userSlice;
+  });
+  if (phongThue === null) return <Loading />;
   return (
     <>
       <Header />
       <div className='mx-auto w-[95%] grid grid-cols-1 lg:grid-cols-2 gap-3'>
         <div className='py-12 space-y-3 h-auto'>
-          <p>Có {phongThue.length ?? 0} chỗ ở • 16 thg 4 - 14 thg 5 </p>
-          <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
-          <div className='flex flex-wrap gap-3'>
-            {filter.map((item, index) => (
-              <button
-                className='rounded-lg text-md bg-white text-black border border-gray-300 hover:border-gray-900 duration-300 px-6 py-2'
-                key={index}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-          <div className='space-y-6'>
-            {phongThue.map((item, index) => (
-              <ListRooms key={index} item={item} cityNoSlug={cityNoSlug} />
-            ))}
-          </div>
+          <p>
+            Có {phongThue.length ?? 0} chỗ ở tại {cityNoSlug} • {moment(dateRange[0].startDate).format("DD/MM/YYYY")} –{" "}
+            {moment(dateRange[0].endDate).format("DD/MM/YYYY")}
+          </p>
+          {phongThue.length > 0 ? (
+            <>
+              <h1 className='font-bold text-3xl text-black'>Chỗ ở tại khu vực bản đồ đã chọn</h1>
+              <div className='flex flex-wrap gap-3'>
+                {filter.map((item, index) => (
+                  <button
+                    className='rounded-lg text-md bg-white text-black border border-gray-300 hover:border-gray-900 duration-300 px-6 py-2'
+                    key={index}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <div className='space-y-6'>
+                {phongThue.map((item, index) => (
+                  <ListRooms key={index} item={item} cityNoSlug={cityNoSlug} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <p>Hiện tại chưa có chỗ ở trong khoảng thời gian này!</p>
+          )}
         </div>
         <div className='h-screen w-full block sticky top-28 mt-16'>
           <iframe
@@ -73,9 +89,11 @@ export default function CityPage() {
             width='100%'
             height='550px'
             allowFullScreen=''
-            loading='lazy'
             referrerPolicy='no-referrer-when-downgrade'
+            onLoad={() => handleLoadMap()}
+            className={`${mapMounted ? "block" : "hidden"} rounded-lg`}
           ></iframe>
+          {!mapMounted && <Skeleton height={550} className='rounded-lg' />}
         </div>
       </div>
       <FooterFixed />

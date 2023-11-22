@@ -15,12 +15,16 @@ import ForgetPassword from "./pages/Admin/ForgetPassword/ForgetPassword";
 import AdminLayout from "./layouts/AdminLayout";
 import UserAdminPage from "./pages/Admin/User/UserAdminPage";
 import RoomAdminPage from "./pages/Admin/Room/RoomAdminPage";
+import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
     <>
       <Spinner />
+      <ScrollToTopButton />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           {/* CLIENT PAGE */}
           <Route path="/" element={<HomePage />} />
