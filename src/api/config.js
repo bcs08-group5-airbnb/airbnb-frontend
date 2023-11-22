@@ -10,7 +10,7 @@ const token = userLocalStorage.get()?.token;
 export const configHeaders = () => {
   return {
     Authorization: `Bearer ${token}`,
-    TokenCybersoft: TOKEN_CYBER,
+    tokenCybersoft: TOKEN_CYBER,
     token,
   };
 };
@@ -31,25 +31,25 @@ export const httpsNoLoading = axios.create({
 });
 
 https.interceptors.request.use(
-  (config) => {
+  config => {
     store.dispatch(setLoadingOn());
     return config;
   },
-  (err) => {
+  err => {
     store.dispatch(setLoadingOff());
     return Promise.reject(err);
-  }
+  },
 );
 
 https.interceptors.response.use(
-  (res) => {
+  res => {
     store.dispatch(setLoadingOff());
     return res;
   },
-  (err) => {
+  err => {
     store.dispatch(setLoadingOff());
     return Promise.reject(err);
-  }
+  },
 );
 
 // DUNG CHO ADMIN PAGE
@@ -63,23 +63,23 @@ export const httpsAdmin = axios.create({
 });
 
 httpsAdmin.interceptors.request.use(
-  (config) => {
+  config => {
     store.dispatch(setLoadingOn());
     return config;
   },
-  (err) => {
+  err => {
     store.dispatch(setLoadingOff());
     return Promise.reject(err);
-  }
+  },
 );
 
 httpsAdmin.interceptors.response.use(
-  (res) => {
+  res => {
     store.dispatch(setLoadingOff());
     return res;
   },
-  (err) => {
+  err => {
     store.dispatch(setLoadingOff());
     return Promise.reject(err);
-  }
+  },
 );
