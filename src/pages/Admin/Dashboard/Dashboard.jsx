@@ -31,7 +31,7 @@ const Dashboard = () => {
           <RoomList />
 
           {/* <!-- Charts --> */}
-          <HeadingAdmin heading="Charts" />
+          <HeadingAdmin heading="Biểu đồ" />
           <ChartAdmin />
         </div>
       </main>
