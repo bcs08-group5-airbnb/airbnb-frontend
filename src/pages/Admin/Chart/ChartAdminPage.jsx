@@ -10,7 +10,8 @@ const ChartAdminPage = () => {
     <>
       <main className="h-full overflow-y-auto">
         <div className="container px-6 mx-auto grid">
-          <HeadingAdmin heading="Người dùng" />
+          <HeadingAdmin heading="Biểu đồ" />
+          <CTA />
           <ChartAdmin />
         </div>
       </main>

@@ -12,16 +12,19 @@ const RoomList = () => {
   const [rooms, setRooms] = useState(null);
   let [roomFrom, setRoomFrom] = useState(1);
 
-  useEffect(() => {
+  const fetch = () => {
     roomServ
       .getAllRooms()
       .then((result) => {
-        console.log(result.data.content);
         setRooms(result.data.content);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    fetch();
   }, []);
 
   const selectPaginationRoom = (number) => {
@@ -57,7 +60,9 @@ const RoomList = () => {
             {rooms
               ?.slice((roomFrom - 1) * 10, roomFrom * 10)
               .map((room, index) => {
-                return <Room room={room} index={index} key={index} />;
+                return (
+                  <Room room={room} index={index} key={index} fetch={fetch} />
+                );
               })}
           </tbody>
         </table>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
 const ChartLine = () => {
@@ -85,7 +85,7 @@ const ChartLine = () => {
       <h4 className="mb-4 font-semibold text-gray-800 dark:text-gray-300">
         Người dùng
       </h4>
-      <canvas id="line"></canvas>
+      <canvas id="line" className=" max-h-[300px]"></canvas>
       <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
         {/* <!-- Chart legend --> */}
         <div className="flex items-center">

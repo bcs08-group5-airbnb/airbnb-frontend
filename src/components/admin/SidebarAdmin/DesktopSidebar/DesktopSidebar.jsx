@@ -107,29 +107,20 @@ const DesktopSidebar = () => {
               <span className="ml-4">Hệ thống phòng</span>
             </a>
           </li>
+
           <li className="relative px-6 py-3">
-            <a
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="cards.html"
-            >
-              <svg
-                className="w-5 h-5"
+            {pathname === "/admin/chart" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg"
                 aria-hidden="true"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-              </svg>
-              <span className="ml-4">Cards</span>
-            </a>
-          </li>
-          <li className="relative px-6 py-3">
+              ></span>
+            )}
             <a
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full ${
+                pathname === "/admin/chart"
+                  ? "text-gray-800 dark:text-gray-200"
+                  : "dark:text-gray-400"
+              } text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 `}
               href="/admin/chart"
             >
               <svg
@@ -145,10 +136,10 @@ const DesktopSidebar = () => {
                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                 <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
               </svg>
-              <span className="ml-4">Charts</span>
+              <span className="ml-4">Biểu đồ</span>
             </a>
           </li>
-          <li className="relative px-6 py-3">
+          {/* <li className="relative px-6 py-3">
             <a
               className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="buttons.html"
@@ -280,7 +271,7 @@ const DesktopSidebar = () => {
                 </li>
               </ul>
             </template>
-          </li>
+          </li> */}
         </ul>
         {pathname === "/admin/user" && <UserCreateModal />}
       </div>

@@ -18,4 +18,5 @@ export const userServ = {
 
 export const roomServ = {
   getAllRooms: () => httpsAdmin.get("/phong-thue"),
+  deleteRoom: (id) => httpsAdmin.delete(`/phong-thue/${id}`),
 };
