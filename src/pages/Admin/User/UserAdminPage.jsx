@@ -16,7 +16,7 @@ const UserAdminPage = () => {
           <UserList />
         </div>
       </main>
-      <LoadingPage />
+      <LoadingPage title={"Người dùng"} />
     </>
   );
 };

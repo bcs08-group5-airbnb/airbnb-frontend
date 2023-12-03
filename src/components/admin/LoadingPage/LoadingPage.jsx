@@ -1,7 +1,7 @@
 import React from "react";
 import "./LoadingPage.css";
 
-const LoadingPage = () => {
+const LoadingPage = ({ title }) => {
   const introTl = gsap.timeline();
 
   function init() {
@@ -87,7 +87,7 @@ const LoadingPage = () => {
             <span className="text-primary">Airbnb,</span>
           </span>
           <span className="loader__text">
-            <span>Trang Giám sát</span>
+            <span>Trang {title}</span>
           </span>
           <span className="loader__text">
             <span>&amp; Quản trị.</span>

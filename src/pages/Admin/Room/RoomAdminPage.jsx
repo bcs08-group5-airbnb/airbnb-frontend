@@ -16,7 +16,7 @@ const RoomAdminPage = () => {
           <RoomList />
         </div>
       </main>
-      <LoadingPage />
+      <LoadingPage title={"Hệ thống phòng"} />
     </>
   );
 };

@@ -35,7 +35,7 @@ const Dashboard = () => {
           <ChartAdmin />
         </div>
       </main>
-      <LoadingPage />
+      <LoadingPage title={"Dashboard"} />
     </>
   );
 };
