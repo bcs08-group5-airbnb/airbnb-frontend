@@ -48,7 +48,7 @@ const UpdateForm = ({ closeUpdateForm, userID, renderUserPage }) => {
       style={{ marginLeft: 0 }}
     >
       <div
-        className="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+        className="w-full px-6 py-4 overflow-scroll max-h-[70vh] bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
         role="dialog"
         id="modal"
       >

@@ -6,6 +6,7 @@ import HeadingAdmin from "../../../components/admin/HeadingAdmin/HeadingAdmin";
 import CardAdmin from "../../../components/admin/CardAdmin/CardAdmin";
 import ChartAdmin from "../../../components/admin/ChartAdmin/ChartAdmin";
 import RoomList from "../../../components/admin/RoomTable/RoomList";
+import LocationList from "../../../components/admin/LocationTable/LocationList";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -26,9 +27,12 @@ const Dashboard = () => {
           <UserList />
 
           {/* <!-- Room Table --> */}
-
           <HeadingAdmin heading="Hệ thống phòng" />
           <RoomList />
+
+          {/* <!-- Location Table --> */}
+          <HeadingAdmin heading="Vị trí" />
+          <LocationList />
 
           {/* <!-- Charts --> */}
           <HeadingAdmin heading="Biểu đồ" />

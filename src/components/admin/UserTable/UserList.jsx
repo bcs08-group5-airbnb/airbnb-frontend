@@ -60,7 +60,7 @@ const UserList = () => {
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-lg shadow-xs">
+    <div className="w-full overflow-hidden rounded-lg shadow-xs pb-[50px]">
       <div className="w-full overflow-x-auto">
         <table className="w-full whitespace-no-wrap">
           <thead>
@@ -93,7 +93,7 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
-      <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+      <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800 rounded-br-lg rounded-bl-lg">
         <ShowTotalNumber totalUsers={totalUsers} userFrom={userFrom} />
         <span className="col-span-2"></span>
         {/* <!-- Pagination --> */}
