@@ -1,27 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { roomServ } from "../../../api/api";
+import { locationServ, roomServ } from "../../../api/api";
 import Room from "./Room";
 import ViewMoreRoom from "./ViewMoreRoom";
 import { useLocation } from "react-router-dom";
 import PaginationRoomList from "./PaginationRoomList";
 import ShowtotalRoomNumber from "./ShowtotalRoomNumber";
+import { useSelector } from "react-redux";
 
 const RoomList = () => {
   const { pathname } = useLocation();
 
   const [rooms, setRooms] = useState(null);
+  const [locations, setLocations] = useState(null);
   let [roomFrom, setRoomFrom] = useState(1);
 
-  useEffect(() => {
+  const { reload } = useSelector((state) => state.roomSlice);
+
+  const fetch = () => {
     roomServ
       .getAllRooms()
       .then((result) => {
-        console.log(result.data.content);
         setRooms(result.data.content);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const fetchLocation = () => {
+    locationServ
+      .getAllLocations()
+      .then((result) => {
+        setLocations(result.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetch();
+  }, [reload]);
+
+  useEffect(() => {
+    fetchLocation();
   }, []);
 
   const selectPaginationRoom = (number) => {
@@ -49,7 +71,7 @@ const RoomList = () => {
               <th className="px-4 py-3">Tên phòng</th>
               <th className="px-4 py-3">Giá tiền</th>
               <th className="px-4 py-3">Thông tin</th>
-              <th className="px-4 py-3">Trạng thái</th>
+              <th className="px-4 py-3">Vị trí</th>
               <th className="px-4 py-3">Thao Tác</th>
             </tr>
           </thead>
@@ -57,7 +79,22 @@ const RoomList = () => {
             {rooms
               ?.slice((roomFrom - 1) * 10, roomFrom * 10)
               .map((room, index) => {
-                return <Room room={room} index={index} key={index} />;
+                let viTri = "";
+                locations?.map((item) => {
+                  if (item.id === room.maViTri) {
+                    viTri = item.tenViTri;
+                  }
+                });
+                return (
+                  <Room
+                    room={room}
+                    index={index}
+                    key={index}
+                    fetch={fetch}
+                    viTri={viTri}
+                    locations={locations}
+                  />
+                );
               })}
           </tbody>
         </table>

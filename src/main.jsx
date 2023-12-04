@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./redux/userSlice";
 import spinnerSlice from "./redux/spinnerSlice";
+import roomSlice from "./redux/roomSlice";
 
 import "alpinejs";
 
@@ -13,6 +14,7 @@ export const store = configureStore({
   reducer: {
     userSlice,
     spinnerSlice,
+    roomSlice,
   },
 });
 

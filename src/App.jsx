@@ -17,6 +17,7 @@ import UserAdminPage from "./pages/Admin/User/UserAdminPage";
 import RoomAdminPage from "./pages/Admin/Room/RoomAdminPage";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import ChartAdminPage from "./pages/Admin/Chart/ChartAdminPage";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="user" element={<UserAdminPage />} />
             <Route path="room" element={<RoomAdminPage />} />
+            <Route path="chart" element={<ChartAdminPage />} />
             <Route path="login" element={<LoginAdmin />} />
             <Route path="register" element={<RegisterAdmin />} />
             <Route path="forgot-password" element={<ForgetPassword />} />

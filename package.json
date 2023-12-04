@@ -24,6 +24,7 @@
     "antd": "^5.10.3",
     "antd-img-crop": "^4.17.0",
     "axios": "^1.6.0",
+    "chart.js": "^4.4.0",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.292.0",
     "moment": "^2.29.4",
