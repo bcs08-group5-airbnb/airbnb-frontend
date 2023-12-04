@@ -5,7 +5,7 @@ const PopupRoomPhoto = ({ photo, index }) => {
     <td
       className={`hidden absolute z-20 left-[80px] ${
         index >= 2 ? "top-[-137px]" : "bottom-[-137px]"
-      } bg-bg-popup px-[10px] py-[20px] rounded-[5px] w-[300px] h-[145px]  group-hover:block hover:hidden`}
+      } bg-bg-popup px-[10px] py-[20px] rounded-[5px] w-[300px] h-[145px]  group-hover:block `}
     >
       <img
         src={photo}

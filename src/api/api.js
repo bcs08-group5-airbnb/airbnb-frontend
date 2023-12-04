@@ -22,8 +22,10 @@ export const roomServ = {
   uploadPhotoRoom: (id, photo) =>
     httpsAdmin.post(`/phong-thue/upload-hinh-phong?maPhong=${id}`, photo),
   deleteRoom: (id) => httpsAdmin.delete(`/phong-thue/${id}`),
+  updateRoom: (data) => httpsAdmin.put(`/phong-thue/${data.id}`, data),
 };
 
 export const locationServ = {
   getAllLocations: () => httpsAdmin.get("/vi-tri"),
+  getLocationByID: (id) => httpsAdmin.get(`/vi-tri/${id}`),
 };

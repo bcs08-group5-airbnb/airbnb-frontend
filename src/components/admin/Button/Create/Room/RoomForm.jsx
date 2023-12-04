@@ -72,6 +72,7 @@ const RoomForm = ({ closeModal }) => {
           })
 
           .catch((error) => {
+            roomServ.deleteRoom(id);
             message.error(error.response.data.content);
           });
       })
@@ -144,12 +145,19 @@ const RoomForm = ({ closeModal }) => {
 
             <img id="showHinhPhong" className=" rounded-[5px]" />
 
-            {!isSelectedPhoto && (
+            {!isSelectedPhoto ? (
               <label
                 htmlFor="hinhAnh"
                 className="w-[50px] h-[50px] border-[1px] border-primary rounded-[3px] block text-center leading-[50px] cursor-pointer"
               >
                 +
+              </label>
+            ) : (
+              <label
+                htmlFor="hinhAnh"
+                className=" bg-gray-300 rounded-[3px] px-3  mt-2 inline-block cursor-pointer"
+              >
+                change
               </label>
             )}
             <input
