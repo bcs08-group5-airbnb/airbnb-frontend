@@ -5,12 +5,15 @@ import ViewMoreRoom from "./ViewMoreRoom";
 import { useLocation } from "react-router-dom";
 import PaginationRoomList from "./PaginationRoomList";
 import ShowtotalRoomNumber from "./ShowtotalRoomNumber";
+import { useSelector } from "react-redux";
 
 const RoomList = () => {
   const { pathname } = useLocation();
 
   const [rooms, setRooms] = useState(null);
   let [roomFrom, setRoomFrom] = useState(1);
+
+  const { reload } = useSelector((state) => state.roomSlice);
 
   const fetch = () => {
     roomServ
@@ -22,10 +25,9 @@ const RoomList = () => {
         console.log(error);
       });
   };
-
   useEffect(() => {
     fetch();
-  }, []);
+  }, [reload]);
 
   const selectPaginationRoom = (number) => {
     setRoomFrom(number);
