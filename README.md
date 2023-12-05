@@ -1,4 +1,4 @@
-# Airbnb Clone Project
+# Airbnb Clone Project – BCS08 CyberSoft Academy Final Project
 
 ## Description
 
@@ -44,14 +44,28 @@ If you encounter any issues or have questions, our support team is ready to assi
 
 We hope you have a wonderful time using our Airbnb clone!
 
-## Technologies Used
+## Technologies and Tools used
 
 - Frontend:
 
   - React.js
+  - React Router v6
   - Redux
   - HTML5, CSS3, JavaScript
   - CSS Framework: Tailwind CSS
+  - Swiper
+  - Axios API
+  - Postman
+  - Swagger
+  - Ant Design
+  - ProComponents
+  - Vite
+  - Chart.js
+  - Alpine.js
+  - CKEditor 4 (experiment)
+  - Vercel (for deployment)
+  - Editor: VS Code, AstroNvim
+  - Version control: GitHub
 
 ## Installation
 
@@ -69,3 +83,13 @@ We hope you have a wonderful time using our Airbnb clone!
    VITE_TOKEN_CYBERSOFT=your_cybersoft_course_token_(not_expired)
    VITE_MAP_API_KEY=your_basic_map_api_key_(contact_us_if_needed)
    ```
+
+## Useful Links
+
+🌟 Swagger API: https://airbnbnew.cybersoft.edu.vn/swagger/index.html
+
+🌟 Youtube preview: https://youtu.be/3BGVBrY6QCg?si=KXtkh0dYe0sQzOWE
+
+##
+
+This project is developed and contributed by [Long Phan](https://github.com/longphanquangminh) and [Huỳnh Quí](https://github.com/HuynhQuiLe)
