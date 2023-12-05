@@ -10,7 +10,6 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { httpsNoLoading } from "../api/config";
 import { DateRangePicker } from "react-date-range";
-import { RemoveScrollBar } from "react-remove-scroll-bar";
 import moment from "moment";
 import convertToSlug from "../utils/convertToSlug";
 
@@ -275,7 +274,6 @@ export default function Header({ div2Ref }) {
           </div>
         </div>
         <div className={`transition-all duration-300 ${extendSearchBar ? "lg:h-16 lg:pb-6" : "h-0 pb-0"} flex justify-center items-center`}>
-          {extendSearchBar && <RemoveScrollBar />}
           {extendSearchBar && (
             <div className='hidden lg:block bg-white w-1/2 rounded-full border-[1px] border-gray-300 relative'>
               {showSearchLocation && (
