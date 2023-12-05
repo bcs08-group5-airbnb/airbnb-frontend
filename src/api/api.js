@@ -35,3 +35,8 @@ export const locationServ = {
   uploadPhotoLocation: (id, photo) =>
     httpsAdmin.post(`/vi-tri/upload-hinh-vitri?maViTri=${id}`, photo),
 };
+
+export const bookingSer = {
+  getAllBookings: () => httpsAdmin.get("/dat-phong"),
+  deleteBooking: (id) => httpsAdmin.delete(`/dat-phong/${id}`),
+};

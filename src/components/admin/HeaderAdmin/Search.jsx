@@ -53,6 +53,7 @@ const Search = () => {
           placeholder={placeholder}
           aria-label="Search"
           onChange={handleSearch}
+          disabled
         />
       </div>
     </div>
