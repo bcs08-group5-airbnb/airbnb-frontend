@@ -28,4 +28,10 @@ export const roomServ = {
 export const locationServ = {
   getAllLocations: () => httpsAdmin.get("/vi-tri"),
   getLocationByID: (id) => httpsAdmin.get(`/vi-tri/${id}`),
+  createLocation: (data) => httpsAdmin.post("/vi-tri", data),
+  updateLocation: (data) => httpsAdmin.put(`/vi-tri/${data.id}`, data),
+
+  deleteLocation: (id) => httpsAdmin.delete(`/vi-tri/${id}`),
+  uploadPhotoLocation: (id, photo) =>
+    httpsAdmin.post(`/vi-tri/upload-hinh-vitri?maViTri=${id}`, photo),
 };

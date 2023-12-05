@@ -7,6 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./redux/userSlice";
 import spinnerSlice from "./redux/spinnerSlice";
 import roomSlice from "./redux/roomSlice";
+import locationSlice from "./redux/locationSlice";
 
 import "alpinejs";
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     userSlice,
     spinnerSlice,
     roomSlice,
+    locationSlice,
   },
 });
 

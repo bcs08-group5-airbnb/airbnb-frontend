@@ -1,4 +1,6 @@
 import React from "react";
+import LocationDeleteButton from "../Button/Delete/Location/LocationDeleteButton";
+import LocationUpdateButton from "../Button/Update/Location/LocationUpdateButton";
 
 const Location = ({ location, index }) => {
   return (
@@ -14,7 +16,12 @@ const Location = ({ location, index }) => {
       <td className="px-4 py-3 text-sm">{location.tenViTri}</td>
       <td className="px-4 py-3 text-sm">{location.tinhThanh}</td>
       <td className="px-4 py-3 text-sm ">{location.quocGia}</td>
-      <td className="px-4 py-3 text-sm "> xoa sua</td>
+      <td className="px-4 py-3 text-sm ">
+        <div className="flex items-center space-x-4 text-sm">
+          <LocationUpdateButton location={location} />
+          <LocationDeleteButton location={location} />
+        </div>
+      </td>
     </tr>
   );
 };

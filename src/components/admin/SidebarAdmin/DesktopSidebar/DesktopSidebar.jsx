@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import UserCreateModal from "../../Button/Create/User/UserCreateModal";
 import RoomCreateButton from "../../Button/Create/Room/RoomCreateButton";
+import LocationCreateButton from "../../Button/Create/Location/LocationCreateButton";
 
 const DesktopSidebar = () => {
   const { pathname } = useLocation();
@@ -307,6 +308,7 @@ const DesktopSidebar = () => {
         </ul>
         {pathname === "/admin/user" && <UserCreateModal />}
         {pathname === "/admin/room" && <RoomCreateButton />}
+        {pathname === "/admin/location" && <LocationCreateButton />}
       </div>
     </aside>
   );

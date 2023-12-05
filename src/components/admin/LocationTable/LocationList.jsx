@@ -5,10 +5,14 @@ import Location from "./Location";
 import ViewMoreLocation from "./ViewMoreLocation";
 import PaginationLocationList from "./PaginationLocationList";
 import ShowTotalLocationNumber from "./ShowTotalLocationNumber";
+import { useSelector } from "react-redux";
 
 const LocationList = () => {
   const { pathname } = useLocation();
   const [locations, setLocations] = useState(null);
+
+  const { reload } = useSelector((state) => state.locationSlice);
+
   const fetchLocation = () => {
     locationServ
       .getAllLocations()
@@ -23,6 +27,10 @@ const LocationList = () => {
   useEffect(() => {
     fetchLocation();
   }, []);
+
+  useEffect(() => {
+    fetchLocation();
+  }, [reload]);
 
   return (
     <div className="w-full overflow-hidden rounded-lg shadow-xs pb-[50px]">
