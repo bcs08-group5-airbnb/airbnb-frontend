@@ -144,6 +144,37 @@ const MobileSidebar = ({ toggleSideMenu }) => {
               </li>
 
               <li className="relative px-6 py-3">
+                {pathname === "/admin/booking" && (
+                  <span
+                    className="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg"
+                    aria-hidden="true"
+                  ></span>
+                )}
+                <a
+                  className={`inline-flex items-center w-full ${
+                    pathname === "/admin/booking"
+                      ? "text-gray-800 dark:text-gray-200"
+                      : "dark:text-gray-400"
+                  } text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 `}
+                  href="/admin/booking"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                  <span className="ml-4">Đặt phòng</span>
+                </a>
+              </li>
+
+              <li className="relative px-6 py-3">
                 {pathname === "/admin/chart" && (
                   <span
                     className="absolute inset-y-0 left-0 w-1 bg-primary rounded-tr-lg rounded-br-lg"
