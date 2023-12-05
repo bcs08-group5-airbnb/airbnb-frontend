@@ -1,6 +1,4 @@
-# Airbnb Clone Project – BCS08 CyberSoft Academy Final Project
-
-## Description
+# Airbnb Clone Project – CyberSoft Academy Final Project
 
 This project is a clone of Airbnb, a popular online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. The goal of this project is to replicate key features and functionalities of the Airbnb platform.
 
@@ -46,7 +44,7 @@ We hope you have a wonderful time using our Airbnb clone!
 
 ## Technologies and Tools used
 
-- Frontend:
+- Included in the learning curriculum:
 
   - React.js
   - React Router v6
@@ -59,13 +57,16 @@ We hope you have a wonderful time using our Airbnb clone!
   - Swagger
   - Ant Design
   - ProComponents
+  - Editor: VS Code, AstroNvim
+  - Version control: GitHub
+
+- Others (self-search externally):
+
   - Vite
   - Chart.js
   - Alpine.js
   - CKEditor 4 (experiment)
   - Vercel (for deployment)
-  - Editor: VS Code, AstroNvim
-  - Version control: GitHub
 
 ## Installation
 
