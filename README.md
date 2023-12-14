@@ -67,6 +67,8 @@ We hope you have a wonderful time using our Airbnb clone!
   - Alpine.js
   - CKEditor 4 (experiment)
   - Vercel (for deployment)
+ 
+- In the future, the team will explore and utilize additional technologies such as NestJS, SocketIO, and Stripe to enhance both the business functionality and user experience of this web app.
 
 ## Installation
 
