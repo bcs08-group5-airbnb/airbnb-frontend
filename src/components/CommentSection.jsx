@@ -36,7 +36,7 @@ export default function CommentSection({ item }) {
         </div>
       </div>
       <div>
-        <pre className='text-justify'>{item.noiDung.length > 0 ? item.noiDung : "Không nhận xét."}</pre>
+        <pre className='text-justify truncate'>{item.noiDung.length > 0 ? item.noiDung : "Không nhận xét."}</pre>
       </div>
     </div>
   );
