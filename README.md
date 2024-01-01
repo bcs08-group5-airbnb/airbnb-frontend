@@ -78,7 +78,7 @@ We hope you have a wonderful time using our Airbnb clone!
 1. Clone the repository: `git clone https://github.com/bcs08-group5-airbnb/airbnb-frontend.git`
 2. Navigate to the project directory: `cd airbnb-frontend`
 3. Install dependencies: `npm install`
-4. Run `npm start` or `npm run dev` to enjoy our website
+4. Run `npm run dev` (not `npm start`) to enjoy our website
 
 ## Configuration
 
