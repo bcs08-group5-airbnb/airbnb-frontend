@@ -1,4 +1,4 @@
-# Airbnb Clone Project – CyberSoft Academy Final Project
+# Airbnb Clone Project – BCS08 Final Project
 
 This project is a clone of Airbnb, a popular online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. The goal of this project is to replicate key features and functionalities of the Airbnb platform.
 
