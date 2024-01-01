@@ -42,7 +42,7 @@ If you encounter any issues or have questions, our support team is ready to assi
 
 We hope you have a wonderful time using our Airbnb clone!
 
-## Technologies and Tools used
+## Technologies and Tools used 👀
 
 - Included in the learning curriculum:
 
