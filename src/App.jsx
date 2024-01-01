@@ -20,10 +20,6 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import ChartAdminPage from "./pages/Admin/Chart/ChartAdminPage";
 import LocationAdminPage from "./pages/Admin/Location/LocationAdminPage";
 import BookingAdminPage from "./pages/Admin/Booking/BookingAdminPage";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-AOS.init();
 
 function App() {
   return (

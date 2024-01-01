@@ -42,7 +42,8 @@
     "react-router-dom": "^6.17.0",
     "react-spinners": "^0.13.8",
     "swiper": "^11.0.3",
-    "use-sound": "^4.0.1"
+    "use-sound": "^4.0.1",
+    "viewerjs": "^1.11.6"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

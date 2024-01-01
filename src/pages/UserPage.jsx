@@ -14,6 +14,7 @@ import { NO_IMAGE_AVAILABLE, DEFAULT_NO_AVATAR } from "../constants/defaultValue
 import { setLogin } from "../redux/userSlice";
 import { userLocalStorage } from "../api/localService";
 import { capitalizeString } from "../utils/capitalizeString";
+import SingleImageViewer from "../components/SingleImageViewer";
 
 const waitTime = (time = 100) => {
   return new Promise(resolve => {
@@ -161,7 +162,10 @@ export default function UserPage() {
       <div className='mx-auto w-[95%] grid lg:flex gap-12 py-6'>
         <Card className='basis-auto h-[500px] block lg:sticky top-0 lg:top-20'>
           <div className='space-y-3'>
-            <img className='mx-auto w-36 h-36 object-cover rounded-full' alt='' src={userInfo.avatar !== "" ? userInfo.avatar : DEFAULT_NO_AVATAR} />
+            <SingleImageViewer
+              className='cursor-pointer mx-auto w-36 h-36 object-cover rounded-full'
+              image={userInfo.avatar !== "" ? userInfo.avatar : DEFAULT_NO_AVATAR}
+            />
             <div className='w-full flex justify-center'>
               <button className='mx-auto w-auto underline font-bold text-sm' onClick={showModal}>
                 Cập nhật ảnh
