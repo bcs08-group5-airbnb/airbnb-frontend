@@ -18,7 +18,7 @@ Welcome to our Airbnb clone! Follow these simple steps to explore and book amazi
 
 ### 1. Visit Our Website
 
-Navigate to our website at [HERE](https://room-rental-capstone.up.railway.app).
+Navigate to our website at https://room-rental-capstone.up.railway.app.
 
 ### 2. Explore Listings
 
