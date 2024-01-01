@@ -18,7 +18,7 @@ Welcome to our Airbnb clone! Follow these simple steps to explore and book amazi
 
 ### 1. Visit Our Website
 
-Navigate to our website at [HERE](https://bcs08g5-room-rental-service.vercel.app).
+Navigate to our website at [HERE](https://room-rental-capstone.up.railway.app).
 
 ### 2. Explore Listings
 
@@ -66,8 +66,8 @@ We hope you have a wonderful time using our Airbnb clone!
   - Chart.js
   - Alpine.js
   - CKEditor 4 (experiment)
-  - Vercel (for deployment)
- 
+  - Railway (for deployment)
+
 - In the future, the team will explore and utilize additional technologies such as NestJS, SocketIO, and Stripe to enhance both the business functionality and user experience of this web app.
 
 ## Installation
