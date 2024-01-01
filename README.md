@@ -51,12 +51,10 @@ We hope you have a wonderful time using our Airbnb clone!
   - Redux
   - HTML5, CSS3, JavaScript
   - CSS Framework: Tailwind CSS
-  - Swiper
   - Axios API
   - Postman
   - Swagger
   - Ant Design
-  - ProComponents
   - Editor: VS Code, AstroNvim
   - Version control: GitHub
 
@@ -65,6 +63,11 @@ We hope you have a wonderful time using our Airbnb clone!
   - Vite
   - Chart.js
   - Alpine.js
+  - AOS
+  - Swiper
+  - LightGallery
+  - ViewerJS
+  - ProComponents
   - CKEditor 4 (experiment)
   - Railway (for deployment)
 
