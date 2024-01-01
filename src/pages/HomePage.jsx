@@ -5,11 +5,24 @@ import Header from "../components/Header";
 import { httpsNoLoading } from "../api/config";
 import { Card } from "antd";
 import Meta from "antd/es/card/Meta";
-import bgAnimate from "../assets/animation_lok4gyyr.json";
-import Lottie from "lottie-react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import convertToSlug from "../utils/convertToSlug";
 import { Link } from "react-router-dom";
 import AdvertisementModal from "../components/AdvertisementModal";
+
+import LightGallery from "lightgallery/react";
+
+// import styles
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+
+// import plugins if you need
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
+
+AOS.init();
 
 const anywherePlaces = [
   {
@@ -90,7 +103,14 @@ export default function HomePage() {
         <Header div2Ref={div2Ref} />
         <div ref={div2Ref} className='bg-black w-[95%] mx-auto h-[calc(100vh-64px)] lg:h-[calc(100vh-48px-64px)] flex justify-center items-center'>
           <div className='space-y-28 lg:space-y-6'>
-            <img className='mx-auto w-full' alt='' src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp' />
+            <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
+              <img
+                data-lg-size='1600-2400'
+                className='mx-auto w-full cursor-pointer'
+                alt=''
+                src='https://airbnb-app.vercel.app/Images/banner_airbnb.webp'
+              />
+            </LightGallery>
             <p className='text-center text-white font-bold text-2xl'>Nhờ có Host, mọi điều đều có thể</p>
             <div className='flex justify-center items-center'>
               {/* <button onClick={() => firstSectionRef.current.scrollIntoView({ behavior: "smooth" })}>
@@ -134,7 +154,7 @@ export default function HomePage() {
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9'>
                 {anywherePlaces.map((item, index) => {
                   return (
-                    <Link key={index} to={`/roombycity/${item.link_slug}`}>
+                    <Link data-aos='zoom-in' key={index} to={`/roombycity/${item.link_slug}`}>
                       <Card hoverable className='w-full' cover={<img alt='' src={item.url} />}>
                         <Meta title={item.name} />
                       </Card>

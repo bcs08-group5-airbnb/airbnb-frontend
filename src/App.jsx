@@ -20,6 +20,10 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import ChartAdminPage from "./pages/Admin/Chart/ChartAdminPage";
 import LocationAdminPage from "./pages/Admin/Location/LocationAdminPage";
 import BookingAdminPage from "./pages/Admin/Booking/BookingAdminPage";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 function App() {
   return (
@@ -30,13 +34,13 @@ function App() {
         <ScrollToTop />
         <Routes>
           {/* CLIENT PAGE */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
 
-          <Route path="/roombycity/:cityName" element={<CityPage />} />
+          <Route path='/roombycity/:cityName' element={<CityPage />} />
           <Route
-            path="/roomdetail/:roomId"
+            path='/roomdetail/:roomId'
             element={
               <MainLayout>
                 <RoomDetailPage />
@@ -44,7 +48,7 @@ function App() {
             }
           />
           <Route
-            path="/personal-info"
+            path='/personal-info'
             element={
               <MainLayout>
                 <UserPage />
@@ -52,19 +56,19 @@ function App() {
             }
           />
           {/* ADMIN PAGE */}
-          <Route path="/admin" element={<AdminLayout />}>
+          <Route path='/admin' element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
-            <Route path="user" element={<UserAdminPage />} />
-            <Route path="room" element={<RoomAdminPage />} />
-            <Route path="location" element={<LocationAdminPage />} />
-            <Route path="booking" element={<BookingAdminPage />} />
-            <Route path="chart" element={<ChartAdminPage />} />
-            <Route path="login" element={<LoginAdmin />} />
-            <Route path="register" element={<RegisterAdmin />} />
-            <Route path="forgot-password" element={<ForgetPassword />} />
+            <Route path='user' element={<UserAdminPage />} />
+            <Route path='room' element={<RoomAdminPage />} />
+            <Route path='location' element={<LocationAdminPage />} />
+            <Route path='booking' element={<BookingAdminPage />} />
+            <Route path='chart' element={<ChartAdminPage />} />
+            <Route path='login' element={<LoginAdmin />} />
+            <Route path='register' element={<RegisterAdmin />} />
+            <Route path='forgot-password' element={<ForgetPassword />} />
           </Route>
 
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </>
