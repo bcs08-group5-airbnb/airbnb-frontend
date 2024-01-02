@@ -1,5 +1,10 @@
 # Airbnb Clone Project – BCS08 Final Project
 
+<p align="center">
+  <a href="https" target="_blank"><img src="https://img.shields.io/github/followers/longphanquangminh" alt="Github profile" /></a>
+  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+</p>
+
 This project is a clone of Airbnb, a popular online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. The goal of this project is to replicate key features and functionalities of the Airbnb platform.
 
 ## Features
