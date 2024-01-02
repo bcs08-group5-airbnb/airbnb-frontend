@@ -1,7 +1,7 @@
 # Airbnb Clone Project – BCS08 Final Project
 
 <p align="center">
-  <a href="https" target="_blank"><img src="https://img.shields.io/github/followers/longphanquangminh" alt="Github profile" /></a>
+  <a href="https://github.com/longphanquangminh" target="_blank"><img src="https://img.shields.io/github/followers/longphanquangminh" alt="Github profile" /></a>
   <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 </p>
 
