@@ -73,6 +73,7 @@ We hope you have a wonderful time using our Airbnb clone!
   - LightGallery
   - ViewerJS
   - ProComponents
+  - Cloudinary
   - CKEditor 4 (experiment)
   - Railway (for deployment)
 
