@@ -102,6 +102,8 @@ We hope you have a wonderful time using our Airbnb clone!
 
 🌟 Youtube preview: https://youtu.be/3BGVBrY6QCg?si=KXtkh0dYe0sQzOWE
 
+🌟 You can also view our Airbnb back-end project: https://github.com/vohaiphuc/cybersoft-be-airbnb
+
 ##
 
 This project is developed and contributed by [Long Phan](https://github.com/longphanquangminh) and [Huỳnh Quí](https://github.com/HuynhQuiLe)
