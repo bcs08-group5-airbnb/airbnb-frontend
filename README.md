@@ -1,5 +1,10 @@
 # Airbnb Clone Project – BCS08 Final Project
 
+<p align="center">
+  <a href="https://github.com/longphanquangminh" target="_blank"><img src="https://img.shields.io/github/followers/longphanquangminh" alt="Github profile" /></a>
+  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+</p>
+
 This project is a clone of Airbnb, a popular online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. The goal of this project is to replicate key features and functionalities of the Airbnb platform.
 
 ## Features
@@ -18,7 +23,7 @@ Welcome to our Airbnb clone! Follow these simple steps to explore and book amazi
 
 ### 1. Visit Our Website
 
-Navigate to our website at https://room-rental-capstone.up.railway.app.
+Navigate to our website at https://bcs08g5-room-rental-service.vercel.app.
 
 ### 2. Explore Listings
 
@@ -68,8 +73,8 @@ We hope you have a wonderful time using our Airbnb clone!
   - LightGallery
   - ViewerJS
   - ProComponents
-  - CKEditor 4 (experiment)
-  - Railway (for deployment)
+  - CKEditor 5 (experiment)
+  - Vercel (for deployment)
 
 - In the future, the team will explore and utilize additional technologies such as NestJS, SocketIO, and Stripe to enhance both the business functionality and user experience of this web app.
 
@@ -78,7 +83,7 @@ We hope you have a wonderful time using our Airbnb clone!
 1. Clone the repository: `git clone https://github.com/bcs08-group5-airbnb/airbnb-frontend.git`
 2. Navigate to the project directory: `cd airbnb-frontend`
 3. Install dependencies: `npm install`
-4. Run `npm start` or `npm run dev` to enjoy our website
+4. Run `npm run dev` (not `npm start`) to enjoy our website
 
 ## Configuration
 
@@ -95,6 +100,8 @@ We hope you have a wonderful time using our Airbnb clone!
 🌟 Swagger API: https://airbnbnew.cybersoft.edu.vn/swagger/index.html
 
 🌟 Youtube preview: https://youtu.be/3BGVBrY6QCg?si=KXtkh0dYe0sQzOWE
+
+🌟 You can also view our Airbnb back-end project: https://github.com/vohaiphuc/cybersoft-be-airbnb
 
 ##
 
