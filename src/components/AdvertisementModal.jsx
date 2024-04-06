@@ -5,7 +5,7 @@ import { RemoveScrollBar } from "react-remove-scroll-bar";
 import { Link } from "react-router-dom";
 
 const phoneAdImg =
-  "https://media.discordapp.net/attachments/1026660684739653674/1215885675937661069/phoneairbnb.jpg?ex=65fe60c7&is=65ebebc7&hm=75b1dd52348b236ff598202445495a7bcb3b876bd09a612b36c5a3166ea7ba2d&=&format=webp&width=445&height=593";
+  "https://media.discordapp.net/attachments/1026660684739653674/1215885675937661069/phoneairbnb.jpg?ex=66234ac7&is=6610d5c7&hm=b7bacf1b53c43fa737d7b65bcdef5c22a648864a826df00ac85fd36193b3de20&=&format=webp&width=328&height=437";
 const adContent = (
   <div className='space-y-6 py-6'>
     <h1 className='font-bold text-3xl text-center'>Tìm các phòng được yêu thích</h1>
