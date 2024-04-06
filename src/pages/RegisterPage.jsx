@@ -22,7 +22,7 @@ export default function RegisterPage() {
       });
   };
   return (
-    <div className="flex flex-col min-h-screen bg-[url('https://demo4.cybersoft.edu.vn/static/media/logo_login.a444f2681cc7b623ead2.jpg')] bg-center bg-cover bg-no-repeat bg-fixed relative">
+    <div className="flex flex-col min-h-screen bg-[url('https://www.travelandleisure.com/thmb/OfqaB3cuqutgOr1avyhlNPZrBh4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/bali-bamboo-house-airbnb-AIRZOOM0420-a69777600d2a427190cf1bcb187e0eb5.jpg')] bg-center bg-cover bg-no-repeat bg-fixed relative">
       <div className='flex flex-1 justify-center items-center'>
         <div className='p-6 m-2 bg-white rounded-lg w-2/3 space-y-3'>
           <div>
