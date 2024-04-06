@@ -434,7 +434,7 @@ export default function RoomDetailPage() {
                 <img
                   className='w-12 h-12 rounded-full object-cover'
                   alt=''
-                  src='https://media.discordapp.net/attachments/1026660684739653674/1138030998991413352/ML_ITB_circle_OFF.png'
+                  src='https://avatars.githubusercontent.com/u/111166256?v=4'
                 />
                 <div className='absolute top-7 left-7'>
                   <svg viewBox='0 0 14 24' role='presentation' aria-hidden={true} focusable={false} className='w-6 h-6 block fill-current'>
