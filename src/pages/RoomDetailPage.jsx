@@ -720,7 +720,7 @@ export default function RoomDetailPage() {
                 room.danhSachBinhLuan.length > 4 && "h-[300px]"
               } overscroll-y-auto overflow-y-auto px-2`}
             >
-              {room.danhSachBinhLuan.map((item, index) => (
+              {room.danhSachBinhLuan.slice(0, 18).map((item, index) => (
                 <CommentSection key={index} item={item} />
               ))}
             </div>
