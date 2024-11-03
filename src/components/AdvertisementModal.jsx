@@ -1,21 +1,22 @@
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
-import { RemoveScrollBar } from "react-remove-scroll-bar";
-import { Link } from "react-router-dom";
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, useState } from 'react';
+import { RemoveScrollBar } from 'react-remove-scroll-bar';
+import { Link } from 'react-router-dom';
 
-const phoneAdImg =
-  "https://media.discordapp.net/attachments/1026660684739653674/1215885675937661069/phoneairbnb.jpg?ex=66234ac7&is=6610d5c7&hm=b7bacf1b53c43fa737d7b65bcdef5c22a648864a826df00ac85fd36193b3de20&=&format=webp&width=328&height=437";
+const phoneAdImg = 'https://portfolio-minhlong.vercel.app/images/phoneairbnb.jpg';
 const adContent = (
   <div className='space-y-6 py-6'>
     <h1 className='font-bold text-3xl text-center'>Tìm các phòng được yêu thích</h1>
     <p className='text-center text-gray-500'>
-      Những ngôi nhà được yêu thích nhất trên Airbnb, theo đánh giá của khách hàng. Cộng với những nâng cấp khác để giúp bạn tìm được một kỳ nghỉ
-      tuyệt vời.
+      Những ngôi nhà được yêu thích nhất trên Airbnb, theo đánh giá của khách hàng. Cộng với những nâng cấp khác để giúp
+      bạn tìm được một kỳ nghỉ tuyệt vời.
     </p>
     <div className='flex justify-center items-center'>
       <Link to='/roombycity/ho-chi-minh'>
-        <button className='bg-gray-800 hover:bg-black duration-300 rounded-lg text-center text-white w-52 px-6 py-3'>Có gì hấp dẫn?</button>
+        <button className='bg-gray-800 hover:bg-black duration-300 rounded-lg text-center text-white w-52 px-6 py-3'>
+          Có gì hấp dẫn?
+        </button>
       </Link>
     </div>
   </div>
@@ -41,28 +42,28 @@ export default function AdvertisementModal() {
     }, 500);
   }, []);
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
   useEffect(() => {
     const handleKeyDown = event => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         closeAdvertisementModal();
       }
     };
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
   return (
     <>
       <div
         ref={modalRef}
-        className={`${showAdvertisementModal ? "opacity-50" : "opacity-0"} ${
-          removeAdvertisementModal ? "hidden" : "block"
+        className={`${showAdvertisementModal ? 'opacity-50' : 'opacity-0'} ${
+          removeAdvertisementModal ? 'hidden' : 'block'
         } fixed left-0 top-0 z-[90] w-screen h-screen bg-black transition-opacity duration-500`}
       >
         {showAdvertisementModal && <RemoveScrollBar />}
@@ -71,7 +72,7 @@ export default function AdvertisementModal() {
         <>
           <div
             className={`z-[100] hidden lg:grid grid-cols-1 lg:grid-cols-2 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg ${
-              showAdvertisementModal ? "opacity-100 scale-100" : "opacity-0 scale-50"
+              showAdvertisementModal ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
             } transition-all duration-500`}
           >
             <div className='p-6 flex justify-center items-center relative'>
@@ -99,7 +100,7 @@ export default function AdvertisementModal() {
               </div>
               <div
                 className={`grid grid-cols-1 overflow-auto overscroll-auto ${
-                  showAdvertisementModal ? "opacity-100 h-[calc(100vh-52px)]" : "opacity-0 h-0"
+                  showAdvertisementModal ? 'opacity-100 h-[calc(100vh-52px)]' : 'opacity-0 h-0'
                 } transition-all duration-500`}
               >
                 <div>
